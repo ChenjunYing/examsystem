@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindowClass</class>
+ <widget class="QMainWindow" name="MainWindowClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1200</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1200</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>管理员主界面</string>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1200</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="QuestionBankMenu">
+    <property name="title">
+     <string>题库管理</string>
+    </property>
+    <property name="separatorsCollapsible">
+     <bool>false</bool>
+    </property>
+    <widget class="QMenu" name="menu">
+     <property name="title">
+      <string>添加试题</string>
+     </property>
+     <addaction name="choice"/>
+     <addaction name="multichoice"/>
+     <addaction name="judge"/>
+    </widget>
+    <addaction name="menu"/>
+    <addaction name="goQuestionBank"/>
+   </widget>
+   <widget class="QMenu" name="ExamMenu">
+    <property name="title">
+     <string>试卷管理</string>
+    </property>
+    <addaction name="createExam"/>
+    <addaction name="examInformation"/>
+    <addaction name="examData"/>
+   </widget>
+   <addaction name="QuestionBankMenu"/>
+   <addaction name="ExamMenu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="goQuestionBank">
+   <property name="text">
+    <string>进入题库</string>
+   </property>
+  </action>
+  <action name="createExam">
+   <property name="text">
+    <string>创建试卷</string>
+   </property>
+  </action>
+  <action name="examInformation">
+   <property name="text">
+    <string>查看已有试卷</string>
+   </property>
+  </action>
+  <action name="examData">
+   <property name="text">
+    <string>查看考试数据</string>
+   </property>
+  </action>
+  <action name="choice">
+   <property name="text">
+    <string>单选题</string>
+   </property>
+  </action>
+  <action name="judge">
+   <property name="text">
+    <string>判断题</string>
+   </property>
+  </action>
+  <action name="multichoice">
+   <property name="text">
+    <string>多选题</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="MainWindow.qrc"/>
+ </resources>
+ <connections/>
+</ui>
