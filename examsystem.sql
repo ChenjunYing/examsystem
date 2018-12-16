@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2018-12-15 22:25:36
+Date: 2018-12-16 20:57:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS `config`;
 CREATE TABLE `config` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
-  `exam_code` varchar(30) NOT NULL,
+  `exam_code` int(5) NOT NULL,
   `start_time` datetime NOT NULL,
   `end_time` datetime NOT NULL,
   `object_score` int(5) NOT NULL,
@@ -64,9 +64,9 @@ CREATE TABLE `config` (
 DROP TABLE IF EXISTS `exam`;
 CREATE TABLE `exam` (
   `exam_name` varchar(40) NOT NULL,
-  `exam_code` varchar(30) NOT NULL,
-  `start_time` datetime NOT NULL,
-  `end_time` datetime NOT NULL,
+  `exam_code` int(5) NOT NULL AUTO_INCREMENT,
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
   `duration` int(5) NOT NULL,
   `information` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`exam_code`),
@@ -84,14 +84,15 @@ DROP TABLE IF EXISTS `exam_content`;
 CREATE TABLE `exam_content` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `object_id` int(5) NOT NULL,
-  `subject_id` int(5) NOT NULL,
-  `exam_code` varchar(30) NOT NULL,
+  `multiobject_id` int(5) NOT NULL,
+  `judge_id` int(5) NOT NULL,
+  `exam_code` int(5) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_id` (`object_id`),
-  KEY `subject_id` (`subject_id`),
+  KEY `subject_id` (`judge_id`),
   KEY `exam_code` (`exam_code`),
   CONSTRAINT `exam_content_ibfk_1` FOREIGN KEY (`object_id`) REFERENCES `object_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `exam_content_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `judge_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `exam_content_ibfk_2` FOREIGN KEY (`judge_id`) REFERENCES `judge_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_content_ibfk_3` FOREIGN KEY (`exam_code`) REFERENCES `exam` (`exam_code`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -106,7 +107,7 @@ DROP TABLE IF EXISTS `judge_answer`;
 CREATE TABLE `judge_answer` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
-  `exam_code` varchar(30) NOT NULL,
+  `exam_code` int(5) NOT NULL,
   `question_id` int(5) NOT NULL,
   `answer` varchar(1000) NOT NULL,
   PRIMARY KEY (`id`),
@@ -114,8 +115,8 @@ CREATE TABLE `judge_answer` (
   KEY `exam_code` (`exam_code`),
   KEY `question_id` (`question_id`),
   CONSTRAINT `judge_answer_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `judge_answer_ibfk_2` FOREIGN KEY (`exam_code`) REFERENCES `exam` (`exam_code`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `judge_answer_ibfk_3` FOREIGN KEY (`question_id`) REFERENCES `judge_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `judge_answer_ibfk_3` FOREIGN KEY (`question_id`) REFERENCES `judge_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `judge_answer_ibfk_4` FOREIGN KEY (`exam_code`) REFERENCES `exam` (`exam_code`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
@@ -148,7 +149,7 @@ DROP TABLE IF EXISTS `object_answer`;
 CREATE TABLE `object_answer` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
-  `exam_code` varchar(30) NOT NULL,
+  `exam_code` int(5) NOT NULL,
   `question_id` int(5) NOT NULL,
   `answer` varchar(5) NOT NULL,
   PRIMARY KEY (`id`),
@@ -156,8 +157,8 @@ CREATE TABLE `object_answer` (
   KEY `exam_code` (`exam_code`),
   KEY `question_id` (`question_id`),
   CONSTRAINT `object_answer_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `object_answer_ibfk_2` FOREIGN KEY (`exam_code`) REFERENCES `exam` (`exam_code`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `object_answer_ibfk_3` FOREIGN KEY (`question_id`) REFERENCES `object_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `object_answer_ibfk_3` FOREIGN KEY (`question_id`) REFERENCES `object_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `object_answer_ibfk_4` FOREIGN KEY (`exam_code`) REFERENCES `exam` (`exam_code`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
@@ -208,7 +209,6 @@ CREATE TABLE `score` (
   UNIQUE KEY `exam_code` (`exam_code`) USING BTREE,
   UNIQUE KEY `subject_id` (`subject_id`) USING BTREE,
   CONSTRAINT `score_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `score_ibfk_2` FOREIGN KEY (`exam_code`) REFERENCES `exam` (`exam_code`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `score_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `judge_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
