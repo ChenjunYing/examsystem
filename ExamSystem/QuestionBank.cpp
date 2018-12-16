@@ -24,17 +24,14 @@ QuestionBank::QuestionBank(QWidget *parent) : QDialog(parent) {
   * @version:1.0
   */
 void QuestionBank::choiceDoubleClicked() {
-	QModelIndex index = this->ui.choiceTable->currentIndex();
+	QModelIndex index = this->ui.choiceTable->currentIndex(); //当前被点击的单元格
 	int row = index.row();
 	int col = index.column();
-	QString Data = index.data().toString();
+	//QString Data = index.data().toString();
 	
 	if (index.isValid()) {
-		AddChoice a;
-		a.ui.label->setText(QStringLiteral("修改单选题"));   //修改标题文字
-		a.ui.submitBtn->setText(QStringLiteral("提   交"));  //修改按钮文字
 
-		a.exec();  //打开修改模态框
+		emit sendChoiceData(this->choice.at(index.row())); //发送数据
 	}
 }
 

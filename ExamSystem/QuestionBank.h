@@ -19,6 +19,9 @@ public:
 	QuestionBank(QWidget *parent = Q_NULLPTR);
 	~QuestionBank();
 
+signals:
+	void sendChoiceData(Choice c);
+
 private slots:
 	/**
 	  * @author:Ó¦³Ð¾þ

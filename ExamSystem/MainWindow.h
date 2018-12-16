@@ -6,6 +6,8 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_MainWindow.h"
 #include "AddChoice.h"
+#include "AddMultiChoice.h"
+#include "AddJudge.h"
 #include "QuestionBank.h"
 
 class MainWindow : public QMainWindow {
@@ -24,8 +26,10 @@ private slots:
 
 private:
 	Ui::MainWindowClass ui;
-	AddChoice* dialogA;
-	QuestionBank* dialogQ;
+	AddChoice* choice;
+	AddMultiChoice* multichoice;
+	AddJudge* judge;
+	QuestionBank* questionbank;
 };
 
 #endif

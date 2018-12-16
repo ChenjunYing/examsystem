@@ -59,16 +59,17 @@ QSqlQuery SqlModel::check(QString username , QString password , QString identity
 
 /**
   * @author:应承峻
-  * @brief:将单选题相关信息插入到数据库中
+  * @brief:将单选题相关信息插入/修改到数据库中
   * @param [in] 输入参数1: 问题描述description
   * @param [in] 输入参数2~5: A~D选项的选项描述choiceA~choiceD
   * @param [in] 输入参数6: 正确答案answer
   * @param [in] 输入参数7: 试题分值value
-  * @param [out] 输出参数: 返回是否插入成功,若插入成功则返回true否则返回false
-  * @date:2018/12/14
-  * @version:1.0
+  * @param [in] 输入参数8: 试题编号questionId
+  * @param [out] 输出参数: 返回是否插入/修改成功,若插入成功则返回true否则返回false
+  * @date:2018/12/16
+  * @version:2.0
   */
-bool SqlModel::insertChoice(QString description , QString choiceA , 
+bool SqlModel::insertChoice(QString description , QString choiceA ,
 	QString choiceB , QString choiceC , QString choiceD , QString answer , int value) {
 	QSqlQuery query;
 	query.prepare("insert into object_question(description,A,B,C,D,answer,value,author) values(:des,:A,:B,:C,:D,:ans,:val,:author)");
@@ -81,6 +82,35 @@ bool SqlModel::insertChoice(QString description , QString choiceA ,
 	query.bindValue(":val" , value);
 	query.bindValue(":author" , "admin");
 	return query.exec();
+}
+
+/**
+  * @author:应承峻
+  * @brief:修改单选题操作
+  * @param [in] 输入参数1: 问题描述description
+  * @param [in] 输入参数2~5: A~D选项的选项描述choiceA~choiceD
+  * @param [in] 输入参数6: 正确答案answer
+  * @param [in] 输入参数7: 试题分值value
+  * @param [in] 输入参数8: 试题编号questionId
+  * @param [out] 输出参数: 返回是否修改成功,若修改成功则返回true否则返回false
+  * @date:2018/12/16
+  * @version:1.0
+  */	
+bool SqlModel::updateChoice(QString description , QString choiceA , QString choiceB ,
+	QString choiceC , QString choiceD , QString answer , int value , int questionId) {
+	/*QSqlQuery query;
+	query.prepare("insert into object_question(description,A,B,C,D,answer,value,author) values(:des,:A,:B,:C,:D,:ans,:val,:author)");
+	query.bindValue(":des" , description);
+	query.bindValue(":A" , choiceA);
+	query.bindValue(":B" , choiceB);
+	query.bindValue(":C" , choiceC);
+	query.bindValue(":D" , choiceD);
+	query.bindValue(":ans" , answer);
+	query.bindValue(":val" , value);
+	query.bindValue(":author" , "admin");
+	return query.exec();*/
+	qDebug() << "OK";
+	return true;
 }
 
 /**

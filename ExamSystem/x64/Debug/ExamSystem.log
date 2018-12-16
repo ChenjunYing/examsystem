@@ -1,2 +1,10 @@
-﻿  MainWindow.cpp
+﻿  Moc'ing AddChoice.h...
+  moc_AddChoice.cpp
+  moc_LoginDialog.cpp
+  moc_MainWindow.cpp
+  AddChoice.cpp
+  LoginDialog.cpp
+  MainWindow.cpp
+  QuestionBank.cpp
+  main.cpp
   ExamSystem.vcxproj -> C:\Users\YingChengJun\Desktop\C++\QtGui\ExamSystem\x64\Debug\ExamSystem.exe
