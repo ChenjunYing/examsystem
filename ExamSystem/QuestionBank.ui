@@ -52,13 +52,13 @@
    <widget class="QWidget" name="choice">
     <property name="minimumSize">
      <size>
-      <width>1540</width>
+      <width>1580</width>
       <height>840</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>1540</width>
+      <width>1580</width>
       <height>840</height>
      </size>
     </property>
@@ -148,13 +148,13 @@
    <widget class="QWidget" name="judge">
     <property name="minimumSize">
      <size>
-      <width>1540</width>
+      <width>1580</width>
       <height>840</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>1540</width>
+      <width>1580</width>
       <height>840</height>
      </size>
     </property>

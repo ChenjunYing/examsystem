@@ -1,8 +1,6 @@
 #include "MainWindow.h"
-#include "AddChoice.h"
 #include "AddMultiChoice.h"
 #include "AddJudge.h"
-#include "QuestionBank.h"
 
 /* MainWindow中应当具备以下功能
  * (1)显示管理员的信息
@@ -12,6 +10,9 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	ui.setupUi(this);
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::MSWindowsFixedSizeDialogHint);
+	dialogA = new AddChoice;
+	dialogQ = new QuestionBank;
+	//connect(dialogQ,SIGNAL(toAddChoi));  //题库和修改试题页面传递数据
 	connect(this->ui.choice , SIGNAL(triggered()) , this , SLOT(choiceTriggered()));
 	connect(this->ui.judge , SIGNAL(triggered()) , this , SLOT(judgeTriggered()));
 	connect(this->ui.multichoice , SIGNAL(triggered()) , this , SLOT(multichoiceTriggered()));
@@ -46,3 +47,7 @@ void MainWindow::goQuestionBankTriggered() {
 	questionbank.exec(); //弹出查看题库模态框，此时用户不能对主界面进行操作
 }
 
+MainWindow::~MainWindow() {
+	delete dialogA;
+	delete dialogQ;
+}

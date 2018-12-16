@@ -139,11 +139,12 @@ QList<Judge> SqlModel::searchJudge() {
   * @brief:将数据库中查询到的一条选择题数据存放在Choice类中
   * @param [in] 输入参数: 查询结果query
   * @param [out] 输出参数: 返回存放Choice类的一个对象
-  * @date:2018/12/15
-  * @version:1.0
+  * @date:2018/12/16
+  * @version:2.0
   */
 Choice splitChoice(QSqlQuery query) {
-	int descriptionIndex = query.record().indexOf("description"); //获取列下标
+	int questionIdIndex = query.record().indexOf("question_id"); //获取列下标
+	int descriptionIndex = query.record().indexOf("description"); 
 	int choiceAIndex = query.record().indexOf("A");
 	int choiceBIndex = query.record().indexOf("B");
 	int choiceCIndex = query.record().indexOf("C");
@@ -159,7 +160,8 @@ Choice splitChoice(QSqlQuery query) {
 	QString answer = query.record().value(answerIndex).toString();
 	QString author = query.record().value(authorIndex).toString();
 	int value = query.record().value(valueIndex).toInt();
-	return Choice::Choice(description , choiceA , choiceB , choiceC , choiceD , answer , value , author);
+	int questionId = query.record().value(questionIdIndex).toInt();
+	return Choice::Choice(questionId , description , choiceA , choiceB , choiceC , choiceD , answer , value , author);
 }
 
 
@@ -168,11 +170,12 @@ Choice splitChoice(QSqlQuery query) {
   * @brief:将数据库中查询到的一条判断题数据存放在Judge类中
   * @param [in] 输入参数: 查询结果query
   * @param [out] 输出参数: 返回存放Judge类的一个对象
-  * @date:2018/12/15
-  * @version:1.0
+  * @date:2018/12/16
+  * @version:2.0
   */
 Judge splitJudge(QSqlQuery query) {
-	int descriptionIndex = query.record().indexOf("description"); //获取列下标
+	int questionIdIndex = query.record().indexOf("question_id"); //获取列下标
+	int descriptionIndex = query.record().indexOf("description");
 	int answerIndex = query.record().indexOf("answer");
 	int valueIndex = query.record().indexOf("value");
 	int authorIndex = query.record().indexOf("author");
@@ -180,7 +183,8 @@ Judge splitJudge(QSqlQuery query) {
 	QString answer = query.record().value(answerIndex).toString();
 	QString author = query.record().value(authorIndex).toString();
 	int value = query.record().value(valueIndex).toInt();
-	return Judge::Judge(description , answer , value , author);
+	int questionId = query.record().value(questionIdIndex).toInt();
+	return Judge::Judge(questionId , description , answer , value , author);
 }
 
 

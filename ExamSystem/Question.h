@@ -9,14 +9,16 @@
 
 class Question{
 public:
-	Question(QString description , QString answer , int value , QString author = "admin");
+	Question(int id , QString description , QString answer , int value , QString author = "admin");
 	int getValue() const;
+	int getQuestionId() const;
 	QString getDescription() const;
 	QString getAnswer() const;
 	QString getAuthor() const;
 	~Question();
 private:
 	int value;
+	int questionId;
 	QString description;
 	QString answer;
 	QString author;
@@ -28,7 +30,7 @@ private:
  */
 class Choice :public Question {
 public:
-	Choice(QString description , QString choiceA , QString choiceB , QString choiceC ,
+	Choice(int id , QString description , QString choiceA , QString choiceB , QString choiceC ,
 		QString choiceD , QString answer , int value , QString author = "admin");
 	QString getChoiceA() const;
 	QString getChoiceB() const;
@@ -48,7 +50,7 @@ private:
  */
 class Judge :public Question {
 public:
-	Judge(QString description , QString answer , int value , QString author = "admin");
+	Judge(int id , QString description , QString answer , int value , QString author = "admin");
 	QString getChoiceA() const;
 	QString getChoiceB() const;
 	~Judge();

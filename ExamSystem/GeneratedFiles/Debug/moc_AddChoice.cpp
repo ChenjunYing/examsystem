@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_AddChoice_t {
     QByteArrayData data[6];
-    char stringdata0[50];
+    char stringdata0[51];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,12 +35,12 @@ QT_MOC_LITERAL(0, 0, 9), // "AddChoice"
 QT_MOC_LITERAL(1, 10, 9), // "checkData"
 QT_MOC_LITERAL(2, 20, 0), // ""
 QT_MOC_LITERAL(3, 21, 9), // "resetData"
-QT_MOC_LITERAL(4, 31, 12), // "converAnswer"
-QT_MOC_LITERAL(5, 44, 5) // "index"
+QT_MOC_LITERAL(4, 31, 13), // "convertAnswer"
+QT_MOC_LITERAL(5, 45, 5) // "index"
 
     },
     "AddChoice\0checkData\0\0resetData\0"
-    "converAnswer\0index"
+    "convertAnswer\0index"
 };
 #undef QT_MOC_LITERAL
 
@@ -78,7 +78,7 @@ void AddChoice::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         switch (_id) {
         case 0: _t->checkData(); break;
         case 1: _t->resetData(); break;
-        case 2: { QString _r = _t->converAnswer((*reinterpret_cast< int(*)>(_a[1])));
+        case 2: { QString _r = _t->convertAnswer((*reinterpret_cast< int(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }

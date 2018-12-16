@@ -44,8 +44,8 @@ public:
         tabWidget->setMaximumSize(QSize(1580, 840));
         choice = new QWidget();
         choice->setObjectName(QStringLiteral("choice"));
-        choice->setMinimumSize(QSize(1540, 840));
-        choice->setMaximumSize(QSize(1540, 840));
+        choice->setMinimumSize(QSize(1580, 840));
+        choice->setMaximumSize(QSize(1580, 840));
         choiceTable = new QTableView(choice);
         choiceTable->setObjectName(QStringLiteral("choiceTable"));
         choiceTable->setGeometry(QRect(0, 0, 1580, 840));
@@ -73,8 +73,8 @@ public:
         tabWidget->addTab(multichoice, QString());
         judge = new QWidget();
         judge->setObjectName(QStringLiteral("judge"));
-        judge->setMinimumSize(QSize(1540, 840));
-        judge->setMaximumSize(QSize(1540, 840));
+        judge->setMinimumSize(QSize(1580, 840));
+        judge->setMaximumSize(QSize(1580, 840));
         judgeTable = new QTableView(judge);
         judgeTable->setObjectName(QStringLiteral("judgeTable"));
         judgeTable->setGeometry(QRect(0, 0, 1580, 840));

@@ -52,8 +52,8 @@ public:
 	  * @author:应承峻
 	  * @brief:从数据库中筛选相应的判断题,并返回判断题对象的集合
 	  * @param [out] 输出参数:Judge类的一个对象集合
-	  * @date:2018/12/15
-	  * @version:1.0
+	  * @date:2018/12/16
+	  * @version:2.0
 	  */
 	QList<Judge> searchJudge();
 	/**
@@ -63,8 +63,8 @@ public:
 	  * @param [in] 输入参数2: 密码password
 	  * @param [in] 输入参数3: 身份identity,取值为"普通用户"或"管理员"
 	  * @param [out] 输出参数: 返回存放查询结果的QSqlQuery类的一个对象
-	  * @date:2018/12/13
-	  * @version:1.0
+	  * @date:2018/12/16
+	  * @version:2.0
 	  */
 	QSqlQuery check(QString username , QString password , QString identity);
 	~SqlModel();

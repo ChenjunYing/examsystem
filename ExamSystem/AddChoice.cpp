@@ -1,11 +1,14 @@
 #include "AddChoice.h"
 #include "SqlModel.h"
+#include "QuestionBank.h"
 
 AddChoice::AddChoice(QWidget *parent) : QDialog(parent) {
 	ui.setupUi(this);
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
 	connect(this->ui.submitBtn , SIGNAL(clicked(bool)) , this , SLOT(checkData())); //绑定提交按钮点击事件
 	connect(this->ui.resetBtn , SIGNAL(clicked(bool)) , this , SLOT(resetData())); //绑定重置按钮点击事件
+	//connect(); //接受修改数据
+
 }
 
 /**
@@ -37,7 +40,7 @@ void AddChoice::checkData() {
 	} else {
 		SqlModel sql;
 		bool information; //插入成功返回true,否则返回false
-		information = sql.insertChoice(description , choiceA , choiceB , choiceC , choiceD , AddChoice::converAnswer(answer), score);
+		information = sql.insertChoice(description , choiceA , choiceB , choiceC , choiceD , AddChoice::convertAnswer(answer), score);
 		if (information) {
 			QMessageBox::information(NULL , QStringLiteral("提示") , QStringLiteral("添加成功！") , QMessageBox::Yes);
 			this->close();
@@ -71,7 +74,7 @@ void AddChoice::resetData() {
   * @date:2018/12/14
   * @version:1.0
   */
-QString AddChoice::converAnswer(int index) {
+QString AddChoice::convertAnswer(int index) {
 	QString ans;
 	switch (index) {
 		case 1: ans.append('A'); break;
