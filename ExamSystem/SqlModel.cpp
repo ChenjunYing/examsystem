@@ -99,7 +99,6 @@ bool SqlModel::insertChoice(QString description , QString choiceA ,
   */	
 bool SqlModel::updateChoice(QString description , QString choiceA , QString choiceB ,
 	QString choiceC , QString choiceD , QString answer , int value , int questionId) {
-	qDebug() << questionId;
 	QSqlQuery query;
 	query.prepare("update object_question set description=:des,A=:A,B=:B,C=:C,D=:D,answer=:ans,value=:val,author=:author where question_id=:Id");
 	query.bindValue(":des" , description);

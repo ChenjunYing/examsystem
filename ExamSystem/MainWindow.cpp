@@ -34,16 +34,39 @@ void MainWindow::judgeTriggered() {
 	judge->exec();  //弹出添加判断题模态框，此时用户不能对主界面进行操作
 }
 
-/*题库接口*/
+/**
+  * @author:应承峻
+  * @brief:题库接口
+  * @date:2018/12/17
+  * @version:2.0
+  * @note:修复了内存泄露的bug
+  */
 void MainWindow::goQuestionBankTriggered() {
 	questionbank = new QuestionBank;
 	connect(questionbank , SIGNAL(sendChoiceData(Choice)) , choice , SLOT(receiveData(Choice)));  //题库和修改试题页面传递数据
+	connect(choice , SIGNAL(sendChoicePage(AddChoice*)) , this , SLOT(receiveAddChoicePage(AddChoice*)));
 	questionbank->exec(); //弹出查看题库模态框，此时用户不能对主界面进行操作
+	if (questionbank != NULL) {
+		delete questionbank;
+	}
 }
 
+/**
+  * @author:应承峻
+  * @brief:接收AddChoice页面发送的新建修改页面的地址并进行信号槽绑定
+  * @date:2018/12/17
+  * @version:1.0
+  * @note:与题库修改完成刷新事件绑定
+  */
+void MainWindow::receiveAddChoicePage(AddChoice* a) {
+	connect(a , SIGNAL(updateOK(int)) , questionbank , SLOT(receiveOK(int)));
+}
+
+/*
+ * @note:修复了questionbank为空时删除出现的bug
+ */
 MainWindow::~MainWindow() {
 	delete choice;
 	delete multichoice;
 	delete judge;
-	delete questionbank;
 }
