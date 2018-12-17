@@ -30,7 +30,6 @@ void QuestionBank::choiceDoubleClicked() {
 	//QString Data = index.data().toString();
 	
 	if (index.isValid()) {
-
 		emit sendChoiceData(this->choice.at(index.row())); //ЗЂЫЭЪ§Он
 	}
 }

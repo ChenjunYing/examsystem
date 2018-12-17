@@ -93,13 +93,14 @@ bool SqlModel::insertChoice(QString description , QString choiceA ,
   * @param [in] 输入参数7: 试题分值value
   * @param [in] 输入参数8: 试题编号questionId
   * @param [out] 输出参数: 返回是否修改成功,若修改成功则返回true否则返回false
-  * @date:2018/12/16
+  * @date:2018/12/17
   * @version:1.0
   */	
 bool SqlModel::updateChoice(QString description , QString choiceA , QString choiceB ,
 	QString choiceC , QString choiceD , QString answer , int value , int questionId) {
-	/*QSqlQuery query;
-	query.prepare("insert into object_question(description,A,B,C,D,answer,value,author) values(:des,:A,:B,:C,:D,:ans,:val,:author)");
+	qDebug() << questionId;
+	QSqlQuery query;
+	query.prepare("update object_question set description=:des,A=:A,B=:B,C=:C,D=:D,answer=:ans,value=:val,author=:author where question_id=:Id");
 	query.bindValue(":des" , description);
 	query.bindValue(":A" , choiceA);
 	query.bindValue(":B" , choiceB);
@@ -108,9 +109,8 @@ bool SqlModel::updateChoice(QString description , QString choiceA , QString choi
 	query.bindValue(":ans" , answer);
 	query.bindValue(":val" , value);
 	query.bindValue(":author" , "admin");
-	return query.exec();*/
-	qDebug() << "OK";
-	return true;
+	query.bindValue(":Id" , questionId);
+	return query.exec();
 }
 
 /**

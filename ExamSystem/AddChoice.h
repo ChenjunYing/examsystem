@@ -56,8 +56,8 @@ private slots:
 	/**
 	  * @author:应承峻
 	  * @brief:接收发送过来的选中单选题的相应数据并显示
-	  * @date:2018/12/16
-	  * @version:1.0
+	  * @date:2018/12/17
+	  * @version:2.0
 	  */
 	void receiveData(Choice c);
 

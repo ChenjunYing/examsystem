@@ -129,12 +129,12 @@ QString AddChoice::convertAnswer(int index) {
 /**
   * @author:应承峻
   * @brief:接收发送过来的选中单选题的相应数据并显示
-  * @date:2018/12/16
-  * @version:1.0
+  * @date:2018/12/17
+  * @version:2.0
   */
 void AddChoice::receiveData(Choice c) {
-	this->tempQuestionId = c.getQuestionId();
 	AddChoice* a = new AddChoice;  //新建页面
+	a->tempQuestionId = c.getQuestionId();  //存储试题编号
 	disconnect(a->ui.submitBtn , SIGNAL(clicked(bool)) , a , SLOT(checkData())); //解除绑定提交按钮点击事件
 	connect(a->ui.submitBtn , SIGNAL(clicked(bool)) , a , SLOT(checkUpdateData())); //重新绑定修改按钮点击事件
 	a->ui.label->setText(QStringLiteral("修改单选题"));   //修改标题文字
