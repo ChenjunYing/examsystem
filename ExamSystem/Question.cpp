@@ -78,3 +78,27 @@ QString Judge::getChoiceB() const {
 Judge::~Judge() {
 
 }
+
+Exam::Exam(QString Name, int Code, int Duration) :name(Name), code(Code), duration(Duration)
+{
+}
+
+QString Exam::getName() const
+{
+	return name;
+}
+
+
+int Exam::getCode() const
+{
+	return code;
+}
+
+int Exam::getDuration() const
+{
+	return duration;
+}
+
+Exam::~Exam(){
+
+}

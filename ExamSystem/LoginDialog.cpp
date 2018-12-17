@@ -38,7 +38,7 @@ void LoginDialog::login(){
 			QMessageBox::information(NULL , QStringLiteral("提示") , QStringLiteral("登录成功") , QMessageBox::Yes);
 			this->close(); //关闭该窗口
 			if (radioBtn.at(i)->text().compare(QStringLiteral("普通用户")) == 0) {
-				//启动用户主界面
+				student.show(); //启动用户主界面
 			} else {
 				admin.show(); //启动管理员主界面
 			}
