@@ -1,21 +1,19 @@
 #pragma once
-#include "Question.h"
+#include<QString>
 
 /*
- * Student类继承自Exam类，封装了学生的相关信息以及操作
+ * Student类封装了学生的相关信息以及操作
  */
-class Student :public Exam {
+class Student{
 public:
-	Student(int oScore,int jScore, int flag, QString name, int code ,int duration);
+	Student(QString name, QString major, QString id);
 	~Student();
-	int getObjectScore() const;
-	int getJudgeScore() const;
-	int getScore() const;
-	int getIsSubmit() const;
+	QString getName() const;
+	QString getMajor() const;
+	QString getId() const;
 private:
+	QString name;
+	QString major;
+	QString id;
 	Student();
-	int objectScore;
-	int judgeScore;
-	int score;
-	int isSubmit;
 };

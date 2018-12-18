@@ -30,17 +30,14 @@ public:
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_5;
-    QLabel *LabelName_2;
-    QLabel *Name_2;
+    QLabel *LabelName;
+    QLabel *Name;
     QHBoxLayout *horizontalLayout_6;
-    QLabel *LabelId_2;
-    QLabel *Id_2;
+    QLabel *LabelId;
+    QLabel *Id;
     QHBoxLayout *horizontalLayout_7;
-    QLabel *LabelMajor_2;
-    QLabel *Major_2;
-    QHBoxLayout *horizontalLayout_8;
-    QLabel *LabelGrade_2;
-    QLabel *Grade_2;
+    QLabel *LabelMajor;
+    QLabel *Major;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents_2;
     QTableView *examTable;
@@ -49,15 +46,15 @@ public:
     {
         if (StudentWindow->objectName().isEmpty())
             StudentWindow->setObjectName(QStringLiteral("StudentWindow"));
-        StudentWindow->resize(900, 555);
-        StudentWindow->setMinimumSize(QSize(900, 555));
-        StudentWindow->setMaximumSize(QSize(900, 555));
+        StudentWindow->resize(950, 450);
+        StudentWindow->setMinimumSize(QSize(950, 450));
+        StudentWindow->setMaximumSize(QSize(950, 450));
         graphicsView = new QGraphicsView(StudentWindow);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         graphicsView->setGeometry(QRect(20, 20, 171, 211));
         layoutWidget = new QWidget(StudentWindow);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(20, 240, 191, 301));
+        layoutWidget->setGeometry(QRect(20, 240, 191, 181));
         verticalLayout_2 = new QVBoxLayout(layoutWidget);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -66,16 +63,16 @@ public:
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        LabelName_2 = new QLabel(layoutWidget);
-        LabelName_2->setObjectName(QStringLiteral("LabelName_2"));
+        LabelName = new QLabel(layoutWidget);
+        LabelName->setObjectName(QStringLiteral("LabelName"));
 
-        horizontalLayout_5->addWidget(LabelName_2);
+        horizontalLayout_5->addWidget(LabelName);
 
-        Name_2 = new QLabel(layoutWidget);
-        Name_2->setObjectName(QStringLiteral("Name_2"));
-        Name_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        Name = new QLabel(layoutWidget);
+        Name->setObjectName(QStringLiteral("Name"));
+        Name->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        horizontalLayout_5->addWidget(Name_2);
+        horizontalLayout_5->addWidget(Name);
 
         horizontalLayout_5->setStretch(0, 1);
         horizontalLayout_5->setStretch(1, 3);
@@ -85,16 +82,16 @@ public:
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        LabelId_2 = new QLabel(layoutWidget);
-        LabelId_2->setObjectName(QStringLiteral("LabelId_2"));
+        LabelId = new QLabel(layoutWidget);
+        LabelId->setObjectName(QStringLiteral("LabelId"));
 
-        horizontalLayout_6->addWidget(LabelId_2);
+        horizontalLayout_6->addWidget(LabelId);
 
-        Id_2 = new QLabel(layoutWidget);
-        Id_2->setObjectName(QStringLiteral("Id_2"));
-        Id_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        Id = new QLabel(layoutWidget);
+        Id->setObjectName(QStringLiteral("Id"));
+        Id->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        horizontalLayout_6->addWidget(Id_2);
+        horizontalLayout_6->addWidget(Id);
 
         horizontalLayout_6->setStretch(0, 1);
         horizontalLayout_6->setStretch(1, 3);
@@ -104,51 +101,32 @@ public:
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        LabelMajor_2 = new QLabel(layoutWidget);
-        LabelMajor_2->setObjectName(QStringLiteral("LabelMajor_2"));
+        LabelMajor = new QLabel(layoutWidget);
+        LabelMajor->setObjectName(QStringLiteral("LabelMajor"));
 
-        horizontalLayout_7->addWidget(LabelMajor_2);
+        horizontalLayout_7->addWidget(LabelMajor);
 
-        Major_2 = new QLabel(layoutWidget);
-        Major_2->setObjectName(QStringLiteral("Major_2"));
-        Major_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        Major = new QLabel(layoutWidget);
+        Major->setObjectName(QStringLiteral("Major"));
+        Major->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        horizontalLayout_7->addWidget(Major_2);
+        horizontalLayout_7->addWidget(Major);
 
         horizontalLayout_7->setStretch(0, 1);
         horizontalLayout_7->setStretch(1, 3);
 
         verticalLayout_2->addLayout(horizontalLayout_7);
 
-        horizontalLayout_8 = new QHBoxLayout();
-        horizontalLayout_8->setSpacing(6);
-        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
-        LabelGrade_2 = new QLabel(layoutWidget);
-        LabelGrade_2->setObjectName(QStringLiteral("LabelGrade_2"));
-
-        horizontalLayout_8->addWidget(LabelGrade_2);
-
-        Grade_2 = new QLabel(layoutWidget);
-        Grade_2->setObjectName(QStringLiteral("Grade_2"));
-        Grade_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        horizontalLayout_8->addWidget(Grade_2);
-
-        horizontalLayout_8->setStretch(0, 1);
-        horizontalLayout_8->setStretch(1, 3);
-
-        verticalLayout_2->addLayout(horizontalLayout_8);
-
         scrollArea = new QScrollArea(StudentWindow);
         scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        scrollArea->setGeometry(QRect(210, 20, 661, 521));
+        scrollArea->setGeometry(QRect(210, 20, 721, 401));
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 659, 519));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 719, 399));
         examTable = new QTableView(scrollAreaWidgetContents_2);
         examTable->setObjectName(QStringLiteral("examTable"));
-        examTable->setGeometry(QRect(0, 0, 671, 521));
+        examTable->setGeometry(QRect(0, 0, 721, 401));
         scrollArea->setWidget(scrollAreaWidgetContents_2);
 
         retranslateUi(StudentWindow);
@@ -159,14 +137,12 @@ public:
     void retranslateUi(QDialog *StudentWindow)
     {
         StudentWindow->setWindowTitle(QApplication::translate("StudentWindow", "\345\255\246\347\224\237\344\270\273\347\225\214\351\235\242", nullptr));
-        LabelName_2->setText(QApplication::translate("StudentWindow", "\345\247\223\345\220\215\357\274\232", nullptr));
-        Name_2->setText(QApplication::translate("StudentWindow", "\350\212\261\347\224\237\346\262\271", nullptr));
-        LabelId_2->setText(QApplication::translate("StudentWindow", "\345\255\246\345\217\267\357\274\232", nullptr));
-        Id_2->setText(QApplication::translate("StudentWindow", "3180106666", nullptr));
-        LabelMajor_2->setText(QApplication::translate("StudentWindow", "\344\270\223\344\270\232\357\274\232", nullptr));
-        Major_2->setText(QApplication::translate("StudentWindow", "\350\206\234\346\263\225\347\247\221\345\255\246\344\270\216\346\212\200\346\234\257", nullptr));
-        LabelGrade_2->setText(QApplication::translate("StudentWindow", "\345\271\264\347\272\247\357\274\232", nullptr));
-        Grade_2->setText(QApplication::translate("StudentWindow", "\345\244\247\344\270\200", nullptr));
+        LabelName->setText(QApplication::translate("StudentWindow", "\345\247\223\345\220\215\357\274\232", nullptr));
+        Name->setText(QString());
+        LabelId->setText(QApplication::translate("StudentWindow", "\345\255\246\345\217\267\357\274\232", nullptr));
+        Id->setText(QString());
+        LabelMajor->setText(QApplication::translate("StudentWindow", "\344\270\223\344\270\232\357\274\232", nullptr));
+        Major->setText(QString());
     } // retranslateUi
 
 };

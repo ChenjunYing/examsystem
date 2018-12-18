@@ -3,6 +3,8 @@
 #include "Question.h"
 Choice splitChoice(QSqlQuery query);
 Judge splitJudge(QSqlQuery query);
+Exam getInformationOfExam(QSqlQuery query);
+Student getInformationOfStudent(QSqlQuery query);
 
 /**
   * @author:应承峻
@@ -164,6 +166,42 @@ QList<Judge> SqlModel::searchJudge() {
 	return questionList;
 }
 
+/*
+  * @author:夏林轩
+  * @brief:将数据库中查询到的一条选择题数据存放在Exam类中,并根据用户名筛选
+  * @param [in] 输入参数: 查询结果query
+  * @param [out] 输出参数: 返回存放Exam类的一个对象
+  * @date:2018/12/17
+  * @version:2.0
+  */
+QList<Exam> SqlModel::searchExam(QString username)
+{
+	QSqlQuery query;
+	QList<Exam> examList;  //存放考试对象的容器
+	query.exec("select * from exam,config where exam.exam_code = config.exam_code");
+	while (query.next())
+	{
+		int userNameIndex = query.record().indexOf("username");
+		QString userName = query.record().value(userNameIndex).toString();
+		if (userName.compare(username)==0) examList.push_back(getInformationOfExam(query));
+	}
+	return examList;
+}
+
+Student SqlModel::searchStudentInfo(QString username)
+{
+	QSqlQuery query;
+	query.exec("select * from user");
+	while (query.next())
+	{
+		int userNameIndex = query.record().indexOf("username");
+		QString userName = query.record().value(userNameIndex).toString();
+		if (userName.compare(username) == 0) {
+			return getInformationOfStudent(query);
+		}
+	}
+}
+
 /**
   * @author:应承峻
   * @brief:将数据库中查询到的一条选择题数据存放在Choice类中
@@ -217,6 +255,40 @@ Judge splitJudge(QSqlQuery query) {
 	return Judge::Judge(questionId , description , answer , value , author);
 }
 
+/**
+  * @author:夏林轩
+  * @brief:将数据库中查询到的考生参加考试以及该考试本身的信息数据存放在Exam类中
+  * @param [in] 输入参数: 查询结果query
+  * @param [out] 输出参数: 返回存放Exam类的一个对象
+  * @date:2018/12/16
+  * @version:2.0
+  */
+Exam getInformationOfExam(QSqlQuery query) {
+	int examNameIndex = query.record().indexOf("exam_name");
+	int examCodeIndex = query.record().indexOf("exam_code");
+	int examDurationIndex = query.record().indexOf("duration");
+	int objectScoreIndex = query.record().indexOf("object_score");
+	int judgeScoreIndex = query.record().indexOf("judge_score");
+	int isSubmitIndex = query.record().indexOf("is_submit");
+	QString examName = query.record().value(examNameIndex).toString();
+	int examCode= query.record().value(examCodeIndex).toInt();
+	int examDuration = query.record().value(examDurationIndex).toInt();
+	int objectScore = query.record().value(objectScoreIndex).toInt();
+	int judgeScore = query.record().value(judgeScoreIndex).toInt();
+	int isSubmit = query.record().value(isSubmitIndex).toInt();
+	return Exam::Exam(objectScore, judgeScore, isSubmit, examName, examCode, examDuration);
+}
+
+Student getInformationOfStudent(QSqlQuery query)
+{
+	int personNameIndex = query.record().indexOf("person_name");
+	int majorIndex = query.record().indexOf("major");
+	int studentIdIndex = query.record().indexOf("student_id");
+	QString personNmae = query.record().value(personNameIndex).toString();
+	QString major = query.record().value(majorIndex).toString();
+	QString studentId = query.record().value(studentIdIndex).toString();
+	return Student::Student(personNmae, major, studentId);
+}
 
 SqlModel::~SqlModel() {
 	db.close();  //关闭数据库

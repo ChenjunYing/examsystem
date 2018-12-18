@@ -15,6 +15,7 @@
 #include <QtSql/QSqlError>
 #include <QMessageBox>
 #include "Question.h"
+#include "User.h"
 
 class SqlModel {
 
@@ -62,7 +63,7 @@ public:
 	/**
 	  * @author:应承峻
 	  * @brief:从数据库中筛选相应的选择题,并返回选择题对象的集合
-	  * @param [int] 输入参数:type,其中0表示单选题,1表示多选题
+	  * @param [in] 输入参数:type,其中0表示单选题,1表示多选题
 	  * @param [out] 输出参数:Choice类的一个对象集合
 	  * @date:2018/12/15
 	  * @version:1.0
@@ -78,6 +79,25 @@ public:
 	  */
 	QList<Judge> searchJudge();
 	
+	/**
+	  * @author:夏林轩
+	  * @brief:从数据库中筛选与一场考试相应的信息,并返回考试对象的集合
+	  * @param [in] 输入参数:username，当前登录用户的用户名
+	  * @param [out] 输出参数:Judge类的一个对象集合
+	  * @date:2018/12/16
+	  * @version:1.0
+	  */
+	QList<Exam> searchExam(QString username);
+
+	/**
+	  * @author:夏林轩
+	  * @brief:根据当前登录的用户的用户名从数据库中进行筛选并返回一个Student类对象
+	  * @param [in] 输入参数:username，当前登录用户的用户名
+	  * @param [out] 输出参数:Student类的一个对象
+	  * @date:2018/12/18
+	  * @version:1.0
+	  */
+	Student searchStudentInfo(QString username);
 	/**
 	  * @author:应承峻
 	  * @brief:对用户输入的用户名、密码结合其身份与数据库中数据进行比对

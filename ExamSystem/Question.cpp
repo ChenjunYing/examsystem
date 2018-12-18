@@ -78,3 +78,54 @@ QString Judge::getChoiceB() const {
 Judge::~Judge() {
 
 }
+
+
+
+Exam::Exam(int oScore, int jScore, int flag, QString Name, int Code, int Duration) :objectScore(oScore), judgeScore(jScore),isSubmit(flag),name(Name), code(Code), duration(Duration)
+{
+	if (flag) {
+		score = objectScore + judgeScore;
+	}else {
+		score = NULL;
+	}
+}
+
+QString Exam::getName() const
+{
+	return name;
+}
+
+
+int Exam::getCode() const
+{
+	return code;
+}
+
+int Exam::getDuration() const
+{
+	return duration;
+}
+
+int Exam::getObjectScore() const
+{
+	return objectScore;
+}
+
+int Exam::getJudgeScore() const
+{
+	return judgeScore;
+}
+
+int Exam::getScore() const
+{
+	return score;
+}
+
+int Exam::getIsSubmit() const
+{
+	return isSubmit;
+}
+
+Exam::~Exam(){
+
+}

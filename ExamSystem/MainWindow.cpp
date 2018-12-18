@@ -39,11 +39,13 @@ void MainWindow::goQuestionBankTriggered() {
 	questionbank = new QuestionBank;
 	connect(questionbank , SIGNAL(sendChoiceData(Choice)) , choice , SLOT(receiveData(Choice)));  //题库和修改试题页面传递数据
 	questionbank->exec(); //弹出查看题库模态框，此时用户不能对主界面进行操作
+	if (questionbank) {
+		delete questionbank;
+	}
 }
 
 MainWindow::~MainWindow() {
 	delete choice;
 	delete multichoice;
 	delete judge;
-	delete questionbank;
 }

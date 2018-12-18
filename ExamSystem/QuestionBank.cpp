@@ -9,7 +9,7 @@ QuestionBank::QuestionBank(QWidget *parent) : QDialog(parent) {
 	this->choicemodel = new QStandardItemModel; //创建单选题表格
 	this->multimodel = new QStandardItemModel;  //创建多选题表格
 	this->judgemodel = new QStandardItemModel;  //创建判断题表格
-	
+	QuestionBank::initStyle();
 	QuestionBank::dataRefresh();  //从数据库中拉取数据
 	QuestionBank::onTabChanged(0); //默认显示单选题
 	connect(this->ui.choiceTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(choiceDoubleClicked()));
@@ -25,13 +25,37 @@ QuestionBank::QuestionBank(QWidget *parent) : QDialog(parent) {
   */
 void QuestionBank::choiceDoubleClicked() {
 	QModelIndex index = this->ui.choiceTable->currentIndex(); //当前被点击的单元格
-	int row = index.row();
-	int col = index.column();
-	//QString Data = index.data().toString();
-	
 	if (index.isValid()) {
 		emit sendChoiceData(this->choice.at(index.row())); //发送数据
 	}
+}
+
+/**
+  * @author:应承峻
+  * @brief:修改完成后在页面刷新
+  * @date:2018/12/17
+  * @version:1.0
+  */
+void QuestionBank::receiveOK(int index) {
+	QuestionBank::dataRefresh();  //刷新页面数据
+	switch (index) {
+		case 0: QuestionBank::showChoice(); break;
+		case 1: QuestionBank::showMultichoice(); break;
+		case 2: QuestionBank::showJudge(); break;
+		default: break;
+	}
+}
+
+void QuestionBank::setChoiceTableStyle(QStandardItemModel* model) {
+	model->setHorizontalHeaderItem(0 , new QStandardItem(QStringLiteral("题目描述")));
+	model->setHorizontalHeaderItem(1 , new QStandardItem(QStringLiteral("A选项描述")));
+	model->setHorizontalHeaderItem(2 , new QStandardItem(QStringLiteral("B选项描述")));
+	model->setHorizontalHeaderItem(3 , new QStandardItem(QStringLiteral("C选项描述")));
+	model->setHorizontalHeaderItem(4 , new QStandardItem(QStringLiteral("D选项描述")));
+	model->setHorizontalHeaderItem(5 , new QStandardItem(QStringLiteral("答案")));
+	model->setHorizontalHeaderItem(6 , new QStandardItem(QStringLiteral("分值")));
+	model->setHorizontalHeaderItem(7 , new QStandardItem(QStringLiteral("作者")));
+	model->setHorizontalHeaderItem(8 , new QStandardItem(QStringLiteral("操作")));
 }
 
 /**
@@ -42,15 +66,11 @@ void QuestionBank::choiceDoubleClicked() {
   */
 void QuestionBank::showChoice() {
 	this->choicemodel->clear();
-	this->choicemodel->setHorizontalHeaderItem(0 , new QStandardItem(QStringLiteral("题目描述")));
-	this->choicemodel->setHorizontalHeaderItem(1 , new QStandardItem(QStringLiteral("A选项描述")));
-	this->choicemodel->setHorizontalHeaderItem(2 , new QStandardItem(QStringLiteral("B选项描述")));
-	this->choicemodel->setHorizontalHeaderItem(3 , new QStandardItem(QStringLiteral("C选项描述")));
-	this->choicemodel->setHorizontalHeaderItem(4 , new QStandardItem(QStringLiteral("D选项描述")));
-	this->choicemodel->setHorizontalHeaderItem(5 , new QStandardItem(QStringLiteral("答案")));
-	this->choicemodel->setHorizontalHeaderItem(6 , new QStandardItem(QStringLiteral("分值")));
-	this->choicemodel->setHorizontalHeaderItem(7 , new QStandardItem(QStringLiteral("作者")));
+	QuestionBank::setChoiceTableStyle(this->choicemodel);
 	this->ui.choiceTable->setModel(choicemodel);
+	//this->ui.choiceTable->horizontalHeader()->setSectionResizeMode(5 , QHeaderView::Fixed); //设置列宽不可变
+	//this->ui.choiceTable->horizontalHeader()->setSectionResizeMode(6 , QHeaderView::Fixed);
+	ui.choiceTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 	QuestionBank::dataRefresh();
 	for (int i = 0; i < choice.size(); i++) {
 		QString value = QString::number(choice.at(i).getValue()); //将分值转换成字符串
@@ -62,6 +82,11 @@ void QuestionBank::showChoice() {
 		this->choicemodel->setItem(i , 5 , new QStandardItem(choice.at(i).getAnswer()));
 		this->choicemodel->setItem(i , 6 , new QStandardItem(value));
 		this->choicemodel->setItem(i , 7 , new QStandardItem(choice.at(i).getAuthor()));
+		this->choicemodel->setItem(i , 8 , new QStandardItem(QStringLiteral("删除")));
+		this->choicemodel->item(i , 5)->setTextAlignment(Qt::AlignCenter); //设置居中
+		this->choicemodel->item(i , 6)->setTextAlignment(Qt::AlignCenter);
+		this->choicemodel->item(i , 7)->setTextAlignment(Qt::AlignCenter);
+		this->choicemodel->item(i , 8)->setTextAlignment(Qt::AlignCenter);
 	}
 }
 
@@ -73,14 +98,7 @@ void QuestionBank::showChoice() {
   */
 void QuestionBank::showMultichoice() {
 	this->multimodel->clear();
-	this->multimodel->setHorizontalHeaderItem(0 , new QStandardItem(QStringLiteral("题目描述")));
-	this->multimodel->setHorizontalHeaderItem(1 , new QStandardItem(QStringLiteral("A选项描述")));
-	this->multimodel->setHorizontalHeaderItem(2 , new QStandardItem(QStringLiteral("B选项描述")));
-	this->multimodel->setHorizontalHeaderItem(3 , new QStandardItem(QStringLiteral("C选项描述")));
-	this->multimodel->setHorizontalHeaderItem(4 , new QStandardItem(QStringLiteral("D选项描述")));
-	this->multimodel->setHorizontalHeaderItem(5 , new QStandardItem(QStringLiteral("答案")));
-	this->multimodel->setHorizontalHeaderItem(6 , new QStandardItem(QStringLiteral("分值")));
-	this->multimodel->setHorizontalHeaderItem(7 , new QStandardItem(QStringLiteral("作者")));
+	QuestionBank::setChoiceTableStyle(this->multimodel);
 	this->ui.multiTable->setModel(multimodel);
 	QuestionBank::dataRefresh();
 	for (int i = 0; i < multichoice.size(); i++) {
@@ -159,6 +177,17 @@ void QuestionBank::onTabChanged(int index) {
 			break;
 		default:
 			break;
+	}
+}
+
+void QuestionBank::initStyle() {
+	QFile file(":/qss/psblack.css");
+	if (file.open(QFile::ReadOnly)) {
+		QString qss = QLatin1String(file.readAll());
+		QString paletteColor = qss.mid(20 , 7);
+		qApp->setPalette(QPalette(QColor(paletteColor)));
+		qApp->setStyleSheet(qss);
+		file.close();
 	}
 }
 

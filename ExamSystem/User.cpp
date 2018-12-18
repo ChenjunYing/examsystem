@@ -1,37 +1,25 @@
 #include "User.h"
 
-Student::Student(int oScore, int jScore, int flag, QString name, int code, int duration) :Exam(name, code, duration)
+Student::Student(QString name, QString major, QString id) :name(name), major(major), id(id)
 {
-	isSubmit = flag;
-	if (flag == 1) {
-		this->score += oScore + jScore;
-	}
-	else
-	{
-		score = 0;
-	}
 }
 
 Student::~Student()
 {
 }
 
-int Student::getObjectScore() const
+QString Student::getName() const
 {
-	return objectScore;
+	return name;
 }
 
-int Student::getJudgeScore() const
+QString Student::getMajor() const
 {
-	return judgeScore;
+	return major;
 }
 
-int Student::getScore() const
+QString Student::getId() const
 {
-	return score;
+	return id;
 }
 
-int Student::getIsSubmit() const
-{
-	return isSubmit;
-}

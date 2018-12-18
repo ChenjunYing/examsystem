@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QDebug>
 #include "MainWindow.h"
+#include "StudentWindow.h"
 #include "ui_LoginDialog.h"
 
 class LoginDialog : public QDialog
@@ -21,6 +22,9 @@ class LoginDialog : public QDialog
 public:
 	LoginDialog(QWidget *parent = Q_NULLPTR);
 	~LoginDialog();
+
+signals:
+	void sendUserName(QString name);
 
 private slots:
 	/**
@@ -34,6 +38,7 @@ private slots:
 private:
 	Ui::LoginDialog ui;
 	MainWindow admin;
+	StudentWindow student;
 };
 
 

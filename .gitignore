@@ -1,2 +1,6 @@
-x64
+x64/
+ExamSystem/x64/
+.vs/
+.vscode
 ExamSystem/x64
+ExamSystem/GeneratedFiles/Debug

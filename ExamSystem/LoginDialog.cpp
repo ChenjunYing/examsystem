@@ -5,6 +5,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent) {
 	ui.setupUi(this);
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
 	connect(this->ui.submitBtn , SIGNAL(clicked(bool)) , this , SLOT(login())); //绑定登录按钮
+	connect(this, SIGNAL(sendUserName(QString)), &this->student, SLOT(receiveUserName(QString)));
 }
 
 /**
@@ -33,12 +34,11 @@ void LoginDialog::login(){
 			return;
 		} else {
 			query.next(); //转到第1条数据
-			//int usernamecol = query.record().indexOf("username"); //获取username字段的列号
-			//int personnamecol = query.record().indexOf("person_name");
 			QMessageBox::information(NULL , QStringLiteral("提示") , QStringLiteral("登录成功") , QMessageBox::Yes);
 			this->close(); //关闭该窗口
 			if (radioBtn.at(i)->text().compare(QStringLiteral("普通用户")) == 0) {
-				//启动用户主界面
+				emit sendUserName(username);
+				student.show(); //启动用户主界面
 			} else {
 				admin.show(); //启动管理员主界面
 			}
