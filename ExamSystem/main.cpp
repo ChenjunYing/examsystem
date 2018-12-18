@@ -9,7 +9,5 @@ int main(int argc, char *argv[])
 	//logindialog.show();
 	MainWindow admin;
 	admin.show();
-	//StudentWindow student;
-	//student.show();
 	return a.exec();
 }

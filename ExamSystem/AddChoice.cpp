@@ -80,7 +80,6 @@ void AddChoice::checkUpdateData() {
 		bool information; //插入成功返回true,否则返回false
 		information = sql.updateChoice(description , choiceA , choiceB , choiceC , choiceD , AddChoice::convertAnswer(answer) , score , tempQuestionId);
 		if (information) {
-			emit updateOK(0);  //向QuestionBank页面发送更新完成信号,使其进行刷新操作
 			QMessageBox::information(NULL , QStringLiteral("提示") , QStringLiteral("修改成功！") , QMessageBox::Yes);
 			this->close();
 		} else {
@@ -134,8 +133,7 @@ QString AddChoice::convertAnswer(int index) {
   * @version:2.0
   */
 void AddChoice::receiveData(Choice c) {
-	AddChoice* a;
-	a = new AddChoice;  //新建修改试题页面
+	AddChoice* a = new AddChoice;  //新建页面
 	a->tempQuestionId = c.getQuestionId();  //存储试题编号
 	disconnect(a->ui.submitBtn , SIGNAL(clicked(bool)) , a , SLOT(checkData())); //解除绑定提交按钮点击事件
 	connect(a->ui.submitBtn , SIGNAL(clicked(bool)) , a , SLOT(checkUpdateData())); //重新绑定修改按钮点击事件
@@ -156,11 +154,8 @@ void AddChoice::receiveData(Choice c) {
 	} else if (c.getAnswer() == "D") {
 		a->ui.answer->setCurrentIndex(4);
 	}
-	emit sendChoicePage(a);  //向MainWindow页面发送修改页面的指针以便其进行信号与槽的绑定
 	a->exec();  //打开修改模态框
-	if (a != NULL) {
-		delete a;  //删除页面
-	}
+	delete a;  //删除页面
 }
 
 AddChoice::~AddChoice() {

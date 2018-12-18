@@ -19,13 +19,8 @@ public:
 	QuestionBank(QWidget *parent = Q_NULLPTR);
 	~QuestionBank();
 
-/**
-  * @author:应承峻
-  * @brief:向修改单选题页面发送单选题的数据
-  * @date:2018/12/16
-  * @version:1.0
-  */
-signals: void sendChoiceData(Choice c);
+signals:
+	void sendChoiceData(Choice c);
 
 private slots:
 	/**
@@ -35,7 +30,6 @@ private slots:
 	  * @version:2.0
 	  */
 	void showChoice();
-
 	/**
 	  * @author:应承峻
 	  * @brief:将多选题在题库上显示出来
@@ -43,7 +37,6 @@ private slots:
 	  * @version:2.0
 	  */
 	void showMultichoice();
-
 	/**
 	  * @author:应承峻
 	  * @brief:将判断题在题库上显示出来
@@ -51,7 +44,6 @@ private slots:
 	  * @version:2.0
 	  */
 	void showJudge();
-
 	/**
 	  * @author:应承峻
 	  * @brief:根据点击的TabBar显示相应的题型,0为单选题,1为多选题,2为判断题
@@ -60,14 +52,7 @@ private slots:
 	  */
 	void onTabChanged(int index);
 
-	/**
-	  * @author:应承峻
-	  * @brief:实现单选题表格双击修改的功能
-	  * @date:2018/12/16
-	  * @version:1.0
-	  */
 	void choiceDoubleClicked();
-
 	/**
 	  * @author:应承峻
 	  * @brief:刷新单选题、多选题和判断题的数据
@@ -75,14 +60,6 @@ private slots:
 	  * @version:1.0
 	  */
 	void dataRefresh();
-
-	/**
-	  * @author:应承峻
-	  * @brief:修改完成后在页面刷新
-	  * @date:2018/12/17
-	  * @version:1.0
-	  */
-	void receiveOK(int index);
 
 private:
 	Ui::QuestionBank ui;

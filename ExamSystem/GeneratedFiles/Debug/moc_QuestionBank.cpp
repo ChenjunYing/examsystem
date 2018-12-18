@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_QuestionBank_t {
-    QByteArrayData data[13];
-    char stringdata0[136];
+    QByteArrayData data[12];
+    char stringdata0[126];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,14 +42,13 @@ QT_MOC_LITERAL(7, 65, 9), // "showJudge"
 QT_MOC_LITERAL(8, 75, 12), // "onTabChanged"
 QT_MOC_LITERAL(9, 88, 5), // "index"
 QT_MOC_LITERAL(10, 94, 19), // "choiceDoubleClicked"
-QT_MOC_LITERAL(11, 114, 11), // "dataRefresh"
-QT_MOC_LITERAL(12, 126, 9) // "receiveOK"
+QT_MOC_LITERAL(11, 114, 11) // "dataRefresh"
 
     },
     "QuestionBank\0sendChoiceData\0\0Choice\0"
     "c\0showChoice\0showMultichoice\0showJudge\0"
     "onTabChanged\0index\0choiceDoubleClicked\0"
-    "dataRefresh\0receiveOK"
+    "dataRefresh"
 };
 #undef QT_MOC_LITERAL
 
@@ -59,7 +58,7 @@ static const uint qt_meta_data_QuestionBank[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -67,16 +66,15 @@ static const uint qt_meta_data_QuestionBank[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   54,    2, 0x06 /* Public */,
+       1,    1,   49,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    0,   57,    2, 0x08 /* Private */,
-       6,    0,   58,    2, 0x08 /* Private */,
-       7,    0,   59,    2, 0x08 /* Private */,
-       8,    1,   60,    2, 0x08 /* Private */,
-      10,    0,   63,    2, 0x08 /* Private */,
-      11,    0,   64,    2, 0x08 /* Private */,
-      12,    1,   65,    2, 0x08 /* Private */,
+       5,    0,   52,    2, 0x08 /* Private */,
+       6,    0,   53,    2, 0x08 /* Private */,
+       7,    0,   54,    2, 0x08 /* Private */,
+       8,    1,   55,    2, 0x08 /* Private */,
+      10,    0,   58,    2, 0x08 /* Private */,
+      11,    0,   59,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -88,7 +86,6 @@ static const uint qt_meta_data_QuestionBank[] = {
     QMetaType::Void, QMetaType::Int,    9,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    9,
 
        0        // eod
 };
@@ -106,7 +103,6 @@ void QuestionBank::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 4: _t->onTabChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 5: _t->choiceDoubleClicked(); break;
         case 6: _t->dataRefresh(); break;
-        case 7: _t->receiveOK((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -146,13 +142,13 @@ int QuestionBank::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 8;
+        _id -= 7;
     }
     return _id;
 }

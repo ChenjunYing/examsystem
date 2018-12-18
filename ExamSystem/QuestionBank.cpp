@@ -25,27 +25,14 @@ QuestionBank::QuestionBank(QWidget *parent) : QDialog(parent) {
   */
 void QuestionBank::choiceDoubleClicked() {
 	QModelIndex index = this->ui.choiceTable->currentIndex(); //当前被点击的单元格
+	int row = index.row();
+	int col = index.column();
+	//QString Data = index.data().toString();
+	
 	if (index.isValid()) {
 		emit sendChoiceData(this->choice.at(index.row())); //发送数据
 	}
 }
-
-/**
-  * @author:应承峻
-  * @brief:修改完成后在页面刷新
-  * @date:2018/12/17
-  * @version:1.0
-  */
-void QuestionBank::receiveOK(int index) {
-	QuestionBank::dataRefresh();  //刷新页面数据
-	switch (index) {
-		case 0: QuestionBank::showChoice(); break;
-		case 1: QuestionBank::showMultichoice(); break;
-		case 2: QuestionBank::showJudge(); break;
-		default: break;
-	}
-}
-
 
 /**
   * @author:应承峻

@@ -15,7 +15,6 @@
 #include <QtSql/QSqlError>
 #include <QMessageBox>
 #include "Question.h"
-#include "User.h"
 
 class SqlModel {
 
@@ -79,15 +78,6 @@ public:
 	  */
 	QList<Judge> searchJudge();
 	
-	/**
-	  * @author:夏林轩
-	  * @brief:从数据库中筛选与一场考试相应的信息,并返回考试对象的集合
-	  * @param [out] 输出参数:Judge类的一个对象集合
-	  * @date:2018/12/16
-	  * @version:1.0
-	  */
-	QList<Student> searchStudentExam();
-
 	/**
 	  * @author:应承峻
 	  * @brief:对用户输入的用户名、密码结合其身份与数据库中数据进行比对

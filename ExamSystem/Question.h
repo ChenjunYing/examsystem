@@ -60,20 +60,4 @@ private:
 	Judge(); //不允许使用默认无参构造函数
 };
 
-/*
- * Exam类封装了一场考试的相关信息以及操作
- */
-class Exam {
-public:
-	Exam(QString Name,  int Code, int Duration);
-	QString getName() const;
-	int getCode() const;
-	int getDuration() const;
-	~Exam(); 
-private:
-	QString name;
-	int code;
-	int duration;
-	Exam();//不允许使用默认无参构造函数
-};
 #endif

@@ -18,9 +18,6 @@ public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 	~MainWindow();
 
-public slots:
-	void receiveAddChoicePage(AddChoice*);
-
 private slots:
 	void choiceTriggered();
 	void judgeTriggered();
