@@ -12,8 +12,8 @@ QuestionBank::QuestionBank(QWidget *parent) : QDialog(parent) {
 	QuestionBank::onTabChanged(0); //默认显示单选题
 	connect(this->ui.choiceTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(choiceDoubleClicked(const QModelIndex&)));
 	connect(this->ui.choiceTable , SIGNAL(clicked(const QModelIndex&)) , this , SLOT(choiceClicked(const QModelIndex&)));
-	connect(this->ui.multiTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(multiDoubleClicked()));
-	connect(this->ui.judgeTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(judgeDoubleClicked()));
+	connect(this->ui.multiTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(multiDoubleClicked(const QModelIndex&)));
+	connect(this->ui.judgeTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(judgeDoubleClicked(const QModelIndex&)));
 	connect(this->ui.tabWidget , SIGNAL(currentChanged(int)) , this , SLOT(onTabChanged(int)));
 	connect(this->ui.selectBtn , SIGNAL(clicked(bool)) , this , SLOT(searchQuestion()));
 	connect(this->ui.resetBtn , SIGNAL(clicked(bool)) , this , SLOT(reset()));

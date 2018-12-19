@@ -37,11 +37,11 @@ void MainWindow::judgeTriggered() {
 /*题库接口*/
 void MainWindow::goQuestionBankTriggered() {
 	questionbank = new QuestionBank;
-	connect(questionbank , SIGNAL(sendChoiceData(Choice)) , choice , SLOT(receiveData(Choice)));  //题库和修改试题页面传递数据
+	connect(questionbank , SIGNAL(sendChoiceData(Choice)) , choice , SLOT(receiveData(Choice)));  //题库和修改单选题页面传递数据
+	connect(questionbank , SIGNAL(sendMultiChoiceData(Choice)) , multichoice , SLOT(receiveData(Choice)));  //题库和修改多选题页面传递数据
+	connect(questionbank , SIGNAL(sendJudgeData(Judge)) , judge , SLOT(receiveData(Judge)));  //题库和修改判断题页面传递数据
 	connect(choice , SIGNAL(sendChoicePage(AddChoice*)) , this , SLOT(receiveAddChoicePage(AddChoice*)));
-	connect(questionbank, SIGNAL(sendMultiChoiceData(Choice)), multichoice, SLOT(receiveData(Choice)));  //题库和修改试题页面传递数据
 	connect(multichoice, SIGNAL(sendMultiChoicePage(AddMultiChoice*)), this, SLOT(receiveAddMultiChoicePage(AddMultiChoice*)));
-	connect(questionbank, SIGNAL(sendJudgeData(Judge)), judge, SLOT(receiveData(Judge)));  //题库和修改试题页面传递数据
 	connect(judge, SIGNAL(sendJudgePage(AddJudge*)), this, SLOT(receiveAddJudgePage(AddJudge*)));
 	questionbank->exec(); //弹出查看题库模态框，此时用户不能对主界面进行操作
 	if (questionbank) {

@@ -37,8 +37,8 @@ public:
     QSpinBox *score;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_8;
-    QRadioButton *radioButton;
-    QRadioButton *radioButton_2;
+    QRadioButton *right;
+    QRadioButton *wrong;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *submitBtn;
     QPushButton *resetBtn;
@@ -139,17 +139,17 @@ public:
 
         horizontalLayout_3->addWidget(label_8);
 
-        radioButton = new QRadioButton(groupBox_2);
-        radioButton->setObjectName(QStringLiteral("radioButton"));
-        radioButton->setFont(font1);
+        right = new QRadioButton(groupBox_2);
+        right->setObjectName(QStringLiteral("right"));
+        right->setFont(font1);
 
-        horizontalLayout_3->addWidget(radioButton);
+        horizontalLayout_3->addWidget(right);
 
-        radioButton_2 = new QRadioButton(groupBox_2);
-        radioButton_2->setObjectName(QStringLiteral("radioButton_2"));
-        radioButton_2->setFont(font1);
+        wrong = new QRadioButton(groupBox_2);
+        wrong->setObjectName(QStringLiteral("wrong"));
+        wrong->setFont(font1);
 
-        horizontalLayout_3->addWidget(radioButton_2);
+        horizontalLayout_3->addWidget(wrong);
 
 
         verticalLayout->addLayout(horizontalLayout_3);
@@ -194,8 +194,8 @@ public:
         groupBox_2->setTitle(QApplication::translate("AddJudge", "\350\257\225\351\242\230\345\261\236\346\200\247", nullptr));
         label_7->setText(QApplication::translate("AddJudge", "\345\210\206    \345\200\274", nullptr));
         label_8->setText(QApplication::translate("AddJudge", "\347\255\224    \346\241\210", nullptr));
-        radioButton->setText(QApplication::translate("AddJudge", "\346\255\243\347\241\256", nullptr));
-        radioButton_2->setText(QApplication::translate("AddJudge", "\351\224\231\350\257\257", nullptr));
+        right->setText(QApplication::translate("AddJudge", "\346\255\243\347\241\256", nullptr));
+        wrong->setText(QApplication::translate("AddJudge", "\351\224\231\350\257\257", nullptr));
         submitBtn->setText(QApplication::translate("AddJudge", "\346\217\220   \344\272\244", nullptr));
         resetBtn->setText(QApplication::translate("AddJudge", "\351\207\215    \347\275\256", nullptr));
     } // retranslateUi

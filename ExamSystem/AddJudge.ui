@@ -158,7 +158,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton">
+         <widget class="QRadioButton" name="right">
           <property name="font">
            <font>
             <family>Arial</family>
@@ -170,7 +170,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_2">
+         <widget class="QRadioButton" name="wrong">
           <property name="font">
            <font>
             <family>Arial</family>

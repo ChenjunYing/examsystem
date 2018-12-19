@@ -67,7 +67,7 @@ private slots:
       * @date:2018/12/18
       * @version:1.0
       */
-	void multiDoubleClicked();
+	void multiDoubleClicked(const QModelIndex&);
 
 	/**
 	  * @author:»ÆË¼Ó¾
@@ -75,7 +75,7 @@ private slots:
 	  * @date:2018/12/18
 	  * @version:1.0
 	  */
-	void judgeDoubleClicked();
+	void judgeDoubleClicked(const QModelIndex&);
 
 	/**
 	  * @author:Ó¦³Ð¾þ
