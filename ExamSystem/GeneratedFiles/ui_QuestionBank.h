@@ -43,6 +43,9 @@ public:
     QLineEdit *authorSelector;
     QSpacerItem *horizontalSpacer;
     QPushButton *selectBtn;
+    QSpacerItem *horizontalSpacer_5;
+    QPushButton *resetBtn;
+    QSpacerItem *horizontalSpacer_4;
     QTabWidget *tabWidget;
     QWidget *choice;
     QVBoxLayout *verticalLayout_2;
@@ -58,6 +61,7 @@ public:
     {
         if (QuestionBank->objectName().isEmpty())
             QuestionBank->setObjectName(QStringLiteral("QuestionBank"));
+        QuestionBank->setWindowModality(Qt::NonModal);
         QuestionBank->resize(1580, 844);
         verticalLayout = new QVBoxLayout(QuestionBank);
         verticalLayout->setSpacing(6);
@@ -73,6 +77,11 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
         label->setSizePolicy(sizePolicy);
+        QFont font;
+        font.setFamily(QString::fromUtf8("\347\255\211\347\272\277"));
+        font.setBold(true);
+        font.setWeight(75);
+        label->setFont(font);
 
         horizontalLayout->addWidget(label);
 
@@ -89,11 +98,13 @@ public:
         label_2->setObjectName(QStringLiteral("label_2"));
         sizePolicy.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
         label_2->setSizePolicy(sizePolicy);
+        label_2->setFont(font);
 
         horizontalLayout->addWidget(label_2);
 
         lowerValue = new QSpinBox(QuestionBank);
         lowerValue->setObjectName(QStringLiteral("lowerValue"));
+        lowerValue->setMaximum(100);
 
         horizontalLayout->addWidget(lowerValue);
 
@@ -101,8 +112,6 @@ public:
         label_4->setObjectName(QStringLiteral("label_4"));
         sizePolicy.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
         label_4->setSizePolicy(sizePolicy);
-        QFont font;
-        font.setFamily(QStringLiteral("Times New Roman"));
         label_4->setFont(font);
         label_4->setStyleSheet(QLatin1String("padding-left:10%;\n"
 "padding-right:10%;"));
@@ -112,6 +121,8 @@ public:
 
         upperValue = new QSpinBox(QuestionBank);
         upperValue->setObjectName(QStringLiteral("upperValue"));
+        upperValue->setMaximum(100);
+        upperValue->setValue(100);
 
         horizontalLayout->addWidget(upperValue);
 
@@ -123,6 +134,7 @@ public:
         label_3->setObjectName(QStringLiteral("label_3"));
         sizePolicy.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
         label_3->setSizePolicy(sizePolicy);
+        label_3->setFont(font);
 
         horizontalLayout->addWidget(label_3);
 
@@ -147,8 +159,31 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(selectBtn->sizePolicy().hasHeightForWidth());
         selectBtn->setSizePolicy(sizePolicy2);
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("\345\215\216\346\226\207\347\220\245\347\217\200"));
+        font1.setBold(false);
+        font1.setWeight(50);
+        selectBtn->setFont(font1);
 
         horizontalLayout->addWidget(selectBtn);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_5);
+
+        resetBtn = new QPushButton(QuestionBank);
+        resetBtn->setObjectName(QStringLiteral("resetBtn"));
+        sizePolicy2.setHeightForWidth(resetBtn->sizePolicy().hasHeightForWidth());
+        resetBtn->setSizePolicy(sizePolicy2);
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("\345\215\216\346\226\207\347\220\245\347\217\200"));
+        resetBtn->setFont(font2);
+
+        horizontalLayout->addWidget(resetBtn);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_4);
 
         horizontalLayout->setStretch(0, 1);
         horizontalLayout->setStretch(1, 4);
@@ -158,13 +193,16 @@ public:
         horizontalLayout->setStretch(6, 1);
         horizontalLayout->setStretch(8, 1);
         horizontalLayout->setStretch(9, 1);
-        horizontalLayout->setStretch(10, 1);
-        horizontalLayout->setStretch(11, 2);
+        horizontalLayout->setStretch(11, 1);
+        horizontalLayout->setStretch(13, 1);
 
         verticalLayout->addLayout(horizontalLayout);
 
         tabWidget = new QTabWidget(QuestionBank);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
+        QFont font3;
+        font3.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221 Light"));
+        tabWidget->setFont(font3);
         choice = new QWidget();
         choice->setObjectName(QStringLiteral("choice"));
         verticalLayout_2 = new QVBoxLayout(choice);
@@ -178,10 +216,16 @@ public:
         sizePolicy3.setVerticalStretch(0);
         sizePolicy3.setHeightForWidth(choiceTable->sizePolicy().hasHeightForWidth());
         choiceTable->setSizePolicy(sizePolicy3);
+        QFont font4;
+        font4.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
+        font4.setBold(false);
+        font4.setWeight(50);
+        choiceTable->setFont(font4);
         choiceTable->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         choiceTable->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         choiceTable->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
         choiceTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        choiceTable->verticalHeader()->setStretchLastSection(false);
 
         verticalLayout_2->addWidget(choiceTable);
 
@@ -199,6 +243,9 @@ public:
         sizePolicy4.setVerticalStretch(0);
         sizePolicy4.setHeightForWidth(multiTable->sizePolicy().hasHeightForWidth());
         multiTable->setSizePolicy(sizePolicy4);
+        QFont font5;
+        font5.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
+        multiTable->setFont(font5);
         multiTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         verticalLayout_3->addWidget(multiTable);
@@ -214,6 +261,7 @@ public:
         judgeTable->setObjectName(QStringLiteral("judgeTable"));
         sizePolicy4.setHeightForWidth(judgeTable->sizePolicy().hasHeightForWidth());
         judgeTable->setSizePolicy(sizePolicy4);
+        judgeTable->setFont(font5);
         judgeTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         verticalLayout_4->addWidget(judgeTable);
@@ -238,7 +286,8 @@ public:
         label_2->setText(QApplication::translate("QuestionBank", "\350\257\225\351\242\230\345\210\206\345\200\274", nullptr));
         label_4->setText(QApplication::translate("QuestionBank", "\350\207\263", nullptr));
         label_3->setText(QApplication::translate("QuestionBank", "\350\257\225\351\242\230\344\275\234\350\200\205", nullptr));
-        selectBtn->setText(QApplication::translate("QuestionBank", "\347\255\233             \351\200\211", nullptr));
+        selectBtn->setText(QApplication::translate("QuestionBank", "\347\255\233   \351\200\211", nullptr));
+        resetBtn->setText(QApplication::translate("QuestionBank", "\351\207\215   \347\275\256", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(choice), QApplication::translate("QuestionBank", "\345\215\225\351\200\211\351\242\230", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(multichoice), QApplication::translate("QuestionBank", "\345\244\232\351\200\211\351\242\230", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(judge), QApplication::translate("QuestionBank", "\345\210\244\346\226\255\351\242\230", nullptr));

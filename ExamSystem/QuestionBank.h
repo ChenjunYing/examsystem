@@ -14,6 +14,7 @@
 #include <QStandardItemModel>
 #include "ui_QuestionBank.h"
 #include "Question.h"
+#include "SqlModel.h"
 
 class QuestionBank : public QDialog {
 	Q_OBJECT
@@ -31,65 +32,35 @@ public:
 signals: void sendChoiceData(Choice c);
 
 private slots:
-	/**
-	  * @author:应承峻
-	  * @brief:将单选题在题库上显示出来
-	  * @date:2018/12/16
-	  * @version:2.0
-	  */
+
 	void showChoice();
 
-	/**
-	  * @author:应承峻
-	  * @brief:将多选题在题库上显示出来
-	  * @date:2018/12/16
-	  * @version:2.0
-	  */
 	void showMultichoice();
 
-	/**
-	  * @author:应承峻
-	  * @brief:将判断题在题库上显示出来
-	  * @date:2018/12/16
-	  * @version:2.0
-	  */
 	void showJudge();
 
-	/**
-	  * @author:应承峻
-	  * @brief:根据点击的TabBar显示相应的题型,0为单选题,1为多选题,2为判断题
-	  * @date:2018/12/16
-	  * @version:1.0
-	  */
 	void onTabChanged(int index);
 
-	/**
-	  * @author:应承峻
-	  * @brief:实现单选题表格双击修改的功能
-	  * @date:2018/12/16
-	  * @version:1.0
-	  */
-	void choiceDoubleClicked();
+	void choiceClicked(const QModelIndex& index);
 
-	/**
-	  * @author:应承峻
-	  * @brief:刷新单选题、多选题和判断题的数据
-	  * @date:2018/12/16
-	  * @version:1.0
-	  */
-	void dataRefresh();
+	void choiceDoubleClicked(const QModelIndex& index);
 
-	/**
-	  * @author:应承峻
-	  * @brief:修改完成后在页面刷新
-	  * @date:2018/12/17
-	  * @version:1.0
-	  */
+	void dataRefresh(QString keyWord = "" , int lowerValue = 0 , int upperValue = 100 , QString author = "");
+
 	void receiveOK(int index);
 
-	void initStyle();
+	void setChoiceTableHeader(QStandardItemModel* model);
 
-	void setChoiceTableStyle(QStandardItemModel* model);
+	void setJudgeTableHeader(QStandardItemModel* model);
+
+	void setChoiceModelItemView(QStandardItemModel* model , QList<Choice>& choice);
+
+	void setJudgeModelItemView(QStandardItemModel* model , QList<Judge>& judge);
+
+	void searchQuestion();
+
+	void reset();
+
 
 private:
 	Ui::QuestionBank ui;
@@ -100,7 +71,5 @@ private:
 	QStandardItemModel* multimodel;
 	QStandardItemModel* judgemodel;
 };
-
-
 
 #endif

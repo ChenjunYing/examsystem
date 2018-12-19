@@ -59,6 +59,8 @@ public:
 	  */	
 	bool updateChoice(QString description , QString choiceA , QString choiceB ,
 		QString choiceC , QString choiceD , QString answer , int value , int questionId);
+
+	bool deleteChoice(int questionId);
 	
 	/**
 	  * @author:Ó¦³Ð¾þ
@@ -69,6 +71,8 @@ public:
 	  * @version:1.0
 	  */		
 	QList<Choice> searchChoice(int type);
+
+	QList<Choice> searchChoice(int type , QString keyWord , int lowerValue , int upperValue , QString author);
 	
 	/**
 	  * @author:Ó¦³Ð¾þ
@@ -78,6 +82,8 @@ public:
 	  * @version:2.0
 	  */
 	QList<Judge> searchJudge();
+
+	QList<Judge> searchJudge(QString keyWord , int lowerValue , int upperValue , QString author);
 	
 	/**
 	  * @author:ÏÄÁÖÐù

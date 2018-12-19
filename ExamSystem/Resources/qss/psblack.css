@@ -1,5 +1,9 @@
 QPalette{background:#444444;}*{outline:0px;color:#DCDCDC;}
 
+QMessageBox {
+	background:#484848;
+}
+
 QWidget[form="true"],QLabel[frameShape="1"]{
 border:1px solid #242424;
 border-radius:0px;
@@ -460,6 +464,7 @@ margin:0px;
 QHeaderView::section,QTableCornerButton:section{
 padding:3px;
 margin:0px;
+font-family:"Arial";
 color:#DCDCDC;
 border:1px solid #242424;
 border-left-width:0px;

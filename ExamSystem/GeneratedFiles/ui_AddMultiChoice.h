@@ -14,360 +14,341 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_AddMultiChoice
 {
 public:
-    QWidget *layoutWidget;
-    QVBoxLayout *verticalLayout;
-    QLabel *label;
-    QSpacerItem *verticalSpacer;
-    QHBoxLayout *Descriptions;
-    QLabel *label_2;
-    QSpacerItem *horizontalSpacer_4;
+    QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout_12;
+    QGroupBox *groupBox_2;
+    QHBoxLayout *horizontalLayout_10;
     QTextEdit *description;
-    QHBoxLayout *A;
-    QLabel *label_3;
-    QSpacerItem *horizontalSpacer_7;
-    QTextEdit *choiceA;
-    QHBoxLayout *B;
-    QLabel *label_4;
-    QSpacerItem *horizontalSpacer_8;
-    QTextEdit *choiceB;
-    QHBoxLayout *C;
-    QLabel *label_5;
-    QSpacerItem *horizontalSpacer_9;
-    QTextEdit *choiceC;
-    QHBoxLayout *D;
-    QLabel *label_6;
-    QSpacerItem *horizontalSpacer_10;
-    QTextEdit *choiceD;
-    QHBoxLayout *horizontalLayout;
+    QGroupBox *groupBox_3;
+    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_2;
     QLabel *label_7;
-    QSpacerItem *horizontalSpacer_11;
     QSpinBox *score;
-    QSpacerItem *horizontalSpacer_3;
-    QHBoxLayout *horizontalLayout_3;
+    QHBoxLayout *horizontalLayout_8;
     QLabel *label_8;
-    QSpacerItem *horizontalSpacer_2;
     QCheckBox *answerA;
     QCheckBox *answerB;
     QCheckBox *answerC;
     QCheckBox *answerD;
-    QSpacerItem *horizontalSpacer_6;
-    QSpacerItem *verticalSpacer_2;
-    QHBoxLayout *horizontalLayout_2;
+    QHBoxLayout *horizontalLayout_9;
     QPushButton *submitBtn;
-    QSpacerItem *horizontalSpacer;
     QPushButton *resetBtn;
+    QGroupBox *groupBox;
+    QHBoxLayout *horizontalLayout_11;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_6;
+    QHBoxLayout *horizontalLayout;
+    QLabel *label_3;
+    QTextEdit *choiceB;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label_4;
+    QTextEdit *choiceA;
+    QHBoxLayout *horizontalLayout_7;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *label_5;
+    QTextEdit *choiceC;
+    QHBoxLayout *horizontalLayout_5;
+    QLabel *label_6;
+    QTextEdit *choiceD;
     QButtonGroup *buttonGroup;
 
     void setupUi(QDialog *AddMultiChoice)
     {
         if (AddMultiChoice->objectName().isEmpty())
             AddMultiChoice->setObjectName(QStringLiteral("AddMultiChoice"));
-        AddMultiChoice->resize(480, 725);
-        AddMultiChoice->setMinimumSize(QSize(480, 725));
-        AddMultiChoice->setMaximumSize(QSize(480, 725));
+        AddMultiChoice->resize(760, 460);
         AddMultiChoice->setSizeGripEnabled(false);
         AddMultiChoice->setModal(false);
-        layoutWidget = new QWidget(AddMultiChoice);
-        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(30, 20, 401, 671));
-        verticalLayout = new QVBoxLayout(layoutWidget);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(layoutWidget);
-        label->setObjectName(QStringLiteral("label"));
+        verticalLayout_3 = new QVBoxLayout(AddMultiChoice);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        horizontalLayout_12 = new QHBoxLayout();
+        horizontalLayout_12->setSpacing(6);
+        horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
+        groupBox_2 = new QGroupBox(AddMultiChoice);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         QFont font;
-        font.setFamily(QString::fromUtf8("\351\273\221\344\275\223"));
-        font.setPointSize(26);
-        font.setBold(false);
-        font.setWeight(50);
-        label->setFont(font);
-        label->setTextFormat(Qt::AutoText);
-        label->setAlignment(Qt::AlignCenter);
-
-        verticalLayout->addWidget(label);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer);
-
-        Descriptions = new QHBoxLayout();
-        Descriptions->setSpacing(6);
-        Descriptions->setObjectName(QStringLiteral("Descriptions"));
-        label_2 = new QLabel(layoutWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        font.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
+        groupBox_2->setFont(font);
+        horizontalLayout_10 = new QHBoxLayout(groupBox_2);
+        horizontalLayout_10->setSpacing(6);
+        horizontalLayout_10->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
+        description = new QTextEdit(groupBox_2);
+        description->setObjectName(QStringLiteral("description"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
-        label_2->setSizePolicy(sizePolicy);
-        label_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
-
-        Descriptions->addWidget(label_2);
-
-        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
-
-        Descriptions->addItem(horizontalSpacer_4);
-
-        description = new QTextEdit(layoutWidget);
-        description->setObjectName(QStringLiteral("description"));
         sizePolicy.setHeightForWidth(description->sizePolicy().hasHeightForWidth());
         description->setSizePolicy(sizePolicy);
         description->setMinimumSize(QSize(300, 100));
-        description->setMaximumSize(QSize(300, 100));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Arial"));
+        description->setFont(font1);
         description->setReadOnly(false);
 
-        Descriptions->addWidget(description);
+        horizontalLayout_10->addWidget(description);
 
 
-        verticalLayout->addLayout(Descriptions);
+        horizontalLayout_12->addWidget(groupBox_2);
 
-        A = new QHBoxLayout();
-        A->setSpacing(6);
-        A->setObjectName(QStringLiteral("A"));
-        label_3 = new QLabel(layoutWidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
-
-        A->addWidget(label_3);
-
-        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        A->addItem(horizontalSpacer_7);
-
-        choiceA = new QTextEdit(layoutWidget);
-        choiceA->setObjectName(QStringLiteral("choiceA"));
-        sizePolicy.setHeightForWidth(choiceA->sizePolicy().hasHeightForWidth());
-        choiceA->setSizePolicy(sizePolicy);
-        choiceA->setMinimumSize(QSize(300, 80));
-        choiceA->setMaximumSize(QSize(300, 80));
-        choiceA->setReadOnly(false);
-
-        A->addWidget(choiceA);
-
-        A->setStretch(0, 1);
-        A->setStretch(2, 8);
-
-        verticalLayout->addLayout(A);
-
-        B = new QHBoxLayout();
-        B->setSpacing(6);
-        B->setObjectName(QStringLiteral("B"));
-        label_4 = new QLabel(layoutWidget);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
-
-        B->addWidget(label_4);
-
-        horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        B->addItem(horizontalSpacer_8);
-
-        choiceB = new QTextEdit(layoutWidget);
-        choiceB->setObjectName(QStringLiteral("choiceB"));
-        sizePolicy.setHeightForWidth(choiceB->sizePolicy().hasHeightForWidth());
-        choiceB->setSizePolicy(sizePolicy);
-        choiceB->setMinimumSize(QSize(300, 80));
-        choiceB->setMaximumSize(QSize(300, 80));
-        choiceB->setReadOnly(false);
-
-        B->addWidget(choiceB);
-
-        B->setStretch(0, 1);
-        B->setStretch(2, 8);
-
-        verticalLayout->addLayout(B);
-
-        C = new QHBoxLayout();
-        C->setSpacing(6);
-        C->setObjectName(QStringLiteral("C"));
-        label_5 = new QLabel(layoutWidget);
-        label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
-
-        C->addWidget(label_5);
-
-        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        C->addItem(horizontalSpacer_9);
-
-        choiceC = new QTextEdit(layoutWidget);
-        choiceC->setObjectName(QStringLiteral("choiceC"));
-        sizePolicy.setHeightForWidth(choiceC->sizePolicy().hasHeightForWidth());
-        choiceC->setSizePolicy(sizePolicy);
-        choiceC->setMinimumSize(QSize(300, 80));
-        choiceC->setMaximumSize(QSize(300, 80));
-        choiceC->setReadOnly(false);
-
-        C->addWidget(choiceC);
-
-        C->setStretch(0, 1);
-        C->setStretch(2, 8);
-
-        verticalLayout->addLayout(C);
-
-        D = new QHBoxLayout();
-        D->setSpacing(6);
-        D->setObjectName(QStringLiteral("D"));
-        label_6 = new QLabel(layoutWidget);
-        label_6->setObjectName(QStringLiteral("label_6"));
-        label_6->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
-
-        D->addWidget(label_6);
-
-        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        D->addItem(horizontalSpacer_10);
-
-        choiceD = new QTextEdit(layoutWidget);
-        choiceD->setObjectName(QStringLiteral("choiceD"));
-        sizePolicy.setHeightForWidth(choiceD->sizePolicy().hasHeightForWidth());
-        choiceD->setSizePolicy(sizePolicy);
-        choiceD->setMinimumSize(QSize(300, 80));
-        choiceD->setMaximumSize(QSize(300, 80));
-        choiceD->setReadOnly(false);
-
-        D->addWidget(choiceD);
-
-        D->setStretch(0, 1);
-        D->setStretch(2, 8);
-
-        verticalLayout->addLayout(D);
-
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        label_7 = new QLabel(layoutWidget);
+        groupBox_3 = new QGroupBox(AddMultiChoice);
+        groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
+        groupBox_3->setFont(font);
+        verticalLayout_2 = new QVBoxLayout(groupBox_3);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        label_7 = new QLabel(groupBox_3);
         label_7->setObjectName(QStringLiteral("label_7"));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
         label_7->setSizePolicy(sizePolicy1);
+        label_7->setFont(font1);
 
-        horizontalLayout->addWidget(label_7);
+        horizontalLayout_2->addWidget(label_7);
 
-        horizontalSpacer_11 = new QSpacerItem(25, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_11);
-
-        score = new QSpinBox(layoutWidget);
+        score = new QSpinBox(groupBox_3);
         score->setObjectName(QStringLiteral("score"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Fixed);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(score->sizePolicy().hasHeightForWidth());
         score->setSizePolicy(sizePolicy2);
         score->setMaximum(100);
 
-        horizontalLayout->addWidget(score);
+        horizontalLayout_2->addWidget(score);
 
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
 
-        horizontalLayout->addItem(horizontalSpacer_3);
+        verticalLayout_2->addLayout(horizontalLayout_2);
 
-        horizontalLayout->setStretch(0, 2);
-        horizontalLayout->setStretch(1, 1);
-        horizontalLayout->setStretch(2, 8);
-        horizontalLayout->setStretch(3, 16);
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        label_8 = new QLabel(groupBox_3);
+        label_8->setObjectName(QStringLiteral("label_8"));
+        sizePolicy1.setHeightForWidth(label_8->sizePolicy().hasHeightForWidth());
+        label_8->setSizePolicy(sizePolicy1);
+        label_8->setFont(font1);
 
-        verticalLayout->addLayout(horizontalLayout);
+        horizontalLayout_8->addWidget(label_8);
+
+        answerA = new QCheckBox(groupBox_3);
+        buttonGroup = new QButtonGroup(AddMultiChoice);
+        buttonGroup->setObjectName(QStringLiteral("buttonGroup"));
+        buttonGroup->setExclusive(false);
+        buttonGroup->addButton(answerA);
+        answerA->setObjectName(QStringLiteral("answerA"));
+
+        horizontalLayout_8->addWidget(answerA);
+
+        answerB = new QCheckBox(groupBox_3);
+        buttonGroup->addButton(answerB);
+        answerB->setObjectName(QStringLiteral("answerB"));
+
+        horizontalLayout_8->addWidget(answerB);
+
+        answerC = new QCheckBox(groupBox_3);
+        buttonGroup->addButton(answerC);
+        answerC->setObjectName(QStringLiteral("answerC"));
+
+        horizontalLayout_8->addWidget(answerC);
+
+        answerD = new QCheckBox(groupBox_3);
+        buttonGroup->addButton(answerD);
+        answerD->setObjectName(QStringLiteral("answerD"));
+
+        horizontalLayout_8->addWidget(answerD);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_8);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        submitBtn = new QPushButton(groupBox_3);
+        submitBtn->setObjectName(QStringLiteral("submitBtn"));
+        sizePolicy2.setHeightForWidth(submitBtn->sizePolicy().hasHeightForWidth());
+        submitBtn->setSizePolicy(sizePolicy2);
+        submitBtn->setFont(font1);
+
+        horizontalLayout_9->addWidget(submitBtn);
+
+        resetBtn = new QPushButton(groupBox_3);
+        resetBtn->setObjectName(QStringLiteral("resetBtn"));
+        sizePolicy2.setHeightForWidth(resetBtn->sizePolicy().hasHeightForWidth());
+        resetBtn->setSizePolicy(sizePolicy2);
+        resetBtn->setFont(font1);
+
+        horizontalLayout_9->addWidget(resetBtn);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_9);
+
+
+        horizontalLayout_12->addWidget(groupBox_3);
+
+        horizontalLayout_12->setStretch(0, 7);
+        horizontalLayout_12->setStretch(1, 3);
+
+        verticalLayout_3->addLayout(horizontalLayout_12);
+
+        groupBox = new QGroupBox(AddMultiChoice);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        groupBox->setFont(font);
+        horizontalLayout_11 = new QHBoxLayout(groupBox);
+        horizontalLayout_11->setSpacing(6);
+        horizontalLayout_11->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        label_3 = new QLabel(groupBox);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        sizePolicy2.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
+        label_3->setSizePolicy(sizePolicy2);
+        label_3->setStyleSheet(QStringLiteral("font: 75 14pt \"Arial\";"));
+        label_3->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout->addWidget(label_3);
+
+        choiceB = new QTextEdit(groupBox);
+        choiceB->setObjectName(QStringLiteral("choiceB"));
+        sizePolicy.setHeightForWidth(choiceB->sizePolicy().hasHeightForWidth());
+        choiceB->setSizePolicy(sizePolicy);
+        choiceB->setMinimumSize(QSize(300, 80));
+        choiceB->setFont(font1);
+        choiceB->setReadOnly(false);
+
+        horizontalLayout->addWidget(choiceB);
+
+        horizontalLayout->setStretch(0, 1);
+        horizontalLayout->setStretch(1, 4);
+
+        horizontalLayout_6->addLayout(horizontalLayout);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        label_8 = new QLabel(layoutWidget);
-        label_8->setObjectName(QStringLiteral("label_8"));
-        sizePolicy1.setHeightForWidth(label_8->sizePolicy().hasHeightForWidth());
-        label_8->setSizePolicy(sizePolicy1);
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        sizePolicy2.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
+        label_4->setSizePolicy(sizePolicy2);
+        label_4->setStyleSheet(QStringLiteral("font: 75 14pt \"Arial\";"));
+        label_4->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_3->addWidget(label_8);
+        horizontalLayout_3->addWidget(label_4);
 
-        horizontalSpacer_2 = new QSpacerItem(25, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        choiceA = new QTextEdit(groupBox);
+        choiceA->setObjectName(QStringLiteral("choiceA"));
+        sizePolicy.setHeightForWidth(choiceA->sizePolicy().hasHeightForWidth());
+        choiceA->setSizePolicy(sizePolicy);
+        choiceA->setMinimumSize(QSize(300, 80));
+        choiceA->setFont(font1);
+        choiceA->setReadOnly(false);
 
-        horizontalLayout_3->addItem(horizontalSpacer_2);
+        horizontalLayout_3->addWidget(choiceA);
 
-        answerA = new QCheckBox(layoutWidget);
-        buttonGroup = new QButtonGroup(AddMultiChoice);
-        buttonGroup->setObjectName(QStringLiteral("buttonGroup"));
-        buttonGroup->addButton(answerA);
-        answerA->setObjectName(QStringLiteral("answerA"));
+        horizontalLayout_3->setStretch(0, 1);
+        horizontalLayout_3->setStretch(1, 4);
 
-        horizontalLayout_3->addWidget(answerA);
+        horizontalLayout_6->addLayout(horizontalLayout_3);
 
-        answerB = new QCheckBox(layoutWidget);
-        buttonGroup->addButton(answerB);
-        answerB->setObjectName(QStringLiteral("answerB"));
+        horizontalLayout_6->setStretch(0, 1);
+        horizontalLayout_6->setStretch(1, 1);
 
-        horizontalLayout_3->addWidget(answerB);
+        verticalLayout->addLayout(horizontalLayout_6);
 
-        answerC = new QCheckBox(layoutWidget);
-        buttonGroup->addButton(answerC);
-        answerC->setObjectName(QStringLiteral("answerC"));
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setSpacing(6);
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        label_5 = new QLabel(groupBox);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        sizePolicy2.setHeightForWidth(label_5->sizePolicy().hasHeightForWidth());
+        label_5->setSizePolicy(sizePolicy2);
+        label_5->setStyleSheet(QStringLiteral("font: 75 14pt \"Arial\";"));
+        label_5->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_3->addWidget(answerC);
+        horizontalLayout_4->addWidget(label_5);
 
-        answerD = new QCheckBox(layoutWidget);
-        buttonGroup->addButton(answerD);
-        answerD->setObjectName(QStringLiteral("answerD"));
+        choiceC = new QTextEdit(groupBox);
+        choiceC->setObjectName(QStringLiteral("choiceC"));
+        sizePolicy.setHeightForWidth(choiceC->sizePolicy().hasHeightForWidth());
+        choiceC->setSizePolicy(sizePolicy);
+        choiceC->setMinimumSize(QSize(300, 80));
+        choiceC->setFont(font1);
+        choiceC->setReadOnly(false);
 
-        horizontalLayout_3->addWidget(answerD);
+        horizontalLayout_4->addWidget(choiceC);
 
-        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
+        horizontalLayout_4->setStretch(0, 1);
+        horizontalLayout_4->setStretch(1, 4);
 
-        horizontalLayout_3->addItem(horizontalSpacer_6);
+        horizontalLayout_7->addLayout(horizontalLayout_4);
 
-        horizontalLayout_3->setStretch(0, 3);
-        horizontalLayout_3->setStretch(1, 1);
-        horizontalLayout_3->setStretch(2, 1);
-        horizontalLayout_3->setStretch(3, 1);
-        horizontalLayout_3->setStretch(4, 1);
-        horizontalLayout_3->setStretch(5, 1);
-        horizontalLayout_3->setStretch(6, 5);
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        label_6 = new QLabel(groupBox);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        sizePolicy2.setHeightForWidth(label_6->sizePolicy().hasHeightForWidth());
+        label_6->setSizePolicy(sizePolicy2);
+        label_6->setStyleSheet(QStringLiteral("font: 75 14pt \"Arial\";"));
+        label_6->setAlignment(Qt::AlignCenter);
 
-        verticalLayout->addLayout(horizontalLayout_3);
+        horizontalLayout_5->addWidget(label_6);
 
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        choiceD = new QTextEdit(groupBox);
+        choiceD->setObjectName(QStringLiteral("choiceD"));
+        sizePolicy.setHeightForWidth(choiceD->sizePolicy().hasHeightForWidth());
+        choiceD->setSizePolicy(sizePolicy);
+        choiceD->setMinimumSize(QSize(300, 80));
+        choiceD->setFont(font1);
+        choiceD->setReadOnly(false);
 
-        verticalLayout->addItem(verticalSpacer_2);
+        horizontalLayout_5->addWidget(choiceD);
 
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        submitBtn = new QPushButton(layoutWidget);
-        submitBtn->setObjectName(QStringLiteral("submitBtn"));
+        horizontalLayout_5->setStretch(0, 1);
+        horizontalLayout_5->setStretch(1, 4);
 
-        horizontalLayout_2->addWidget(submitBtn);
+        horizontalLayout_7->addLayout(horizontalLayout_5);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_2->addItem(horizontalSpacer);
+        verticalLayout->addLayout(horizontalLayout_7);
 
-        resetBtn = new QPushButton(layoutWidget);
-        resetBtn->setObjectName(QStringLiteral("resetBtn"));
 
-        horizontalLayout_2->addWidget(resetBtn);
+        horizontalLayout_11->addLayout(verticalLayout);
 
-        horizontalLayout_2->setStretch(0, 8);
-        horizontalLayout_2->setStretch(1, 1);
-        horizontalLayout_2->setStretch(2, 8);
 
-        verticalLayout->addLayout(horizontalLayout_2);
+        verticalLayout_3->addWidget(groupBox);
 
 
         retranslateUi(AddMultiChoice);
@@ -378,30 +359,31 @@ public:
     void retranslateUi(QDialog *AddMultiChoice)
     {
         AddMultiChoice->setWindowTitle(QApplication::translate("AddMultiChoice", "\346\267\273\345\212\240\345\244\232\351\200\211\351\242\230", nullptr));
-        label->setText(QApplication::translate("AddMultiChoice", "\346\267\273\345\212\240\345\244\232\351\200\211\351\242\230", nullptr));
-        label_2->setText(QApplication::translate("AddMultiChoice", "\351\242\230\347\233\256\346\217\217\350\277\260", nullptr));
+        groupBox_2->setTitle(QApplication::translate("AddMultiChoice", "\350\257\225\351\242\230\346\217\217\350\277\260", nullptr));
         description->setHtml(QApplication::translate("AddMultiChoice", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:'Arial'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
-        description->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\242\230\347\233\256\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207300\345\255\227)", nullptr));
-        label_3->setText(QApplication::translate("AddMultiChoice", "A\351\200\211\351\241\271\346\217\217\350\277\260", nullptr));
-        choiceA->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
-        label_4->setText(QApplication::translate("AddMultiChoice", "B\351\200\211\351\241\271\346\217\217\350\277\260", nullptr));
-        choiceB->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
-        label_5->setText(QApplication::translate("AddMultiChoice", "C\351\200\211\351\241\271\346\217\217\350\277\260", nullptr));
-        choiceC->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
-        label_6->setText(QApplication::translate("AddMultiChoice", "D\351\200\211\351\241\271\346\217\217\350\277\260", nullptr));
-        choiceD->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
+        description->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\242\230\347\233\256\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207300\345\255\227\357\274\211", nullptr));
+        groupBox_3->setTitle(QApplication::translate("AddMultiChoice", "\350\257\225\351\242\230\345\261\236\346\200\247", nullptr));
         label_7->setText(QApplication::translate("AddMultiChoice", "\345\210\206     \345\200\274", nullptr));
         label_8->setText(QApplication::translate("AddMultiChoice", "\347\255\224     \346\241\210", nullptr));
         answerA->setText(QApplication::translate("AddMultiChoice", "A", nullptr));
         answerB->setText(QApplication::translate("AddMultiChoice", "B", nullptr));
         answerC->setText(QApplication::translate("AddMultiChoice", "C", nullptr));
         answerD->setText(QApplication::translate("AddMultiChoice", "D", nullptr));
-        submitBtn->setText(QApplication::translate("AddMultiChoice", "\346\217\220   \344\272\244", nullptr));
-        resetBtn->setText(QApplication::translate("AddMultiChoice", "\351\207\215    \347\275\256", nullptr));
+        submitBtn->setText(QApplication::translate("AddMultiChoice", "\346\217\220  \344\272\244", nullptr));
+        resetBtn->setText(QApplication::translate("AddMultiChoice", "\351\207\215  \347\275\256", nullptr));
+        groupBox->setTitle(QApplication::translate("AddMultiChoice", "\351\200\211\351\241\271\346\217\217\350\277\260", nullptr));
+        label_3->setText(QApplication::translate("AddMultiChoice", "A", nullptr));
+        choiceB->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
+        label_4->setText(QApplication::translate("AddMultiChoice", "B", nullptr));
+        choiceA->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
+        label_5->setText(QApplication::translate("AddMultiChoice", "C", nullptr));
+        choiceC->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
+        label_6->setText(QApplication::translate("AddMultiChoice", "D", nullptr));
+        choiceD->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
     } // retranslateUi
 
 };

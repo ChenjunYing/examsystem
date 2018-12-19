@@ -100,7 +100,6 @@ bool SqlModel::insertChoice(QString description , QString choiceA ,
   */	
 bool SqlModel::updateChoice(QString description , QString choiceA , QString choiceB ,
 	QString choiceC , QString choiceD , QString answer , int value , int questionId) {
-	qDebug() << questionId;
 	QSqlQuery query;
 	query.prepare("update object_question set description=:des,A=:A,B=:B,C=:C,D=:D,answer=:ans,value=:val,author=:author where question_id=:Id");
 	query.bindValue(":des" , description);
@@ -112,6 +111,21 @@ bool SqlModel::updateChoice(QString description , QString choiceA , QString choi
 	query.bindValue(":val" , value);
 	query.bindValue(":author" , "admin");
 	query.bindValue(":Id" , questionId);
+	return query.exec();
+}
+
+/**
+  * @author:应承峻
+  * @brief:删除选择题
+  * @param [in] 输入参数: 选择题编号questionId
+  * @param [out] 输出参数: 返回是否删除成功,若修改成功则返回true否则返回false
+  * @date:2018/12/19
+  * @version:1.0
+  */	
+bool SqlModel::deleteChoice(int questionId) {
+	QSqlQuery query;
+	query.prepare("delete from object_question where question_id = :id");
+	query.bindValue(":id" , questionId);
 	return query.exec();
 }
 
@@ -151,6 +165,53 @@ QList<Choice> SqlModel::searchChoice(int type) {
 
 /**
   * @author:应承峻
+  * @brief:从数据库中筛选相应的选择题,并返回选择题对象的集合
+  * @param [int] 输入参数:type,其中0表示单选题,1表示多选题
+  * @param [out] 输出参数:Choice类的一个对象集合
+  * @date:2018/12/19
+  * @note:重载函数
+  * @version:1.0
+  */
+QList<Choice> SqlModel::searchChoice(int type , QString keyWord, int lowerValue, int upperValue, QString author) {
+	QSqlQuery query;
+	QList<Choice> questionList;   //存放选择题对象的容器
+	switch (type) {
+		case 0:
+			query.prepare("select * from object_question where type = 0 and value>=:low and value<=:up");
+			query.bindValue(":low" , lowerValue);
+			query.bindValue(":up" , upperValue);
+			query.exec();
+			if (query.size()) {
+				while (query.next()) {
+					QString description = query.record().value(query.record().indexOf("description")).toString();
+					QString auth = query.record().value(query.record().indexOf("author")).toString();
+					if (description.contains(keyWord , Qt::CaseSensitive) && auth.contains(author , Qt::CaseSensitive))
+						questionList.push_back(splitChoice(query));
+				}
+			}
+			break;
+		case 1:
+			query.prepare("select * from object_question where type = 1 and value>=:low and value<=:up");
+			query.bindValue(":low" , lowerValue);
+			query.bindValue(":up" , upperValue);
+			query.exec();
+			if (query.size()) {
+				while (query.next()) {
+					QString description = query.record().value(query.record().indexOf("description")).toString();
+					QString auth = query.record().value(query.record().indexOf("author")).toString();
+					if (description.contains(keyWord , Qt::CaseSensitive) && auth.contains(author , Qt::CaseSensitive))
+						questionList.push_back(splitChoice(query));
+				}
+			}
+			break;
+		default:
+			break;
+	}
+	return questionList;
+}
+
+/**
+  * @author:应承峻
   * @brief:从数据库中筛选相应的判断题,并返回判断题对象的集合
   * @param [out] 输出参数:Judge类的一个对象集合
   * @date:2018/12/15
@@ -159,47 +220,38 @@ QList<Choice> SqlModel::searchChoice(int type) {
 QList<Judge> SqlModel::searchJudge() {
 	QSqlQuery query;
 	QList<Judge> questionList;  //存放判断题对象的容器
-	query.exec("select * from judge_question");
+	query.prepare("select * from judge_question");
 	while (query.next()) {
 		questionList.push_back(splitJudge(query));
 	}
 	return questionList;
 }
 
-/*
-  * @author:夏林轩
-  * @brief:将数据库中查询到的一条选择题数据存放在Exam类中,并根据用户名筛选
-  * @param [in] 输入参数: 查询结果query
-  * @param [out] 输出参数: 返回存放Exam类的一个对象
-  * @date:2018/12/17
-  * @version:2.0
-  */
-QList<Exam> SqlModel::searchExam(QString username)
-{
-	QSqlQuery query;
-	QList<Exam> examList;  //存放考试对象的容器
-	query.exec("select * from exam,config where exam.exam_code = config.exam_code");
-	while (query.next())
-	{
-		int userNameIndex = query.record().indexOf("username");
-		QString userName = query.record().value(userNameIndex).toString();
-		if (userName.compare(username)==0) examList.push_back(getInformationOfExam(query));
-	}
-	return examList;
-}
 
-Student SqlModel::searchStudentInfo(QString username)
-{
+/**
+  * @author:应承峻
+  * @brief:从数据库中筛选相应的判断题,并返回判断题对象的集合
+  * @param [out] 输出参数:Judge类的一个对象集合
+  * @date:2018/12/19
+  * @note:重载函数
+  * @version:1.0
+  */
+
+QList<Judge> SqlModel::searchJudge(QString keyWord , int lowerValue , int upperValue , QString author) {
 	QSqlQuery query;
-	query.exec("select * from user");
-	while (query.next())
-	{
-		int userNameIndex = query.record().indexOf("username");
-		QString userName = query.record().value(userNameIndex).toString();
-		if (userName.compare(username) == 0) {
-			return getInformationOfStudent(query);
-		}
+	QList<Judge> questionList;  //存放判断题对象的容器
+	query.prepare("select * from judge_question where value>=:low and value<=:up");
+	query.bindValue(":low" , lowerValue);
+	query.bindValue(":up" , upperValue);
+	query.exec();
+	while (query.next()) {
+		QString description = query.record().value(query.record().indexOf("description")).toString();
+		QString auth = query.record().value(query.record().indexOf("author")).toString();
+		if (description.contains(keyWord , Qt::CaseSensitive) && auth.contains(author , Qt::CaseSensitive))
+			questionList.push_back(splitJudge(query));
 	}
+	return questionList;
+
 }
 
 /**
@@ -253,6 +305,42 @@ Judge splitJudge(QSqlQuery query) {
 	int value = query.record().value(valueIndex).toInt();
 	int questionId = query.record().value(questionIdIndex).toInt();
 	return Judge::Judge(questionId , description , answer , value , author);
+}
+
+/*
+  * @author:夏林轩
+  * @brief:将数据库中查询到的一条选择题数据存放在Exam类中,并根据用户名筛选
+  * @param [in] 输入参数: 查询结果query
+  * @param [out] 输出参数: 返回存放Exam类的一个对象
+  * @date:2018/12/17
+  * @version:2.0
+  */
+QList<Exam> SqlModel::searchExam(QString username)
+{
+	QSqlQuery query;
+	QList<Exam> examList;  //存放考试对象的容器
+	query.exec("select * from exam,config where exam.exam_code = config.exam_code");
+	while (query.next())
+	{
+		int userNameIndex = query.record().indexOf("username");
+		QString userName = query.record().value(userNameIndex).toString();
+		if (userName.compare(username)==0) examList.push_back(getInformationOfExam(query));
+	}
+	return examList;
+}
+
+Student SqlModel::searchStudentInfo(QString username)
+{
+	QSqlQuery query;
+	query.exec("select * from user");
+	while (query.next())
+	{
+		int userNameIndex = query.record().indexOf("username");
+		QString userName = query.record().value(userNameIndex).toString();
+		if (userName.compare(username) == 0) {
+			return getInformationOfStudent(query);
+		}
+	}
 }
 
 /**

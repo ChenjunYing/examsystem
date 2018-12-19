@@ -4,7 +4,7 @@
 
 AddChoice::AddChoice(QWidget *parent) : QDialog(parent) {
 	ui.setupUi(this);
-	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
+	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint); //设置最小最大化按钮和关闭按钮
 	connect(this->ui.submitBtn , SIGNAL(clicked(bool)) , this , SLOT(checkData())); //绑定提交按钮点击事件
 	connect(this->ui.resetBtn , SIGNAL(clicked(bool)) , this , SLOT(resetData())); //绑定重置按钮点击事件
 }
@@ -137,7 +137,7 @@ void AddChoice::receiveData(Choice c) {
 	a->tempQuestionId = c.getQuestionId();  //存储试题编号
 	disconnect(a->ui.submitBtn , SIGNAL(clicked(bool)) , a , SLOT(checkData())); //解除绑定提交按钮点击事件
 	connect(a->ui.submitBtn , SIGNAL(clicked(bool)) , a , SLOT(checkUpdateData())); //重新绑定修改按钮点击事件
-	a->ui.label->setText(QStringLiteral("修改单选题"));   //修改标题文字
+	a->setWindowTitle(QStringLiteral("修改单选题")); //修改标题栏文字
 	a->ui.submitBtn->setText(QStringLiteral("修   改"));  //修改按钮文字
 	a->ui.description->setText(c.getDescription());  //填上相关信息
 	a->ui.choiceA->setText(c.getChoiceA());

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2018-12-15 22:25:36
+Date: 2018-12-19 20:20:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,41 +41,46 @@ DROP TABLE IF EXISTS `config`;
 CREATE TABLE `config` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
-  `exam_code` varchar(30) NOT NULL,
-  `start_time` datetime NOT NULL,
-  `end_time` datetime NOT NULL,
-  `object_score` int(5) NOT NULL,
-  `judge_score` int(5) NOT NULL,
+  `exam_code` int(5) NOT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `object_score` int(5) DEFAULT '0',
+  `judge_score` int(5) DEFAULT '0',
   `is_submit` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `username` (`username`),
   KEY `exam_code` (`exam_code`),
   CONSTRAINT `config_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `config_ibfk_2` FOREIGN KEY (`exam_code`) REFERENCES `exam` (`exam_code`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of config
 -- ----------------------------
+INSERT INTO `config` VALUES ('1', 'test', '1', null, null, '60', '40', '1');
+INSERT INTO `config` VALUES ('2', 'test', '3', null, null, '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for `exam`
 -- ----------------------------
 DROP TABLE IF EXISTS `exam`;
 CREATE TABLE `exam` (
+  `exam_code` int(5) NOT NULL AUTO_INCREMENT,
   `exam_name` varchar(40) NOT NULL,
-  `exam_code` varchar(30) NOT NULL,
-  `start_time` datetime NOT NULL,
-  `end_time` datetime NOT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
   `duration` int(5) NOT NULL,
   `information` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`exam_code`),
   UNIQUE KEY `exam_code` (`exam_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of exam
 -- ----------------------------
+INSERT INTO `exam` VALUES ('1', '《面向对象程序设计》课程期末考试', null, null, '120', '信息1');
+INSERT INTO `exam` VALUES ('2', '《数据结构基础》课程期末考试', null, null, '90', '信息2');
+INSERT INTO `exam` VALUES ('3', '一场简单的小测试', null, null, '100', '简单');
 
 -- ----------------------------
 -- Table structure for `exam_content`
@@ -85,7 +90,7 @@ CREATE TABLE `exam_content` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `object_id` int(5) NOT NULL,
   `subject_id` int(5) NOT NULL,
-  `exam_code` varchar(30) NOT NULL,
+  `exam_code` int(5) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_id` (`object_id`),
   KEY `subject_id` (`subject_id`),
@@ -106,7 +111,7 @@ DROP TABLE IF EXISTS `judge_answer`;
 CREATE TABLE `judge_answer` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
-  `exam_code` varchar(30) NOT NULL,
+  `exam_code` int(5) NOT NULL,
   `question_id` int(5) NOT NULL,
   `answer` varchar(1000) NOT NULL,
   PRIMARY KEY (`id`),
@@ -148,7 +153,7 @@ DROP TABLE IF EXISTS `object_answer`;
 CREATE TABLE `object_answer` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
-  `exam_code` varchar(30) NOT NULL,
+  `exam_code` int(5) NOT NULL,
   `question_id` int(5) NOT NULL,
   `answer` varchar(5) NOT NULL,
   PRIMARY KEY (`id`),
@@ -200,7 +205,7 @@ DROP TABLE IF EXISTS `score`;
 CREATE TABLE `score` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
-  `exam_code` varchar(30) NOT NULL,
+  `exam_code` int(5) NOT NULL,
   `subject_id` int(5) NOT NULL,
   `subject_score` int(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
