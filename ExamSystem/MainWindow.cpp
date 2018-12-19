@@ -44,7 +44,12 @@ void MainWindow::judgeTriggered() {
 void MainWindow::goQuestionBankTriggered() {
 	questionbank = new QuestionBank;
 	connect(questionbank , SIGNAL(sendChoiceData(Choice)) , choice , SLOT(receiveData(Choice)));  //题库和修改试题页面传递数据
-	connect(choice , SIGNAL(sendChoicePage(AddChoice*)) , this , SLOT(receiveAddChoicePage(AddChoice*)));
+	bool test1 = connect(choice , SIGNAL(sendChoicePage(AddChoice*)) , this , SLOT(receiveAddChoicePage(AddChoice*)));
+	connect(questionbank, SIGNAL(sendMultiChoiceData(Choice)), multichoice, SLOT(receiveData(Choice)));  //题库和修改试题页面传递数据
+	connect(multichoice, SIGNAL(sendMultiChoicePage(AddMultiChoice*)), this, SLOT(receiveAddMultiChoicePage(AddMultiChoice*)));
+	connect(questionbank, SIGNAL(sendJudgeData(Judge)), judge, SLOT(receiveData(Judge)));  //题库和修改试题页面传递数据
+	bool test2 = connect(judge, SIGNAL(sendJudgePage(AddJudge*)), this, SLOT(receiveAddJudgePage(AddJudge*)));
+	qDebug() << test1<<test2;
 	questionbank->exec(); //弹出查看题库模态框，此时用户不能对主界面进行操作
 	if (questionbank != NULL) {
 		delete questionbank;
@@ -60,6 +65,28 @@ void MainWindow::goQuestionBankTriggered() {
   */
 void MainWindow::receiveAddChoicePage(AddChoice* a) {
 	connect(a , SIGNAL(updateOK(int)) , questionbank , SLOT(receiveOK(int)));
+}
+
+/**
+  * @author:黄思泳
+  * @brief:接收AddMultiChoice页面发送的新建修改页面的地址并进行信号槽绑定
+  * @date:2018/12/18
+  * @version:1.0
+  * @note:与题库修改完成刷新事件绑定
+  */
+void MainWindow::receiveAddMultiChoicePage(AddMultiChoice* a) {
+	connect(a, SIGNAL(updateOK(int)), questionbank, SLOT(receiveOK(int)));
+}
+
+/**
+  * @author:黄思泳
+  * @brief:接收AddJudge页面发送的新建修改页面的地址并进行信号槽绑定
+  * @date:2018/12/19
+  * @version:1.0
+  * @note:与题库修改完成刷新事件绑定
+  */
+void MainWindow::receiveAddJudgePage(AddJudge* a) {
+	connect(a, SIGNAL(updateOK(int)), questionbank, SLOT(receiveOK(int)));
 }
 
 /*

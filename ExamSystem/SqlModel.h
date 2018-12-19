@@ -46,6 +46,32 @@ public:
 		QString choiceC , QString choiceD , QString answer , int value);
 	
 	/**
+      * @author:黄思泳
+      * @brief:将多选题相关信息插入到数据库中
+      * @param [in] 输入参数1: 问题描述description
+      * @param [in] 输入参数2~5: A~D选项的选项描述choiceA~choiceD
+      * @param [in] 输入参数6: 正确答案answer
+      * @param [in] 输入参数7: 试题分值value
+      * @param [out] 输出参数: 返回是否插入成功,若插入成功则返回true否则返回false
+      * @date:2018/12/18
+      * @version:1.0
+      */
+	bool insertMultiChoice(QString description, QString choiceA, QString choiceB,
+		QString choiceC, QString choiceD, QString answer, int value);
+
+	/**
+      * @author:黄思泳
+      * @brief:将判断题相关信息插入到数据库中
+      * @param [in] 输入参数1: 问题描述description
+      * @param [in] 输入参数2: 正确答案answer
+      * @param [in] 输入参数3: 试题分值value
+      * @param [out] 输出参数: 返回是否插入成功,若插入成功则返回true否则返回false
+      * @date:2018/12/19
+      * @version:1.0
+      */
+	bool insertJudge(QString description, QString answer, int value);
+
+	/**
 	  * @author:应承峻
 	  * @brief:修改单选题操作
 	  * @param [in] 输入参数1: 问题描述description
@@ -60,6 +86,32 @@ public:
 	bool updateChoice(QString description , QString choiceA , QString choiceB ,
 		QString choiceC , QString choiceD , QString answer , int value , int questionId);
 	
+	/**
+	  * @author:黄思泳
+	  * @brief:修改多选题操作
+	  * @param [in] 输入参数1: 问题描述description
+	  * @param [in] 输入参数2~5: A~D选项的选项描述choiceA~choiceD
+	  * @param [in] 输入参数6: 正确答案answer
+	  * @param [in] 输入参数7: 试题分值value
+	  * @param [in] 输入参数8: 试题编号questionId
+	  * @param [out] 输出参数: 返回是否修改成功,若修改成功则返回true否则返回false
+	  * @date:2018/12/17
+	  * @version:1.0
+	  */
+	bool updateMultiChoice(QString description, QString choiceA, QString choiceB,
+		QString choiceC, QString choiceD, QString answer, int value, int questionId);
+	/**
+	  * @author:黄思泳
+	  * @brief:将判断题相关信息插入到数据库中
+	  * @param [in] 输入参数1: 问题描述description
+	  * @param [in] 输入参数2: 正确答案answer
+	  * @param [in] 输入参数3: 试题分值value
+	  * @param [out] 输出参数: 返回是否插入成功,若插入成功则返回true否则返回false
+	  * @date:2018/12/19
+	  * @version:1.0
+	  */
+	bool updateJudge(QString description, QString answer, int value, int questionId);
+
 	/**
 	  * @author:应承峻
 	  * @brief:从数据库中筛选相应的选择题,并返回选择题对象的集合

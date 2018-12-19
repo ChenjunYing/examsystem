@@ -429,7 +429,7 @@ p, li { white-space: pre-wrap; }
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,1,1,1,1,1,5">
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,1,0,0,0,0,5">
       <item>
        <widget class="QLabel" name="label_8">
         <property name="sizePolicy">
@@ -464,9 +464,6 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>A</string>
         </property>
-        <attribute name="buttonGroup">
-         <string notr="true">buttonGroup</string>
-        </attribute>
        </widget>
       </item>
       <item>
@@ -474,9 +471,6 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>B</string>
         </property>
-        <attribute name="buttonGroup">
-         <string notr="true">buttonGroup</string>
-        </attribute>
        </widget>
       </item>
       <item>
@@ -484,9 +478,6 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>C</string>
         </property>
-        <attribute name="buttonGroup">
-         <string notr="true">buttonGroup</string>
-        </attribute>
        </widget>
       </item>
       <item>
@@ -494,9 +485,6 @@ p, li { white-space: pre-wrap; }
         <property name="text">
          <string>D</string>
         </property>
-        <attribute name="buttonGroup">
-         <string notr="true">buttonGroup</string>
-        </attribute>
        </widget>
       </item>
       <item>
@@ -567,7 +555,4 @@ p, li { white-space: pre-wrap; }
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
- <buttongroups>
-  <buttongroup name="buttonGroup"/>
- </buttongroups>
 </ui>

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[8];
-    char stringdata0[120];
+    QByteArrayData data[12];
+    char stringdata0[192];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,14 +35,20 @@ QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 20), // "receiveAddChoicePage"
 QT_MOC_LITERAL(2, 32, 0), // ""
 QT_MOC_LITERAL(3, 33, 10), // "AddChoice*"
-QT_MOC_LITERAL(4, 44, 15), // "choiceTriggered"
-QT_MOC_LITERAL(5, 60, 14), // "judgeTriggered"
-QT_MOC_LITERAL(6, 75, 20), // "multichoiceTriggered"
-QT_MOC_LITERAL(7, 96, 23) // "goQuestionBankTriggered"
+QT_MOC_LITERAL(4, 44, 25), // "receiveAddMultiChoicePage"
+QT_MOC_LITERAL(5, 70, 15), // "AddMultiChoice*"
+QT_MOC_LITERAL(6, 86, 19), // "receiveAddJudgePage"
+QT_MOC_LITERAL(7, 106, 9), // "AddJudge*"
+QT_MOC_LITERAL(8, 116, 15), // "choiceTriggered"
+QT_MOC_LITERAL(9, 132, 14), // "judgeTriggered"
+QT_MOC_LITERAL(10, 147, 20), // "multichoiceTriggered"
+QT_MOC_LITERAL(11, 168, 23) // "goQuestionBankTriggered"
 
     },
     "MainWindow\0receiveAddChoicePage\0\0"
-    "AddChoice*\0choiceTriggered\0judgeTriggered\0"
+    "AddChoice*\0receiveAddMultiChoicePage\0"
+    "AddMultiChoice*\0receiveAddJudgePage\0"
+    "AddJudge*\0choiceTriggered\0judgeTriggered\0"
     "multichoiceTriggered\0goQuestionBankTriggered"
 };
 #undef QT_MOC_LITERAL
@@ -53,7 +59,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -61,14 +67,18 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   39,    2, 0x0a /* Public */,
-       4,    0,   42,    2, 0x08 /* Private */,
-       5,    0,   43,    2, 0x08 /* Private */,
-       6,    0,   44,    2, 0x08 /* Private */,
-       7,    0,   45,    2, 0x08 /* Private */,
+       1,    1,   49,    2, 0x0a /* Public */,
+       4,    1,   52,    2, 0x0a /* Public */,
+       6,    1,   55,    2, 0x0a /* Public */,
+       8,    0,   58,    2, 0x08 /* Private */,
+       9,    0,   59,    2, 0x08 /* Private */,
+      10,    0,   60,    2, 0x08 /* Private */,
+      11,    0,   61,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
+    QMetaType::Void, 0x80000000 | 5,    2,
+    QMetaType::Void, 0x80000000 | 7,    2,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -84,10 +94,12 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->receiveAddChoicePage((*reinterpret_cast< AddChoice*(*)>(_a[1]))); break;
-        case 1: _t->choiceTriggered(); break;
-        case 2: _t->judgeTriggered(); break;
-        case 3: _t->multichoiceTriggered(); break;
-        case 4: _t->goQuestionBankTriggered(); break;
+        case 1: _t->receiveAddMultiChoicePage((*reinterpret_cast< AddMultiChoice*(*)>(_a[1]))); break;
+        case 2: _t->receiveAddJudgePage((*reinterpret_cast< AddJudge*(*)>(_a[1]))); break;
+        case 3: _t->choiceTriggered(); break;
+        case 4: _t->judgeTriggered(); break;
+        case 5: _t->multichoiceTriggered(); break;
+        case 6: _t->goQuestionBankTriggered(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -98,6 +110,20 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
                 *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< AddChoice* >(); break;
+            }
+            break;
+        case 1:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< AddMultiChoice* >(); break;
+            }
+            break;
+        case 2:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+            case 0:
+                *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< AddJudge* >(); break;
             }
             break;
         }
@@ -129,13 +155,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 7;
     }
     return _id;
 }

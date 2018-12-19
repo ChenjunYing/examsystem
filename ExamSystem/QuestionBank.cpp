@@ -13,6 +13,8 @@ QuestionBank::QuestionBank(QWidget *parent) : QDialog(parent) {
 	QuestionBank::dataRefresh();  //从数据库中拉取数据
 	QuestionBank::onTabChanged(0); //默认显示单选题
 	connect(this->ui.choiceTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(choiceDoubleClicked()));
+	connect(this->ui.multiTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(multiDoubleClicked()));
+	connect(this->ui.judgeTable, SIGNAL(doubleClicked(const QModelIndex&)), this, SLOT(judgeDoubleClicked()));
 	connect(this->ui.tabWidget , SIGNAL(currentChanged(int)) , this , SLOT(onTabChanged(int)));
 }
 
@@ -27,6 +29,32 @@ void QuestionBank::choiceDoubleClicked() {
 	QModelIndex index = this->ui.choiceTable->currentIndex(); //当前被点击的单元格
 	if (index.isValid()) {
 		emit sendChoiceData(this->choice.at(index.row())); //发送数据
+	}
+}
+
+/**
+  * @author:黄思泳
+  * @brief:实现多选题表格双击修改的功能
+  * @date:2018/12/18
+  * @version:1.0
+  */
+void QuestionBank::multiDoubleClicked() {
+	QModelIndex index = this->ui.multiTable->currentIndex(); //当前被点击的单元格
+	if (index.isValid()) {
+		emit sendMultiChoiceData(this->multichoice.at(index.row())); //发送数据
+	}
+}
+
+/**
+  * @author:黄思泳
+  * @brief:实现多选题表格双击修改的功能
+  * @date:2018/12/18
+  * @version:1.0
+  */
+void QuestionBank::judgeDoubleClicked() {
+	QModelIndex index = this->ui.judgeTable->currentIndex(); //当前被点击的单元格
+	if (index.isValid()) {
+		emit sendJudgeData(this->judge.at(index.row())); //发送数据
 	}
 }
 

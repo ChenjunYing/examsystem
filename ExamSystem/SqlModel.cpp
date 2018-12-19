@@ -86,6 +86,57 @@ bool SqlModel::insertChoice(QString description , QString choiceA ,
 }
 
 /**
+  * @author:黄思泳
+  * @brief:将多选题相关信息插入/修改到数据库中
+  * @param [in] 输入参数1: 问题描述description
+  * @param [in] 输入参数2~5: A~D选项的选项描述choiceA~choiceD
+  * @param [in] 输入参数6: 正确答案answer
+  * @param [in] 输入参数7: 试题分值value
+  * @param [in] 输入参数8: 试题编号questionId
+  * @param [out] 输出参数: 返回是否插入/修改成功,若插入成功则返回true否则返回false
+  * @date:2018/12/18
+  * @version:1.0
+  */
+bool SqlModel::insertMultiChoice(QString description, QString choiceA, QString choiceB,
+	QString choiceC, QString choiceD, QString answer, int value)
+{
+	QSqlQuery query;
+	int type;
+	query.prepare("insert into object_question(description,A,B,C,D,answer,value,type,author) values(:des,:A,:B,:C,:D,:ans,:val,1,:author)");
+	query.bindValue(":des", description);
+	query.bindValue(":A", choiceA);
+	query.bindValue(":B", choiceB);
+	query.bindValue(":C", choiceC);
+	query.bindValue(":D", choiceD);
+	query.bindValue(":ans", answer);
+	query.bindValue(":val", value);
+	query.bindValue(":author", "admin");
+	return query.exec();
+}
+
+/**
+  * @author:黄思泳
+  * @brief:将判断题相关信息插入到数据库中
+  * @param [in] 输入参数1: 问题描述description
+  * @param [in] 输入参数2: 正确答案answer
+  * @param [in] 输入参数3: 试题分值value
+  * @param [out] 输出参数: 返回是否插入成功,若插入成功则返回true否则返回false
+  * @date:2018/12/19
+  * @version:1.0
+  */
+bool SqlModel::insertJudge(QString description, QString answer, int value)
+{
+	QSqlQuery query;
+	int type;
+	query.prepare("insert into judge_question(description,answer,value,author) values(:des,:ans,:val,:author)");
+	query.bindValue(":des", description);
+	query.bindValue(":ans", answer);
+	query.bindValue(":val", value);
+	query.bindValue(":author", "admin");
+	return query.exec();
+}
+
+/**
   * @author:应承峻
   * @brief:修改单选题操作
   * @param [in] 输入参数1: 问题描述description
@@ -110,6 +161,55 @@ bool SqlModel::updateChoice(QString description , QString choiceA , QString choi
 	query.bindValue(":val" , value);
 	query.bindValue(":author" , "admin");
 	query.bindValue(":Id" , questionId);
+	return query.exec();
+}
+
+/**
+  * @author:黄思泳
+  * @brief:修改多选题操作
+  * @param [in] 输入参数1: 问题描述description
+  * @param [in] 输入参数2~5: A~D选项的选项描述choiceA~choiceD
+  * @param [in] 输入参数6: 正确答案answer
+  * @param [in] 输入参数7: 试题分值value
+  * @param [in] 输入参数8: 试题编号questionId
+  * @param [out] 输出参数: 返回是否修改成功,若修改成功则返回true否则返回false
+  * @date:2018/12/18
+  * @version:1.0
+  */
+bool SqlModel::updateMultiChoice(QString description, QString choiceA, QString choiceB,
+	QString choiceC, QString choiceD, QString answer, int value, int questionId) {
+	QSqlQuery query;
+	query.prepare("update object_question set description=:des,A=:A,B=:B,C=:C,D=:D,answer=:ans,value=:val,author=:author where question_id=:Id");
+	query.bindValue(":des", description);
+	query.bindValue(":A", choiceA);
+	query.bindValue(":B", choiceB);
+	query.bindValue(":C", choiceC);
+	query.bindValue(":D", choiceD);
+	query.bindValue(":ans", answer);
+	query.bindValue(":val", value);
+	query.bindValue(":author", "admin");
+	query.bindValue(":Id", questionId);
+	return query.exec();
+}
+
+/**
+  * @author:黄思泳
+  * @brief:将判断题相关信息插入到数据库中
+  * @param [in] 输入参数1: 问题描述description
+  * @param [in] 输入参数2: 正确答案answer
+  * @param [in] 输入参数3: 试题分值value
+  * @param [out] 输出参数: 返回是否插入成功,若插入成功则返回true否则返回false
+  * @date:2018/12/19
+  * @version:1.0
+  */
+bool SqlModel::updateJudge(QString description, QString answer, int value, int questionId) {
+	QSqlQuery query;
+	query.prepare("update judge_question set description=:des,answer=:ans,value=:val,author=:author where question_id=:Id");
+	query.bindValue(":des", description);
+	query.bindValue(":ans", answer);
+	query.bindValue(":val", value);
+	query.bindValue(":author", "admin");
+	query.bindValue(":Id", questionId);
 	return query.exec();
 }
 

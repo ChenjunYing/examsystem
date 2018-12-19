@@ -27,6 +27,22 @@ public:
   */
 signals: void sendChoiceData(Choice c);
 
+/**
+  * @author:黄思泳
+  * @brief:向修改多选题页面发送多选题的数据
+  * @date:2018/12/16
+  * @version:1.0
+  */
+signals: void sendMultiChoiceData(Choice c);
+
+/**
+  * @author:黄思泳
+  * @brief:向修改判断题页面发送多选题的数据
+  * @date:2018/12/16
+  * @version:1.0
+  */
+signals: void sendJudgeData(Judge c);
+
 private slots:
 	/**
 	  * @author:应承峻
@@ -67,6 +83,22 @@ private slots:
 	  * @version:1.0
 	  */
 	void choiceDoubleClicked();
+
+	/**
+      * @author:黄思泳
+      * @brief:实现多选题表格双击修改的功能
+      * @date:2018/12/18
+      * @version:1.0
+      */
+	void multiDoubleClicked();
+
+	/**
+	  * @author:黄思泳
+	  * @brief:实现判断题表格双击修改的功能
+	  * @date:2018/12/18
+	  * @version:1.0
+	  */
+	void judgeDoubleClicked();
 
 	/**
 	  * @author:应承峻

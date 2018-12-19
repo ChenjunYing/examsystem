@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
@@ -70,7 +69,6 @@ public:
     QPushButton *submitBtn;
     QSpacerItem *horizontalSpacer;
     QPushButton *resetBtn;
-    QButtonGroup *buttonGroup;
 
     void setupUi(QDialog *AddMultiChoice)
     {
@@ -303,27 +301,21 @@ public:
         horizontalLayout_3->addItem(horizontalSpacer_2);
 
         answerA = new QCheckBox(layoutWidget);
-        buttonGroup = new QButtonGroup(AddMultiChoice);
-        buttonGroup->setObjectName(QStringLiteral("buttonGroup"));
-        buttonGroup->addButton(answerA);
         answerA->setObjectName(QStringLiteral("answerA"));
 
         horizontalLayout_3->addWidget(answerA);
 
         answerB = new QCheckBox(layoutWidget);
-        buttonGroup->addButton(answerB);
         answerB->setObjectName(QStringLiteral("answerB"));
 
         horizontalLayout_3->addWidget(answerB);
 
         answerC = new QCheckBox(layoutWidget);
-        buttonGroup->addButton(answerC);
         answerC->setObjectName(QStringLiteral("answerC"));
 
         horizontalLayout_3->addWidget(answerC);
 
         answerD = new QCheckBox(layoutWidget);
-        buttonGroup->addButton(answerD);
         answerD->setObjectName(QStringLiteral("answerD"));
 
         horizontalLayout_3->addWidget(answerD);
@@ -334,10 +326,6 @@ public:
 
         horizontalLayout_3->setStretch(0, 3);
         horizontalLayout_3->setStretch(1, 1);
-        horizontalLayout_3->setStretch(2, 1);
-        horizontalLayout_3->setStretch(3, 1);
-        horizontalLayout_3->setStretch(4, 1);
-        horizontalLayout_3->setStretch(5, 1);
         horizontalLayout_3->setStretch(6, 5);
 
         verticalLayout->addLayout(horizontalLayout_3);

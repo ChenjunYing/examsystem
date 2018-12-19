@@ -20,6 +20,8 @@ public:
 
 public slots:
 	void receiveAddChoicePage(AddChoice*);
+	void receiveAddMultiChoicePage(AddMultiChoice*);
+	void receiveAddJudgePage(AddJudge*);
 
 private slots:
 	void choiceTriggered();
