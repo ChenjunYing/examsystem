@@ -12,6 +12,8 @@ QuestionBank::QuestionBank(QWidget *parent) : QDialog(parent) {
 	QuestionBank::onTabChanged(0); //默认显示单选题
 	connect(this->ui.choiceTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(choiceDoubleClicked(const QModelIndex&)));
 	connect(this->ui.choiceTable , SIGNAL(clicked(const QModelIndex&)) , this , SLOT(choiceClicked(const QModelIndex&)));
+	connect(this->ui.multiTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(multiDoubleClicked()));
+	connect(this->ui.judgeTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(judgeDoubleClicked()));
 	connect(this->ui.tabWidget , SIGNAL(currentChanged(int)) , this , SLOT(onTabChanged(int)));
 	connect(this->ui.selectBtn , SIGNAL(clicked(bool)) , this , SLOT(searchQuestion()));
 	connect(this->ui.resetBtn , SIGNAL(clicked(bool)) , this , SLOT(reset()));
@@ -46,6 +48,30 @@ void QuestionBank::onTabChanged(int index) {
 		case 1: showMultichoice(); break;
 		case 2: showJudge(); break;
 		default: break;
+	}
+}
+
+/**
+  * @author:黄思泳
+  * @brief:实现多选题表格双击修改的功能
+  * @date:2018/12/18
+  * @version:1.0
+  */
+void QuestionBank::multiDoubleClicked(const QModelIndex& index) {
+	if (index.isValid() && index.column() != 7 && index.column() != 8) {
+		emit sendMultiChoiceData(this->multichoice.at(index.row())); //发送数据
+	}
+}
+
+/**
+  * @author:黄思泳
+  * @brief:实现多选题表格双击修改的功能
+  * @date:2018/12/18
+  * @version:1.0
+  */
+void QuestionBank::judgeDoubleClicked(const QModelIndex& index) {
+	if (index.isValid()) {
+		emit sendJudgeData(this->judge.at(index.row())); //发送数据
 	}
 }
 
