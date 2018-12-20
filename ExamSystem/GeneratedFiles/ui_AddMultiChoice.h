@@ -52,10 +52,10 @@ public:
     QHBoxLayout *horizontalLayout_6;
     QHBoxLayout *horizontalLayout;
     QLabel *label_3;
-    QTextEdit *choiceB;
+    QTextEdit *choiceA;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_4;
-    QTextEdit *choiceA;
+    QTextEdit *choiceB;
     QHBoxLayout *horizontalLayout_7;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_5;
@@ -237,15 +237,15 @@ public:
 
         horizontalLayout->addWidget(label_3);
 
-        choiceB = new QTextEdit(groupBox);
-        choiceB->setObjectName(QStringLiteral("choiceB"));
-        sizePolicy.setHeightForWidth(choiceB->sizePolicy().hasHeightForWidth());
-        choiceB->setSizePolicy(sizePolicy);
-        choiceB->setMinimumSize(QSize(300, 80));
-        choiceB->setFont(font1);
-        choiceB->setReadOnly(false);
+        choiceA = new QTextEdit(groupBox);
+        choiceA->setObjectName(QStringLiteral("choiceA"));
+        sizePolicy.setHeightForWidth(choiceA->sizePolicy().hasHeightForWidth());
+        choiceA->setSizePolicy(sizePolicy);
+        choiceA->setMinimumSize(QSize(300, 80));
+        choiceA->setFont(font1);
+        choiceA->setReadOnly(false);
 
-        horizontalLayout->addWidget(choiceB);
+        horizontalLayout->addWidget(choiceA);
 
         horizontalLayout->setStretch(0, 1);
         horizontalLayout->setStretch(1, 4);
@@ -264,15 +264,15 @@ public:
 
         horizontalLayout_3->addWidget(label_4);
 
-        choiceA = new QTextEdit(groupBox);
-        choiceA->setObjectName(QStringLiteral("choiceA"));
-        sizePolicy.setHeightForWidth(choiceA->sizePolicy().hasHeightForWidth());
-        choiceA->setSizePolicy(sizePolicy);
-        choiceA->setMinimumSize(QSize(300, 80));
-        choiceA->setFont(font1);
-        choiceA->setReadOnly(false);
+        choiceB = new QTextEdit(groupBox);
+        choiceB->setObjectName(QStringLiteral("choiceB"));
+        sizePolicy.setHeightForWidth(choiceB->sizePolicy().hasHeightForWidth());
+        choiceB->setSizePolicy(sizePolicy);
+        choiceB->setMinimumSize(QSize(300, 80));
+        choiceB->setFont(font1);
+        choiceB->setReadOnly(false);
 
-        horizontalLayout_3->addWidget(choiceA);
+        horizontalLayout_3->addWidget(choiceB);
 
         horizontalLayout_3->setStretch(0, 1);
         horizontalLayout_3->setStretch(1, 4);
@@ -377,9 +377,9 @@ public:
         resetBtn->setText(QApplication::translate("AddMultiChoice", "\351\207\215  \347\275\256", nullptr));
         groupBox->setTitle(QApplication::translate("AddMultiChoice", "\351\200\211\351\241\271\346\217\217\350\277\260", nullptr));
         label_3->setText(QApplication::translate("AddMultiChoice", "A", nullptr));
-        choiceB->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
-        label_4->setText(QApplication::translate("AddMultiChoice", "B", nullptr));
         choiceA->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
+        label_4->setText(QApplication::translate("AddMultiChoice", "B", nullptr));
+        choiceB->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
         label_5->setText(QApplication::translate("AddMultiChoice", "C", nullptr));
         choiceC->setPlaceholderText(QApplication::translate("AddMultiChoice", "\350\257\267\345\234\250\346\255\244\345\244\204\350\276\223\345\205\245\351\200\211\351\241\271\346\217\217\350\277\260\357\274\210\344\270\215\350\266\205\350\277\207200\345\255\227\357\274\211", nullptr));
         label_6->setText(QApplication::translate("AddMultiChoice", "D", nullptr));

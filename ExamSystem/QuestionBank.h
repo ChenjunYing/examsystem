@@ -69,6 +69,8 @@ private slots:
       */
 	void multiDoubleClicked(const QModelIndex&);
 
+	void multiClicked(const QModelIndex& index);
+
 	/**
 	  * @author:黄思泳
 	  * @brief:实现判断题表格双击修改的功能
@@ -76,6 +78,8 @@ private slots:
 	  * @version:1.0
 	  */
 	void judgeDoubleClicked(const QModelIndex&);
+
+	void judgeClicked(const QModelIndex& index);
 
 	/**
 	  * @author:应承峻

@@ -25,26 +25,55 @@
   <property name="windowTitle">
    <string>学生主界面</string>
   </property>
-  <widget class="QGraphicsView" name="graphicsView">
+  <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>171</width>
-     <height>211</height>
+     <x>210</x>
+     <y>9</y>
+     <width>721</width>
+     <height>430</height>
     </rect>
    </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>719</width>
+      <height>428</height>
+     </rect>
+    </property>
+    <widget class="QTableView" name="examTable">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>721</width>
+       <height>430</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>240</y>
-     <width>191</width>
-     <height>181</height>
+     <x>10</x>
+     <y>229</y>
+     <width>181</width>
+     <height>211</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,3">
       <item>
@@ -108,40 +137,24 @@
       </item>
      </layout>
     </item>
+    <item>
+     <widget class="QPushButton" name="btnLogout">
+      <property name="text">
+       <string>注销</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
-  <widget class="QScrollArea" name="scrollArea">
+  <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>20</y>
-     <width>721</width>
-     <height>401</height>
+     <x>10</x>
+     <y>10</y>
+     <width>183</width>
+     <height>211</height>
     </rect>
    </property>
-   <property name="widgetResizable">
-    <bool>true</bool>
-   </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents_2">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>719</width>
-      <height>399</height>
-     </rect>
-    </property>
-    <widget class="QTableView" name="examTable">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>721</width>
-       <height>401</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

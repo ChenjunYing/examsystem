@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2018-12-19 20:20:26
+Date: 2018-12-20 23:24:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,6 +45,7 @@ CREATE TABLE `config` (
   `start_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
   `object_score` int(5) DEFAULT '0',
+  `multi_score` int(5) DEFAULT NULL,
   `judge_score` int(5) DEFAULT '0',
   `is_submit` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -57,8 +58,8 @@ CREATE TABLE `config` (
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES ('1', 'test', '1', null, null, '60', '40', '1');
-INSERT INTO `config` VALUES ('2', 'test', '3', null, null, '0', '0', '0');
+INSERT INTO `config` VALUES ('1', 'test', '1', null, null, '60', null, '40', '1');
+INSERT INTO `config` VALUES ('2', 'test', '3', null, null, '0', null, '0', '0');
 
 -- ----------------------------
 -- Table structure for `exam`
@@ -88,15 +89,15 @@ INSERT INTO `exam` VALUES ('3', '一场简单的小测试', null, null, '100', '
 DROP TABLE IF EXISTS `exam_content`;
 CREATE TABLE `exam_content` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `object_id` int(5) NOT NULL,
-  `subject_id` int(5) NOT NULL,
+  `object_id` int(5) DEFAULT NULL,
+  `judge_id` int(5) DEFAULT NULL,
   `exam_code` int(5) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `object_id` (`object_id`),
-  KEY `subject_id` (`subject_id`),
+  KEY `subject_id` (`judge_id`),
   KEY `exam_code` (`exam_code`),
   CONSTRAINT `exam_content_ibfk_1` FOREIGN KEY (`object_id`) REFERENCES `object_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `exam_content_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `judge_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `exam_content_ibfk_2` FOREIGN KEY (`judge_id`) REFERENCES `judge_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_content_ibfk_3` FOREIGN KEY (`exam_code`) REFERENCES `exam` (`exam_code`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -139,12 +140,13 @@ CREATE TABLE `judge_question` (
   `author` varchar(20) NOT NULL,
   PRIMARY KEY (`question_id`),
   UNIQUE KEY `question_id` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of judge_question
 -- ----------------------------
 INSERT INTO `judge_question` VALUES ('1', '这道题的答案是错误的', 'F', '1', 'admin');
+INSERT INTO `judge_question` VALUES ('2', '添加一个判断题', 'F', '1', 'admin');
 
 -- ----------------------------
 -- Table structure for `object_answer`
@@ -186,7 +188,7 @@ CREATE TABLE `object_question` (
   `author` varchar(20) NOT NULL,
   PRIMARY KEY (`question_id`),
   UNIQUE KEY `question_id` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of object_question
@@ -197,6 +199,7 @@ INSERT INTO `object_question` VALUES ('3', '这道题答案是C', '这道题答�
 INSERT INTO `object_question` VALUES ('4', '多选题，你猜选什么', 'AA', 'BB', 'CC', 'DD', 'ABCD', '3', '1', 'admin');
 INSERT INTO `object_question` VALUES ('5', '下列哪些是ch的外号', '欢哥', 'cg天才少女', 'cg天才红娘', 'chdltql', 'ABC', '4', '1', 'admin');
 INSERT INTO `object_question` VALUES ('6', '这是一道很长的题目这是一道很长的题目这是一道很长的题目这是一道很长的题目这是一道很长的题目这是一道很长的题目', '它真的很长', '它真的很长它真的很长它真的很长它真的很长它真的很长', '它真的很长它真的很长它真的很长它真的很长它真的很长它真的很长', '它真的很长它真的很长它真的很长它真的很长', 'C', '100', '0', 'admin');
+INSERT INTO `object_question` VALUES ('8', '这道题有四个答案', '这是答案', '这是答案', '这是答案', '这也是答案', 'ABCD', '4', '1', 'admin');
 
 -- ----------------------------
 -- Table structure for `score`

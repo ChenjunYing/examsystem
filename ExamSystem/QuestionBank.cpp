@@ -13,7 +13,9 @@ QuestionBank::QuestionBank(QWidget *parent) : QDialog(parent) {
 	connect(this->ui.choiceTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(choiceDoubleClicked(const QModelIndex&)));
 	connect(this->ui.choiceTable , SIGNAL(clicked(const QModelIndex&)) , this , SLOT(choiceClicked(const QModelIndex&)));
 	connect(this->ui.multiTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(multiDoubleClicked(const QModelIndex&)));
+	connect(this->ui.multiTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(multiClicked(const QModelIndex&)));
 	connect(this->ui.judgeTable , SIGNAL(doubleClicked(const QModelIndex&)) , this , SLOT(judgeDoubleClicked(const QModelIndex&)));
+	connect(this->ui.judgeTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(judgeClicked(const QModelIndex&)));
 	connect(this->ui.tabWidget , SIGNAL(currentChanged(int)) , this , SLOT(onTabChanged(int)));
 	connect(this->ui.selectBtn , SIGNAL(clicked(bool)) , this , SLOT(searchQuestion()));
 	connect(this->ui.resetBtn , SIGNAL(clicked(bool)) , this , SLOT(reset()));
@@ -65,12 +67,12 @@ void QuestionBank::multiDoubleClicked(const QModelIndex& index) {
 
 /**
   * @author:黄思泳
-  * @brief:实现多选题表格双击修改的功能
-  * @date:2018/12/18
-  * @version:1.0
+  * @brief:实现判断题表格双击修改的功能
+  * @date:2018/12/20
+  * @version:2.0
   */
 void QuestionBank::judgeDoubleClicked(const QModelIndex& index) {
-	if (index.isValid()) {
+	if (index.isValid() && index.column() != 3 && index.column() != 4) {
 		emit sendJudgeData(this->judge.at(index.row())); //发送数据
 	}
 }
@@ -228,6 +230,54 @@ void QuestionBank::choiceClicked(const QModelIndex& index) {
 				QuestionBank::searchQuestion(); //刷新页面
 			} else {
 				QMessageBox::information(this , QStringLiteral("提示") , QStringLiteral("删除失败！") , QMessageBox::Ok);
+			}
+		}
+	}
+}
+
+/**
+  * @author:黄思泳
+  * @brief:实现多选题表格删除格处单击删除的功能
+  * @date:2018/12/20
+  * @version:1.0
+  */
+void QuestionBank::multiClicked(const QModelIndex & index)
+{
+	SqlModel sql;
+	if (index.isValid() && index.column() == 8) {  //点击到删除按钮
+		int ret = QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("确定删除这道题吗？删除后将无法恢复！"), QMessageBox::Yes | QMessageBox::Cancel);
+		if (ret == QMessageBox::Yes) {
+			int id = multichoice.at(index.row()).getQuestionId();
+			if (sql.isOpen() && sql.deleteChoice(id)) {
+				QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("删除成功！"), QMessageBox::Ok);
+				QuestionBank::searchQuestion(); //刷新页面
+			}
+			else {
+				QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("删除失败！"), QMessageBox::Ok);
+			}
+		}
+	}
+}
+
+/**
+  * @author:黄思泳
+  * @brief:实现判断题表格删除格处单击删除的功能
+  * @date:2018/12/20
+  * @version:1.0
+  */
+void QuestionBank::judgeClicked(const QModelIndex & index)
+{
+	SqlModel sql;
+	if (index.isValid() && index.column() == 4) {  //点击到删除按钮
+		int ret = QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("确定删除这道题吗？删除后将无法恢复！"), QMessageBox::Yes | QMessageBox::Cancel);
+		if (ret == QMessageBox::Yes) {
+			int id = judge.at(index.row()).getQuestionId();
+			if (sql.isOpen() && sql.deleteJudge(id)) {
+				QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("删除成功！"), QMessageBox::Ok);
+				QuestionBank::searchQuestion(); //刷新页面
+			}
+			else {
+				QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("删除失败！"), QMessageBox::Ok);
 			}
 		}
 	}

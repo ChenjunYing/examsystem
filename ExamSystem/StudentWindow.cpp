@@ -14,42 +14,61 @@ StudentWindow::~StudentWindow()
 	delete examModel;
 }
 
+
 /**
   * @author:夏林轩
-  * @brief:将考试信息在学生主界面上显示出来，2.0增加小分的显示
-  * @date:2018/12/16
-  * @version:2.0
+  * @brief:将考试信息在学生主界面上显示出来，2.0增加小分的显示,3.0考试名称列当内容过长时，列宽进行自适应
+  * @date:2018/12/20
+  * @version:3.0
   */
 void StudentWindow::showExam()
 {
-	this->examModel->setHorizontalHeaderItem(0, new QStandardItem(QStringLiteral("考试编号")));
-	this->examModel->setHorizontalHeaderItem(1, new QStandardItem(QStringLiteral("考试名称")));
-	this->examModel->setHorizontalHeaderItem(2, new QStandardItem(QStringLiteral("考试时长")));
-	this->examModel->setHorizontalHeaderItem(3, new QStandardItem(QStringLiteral("考试状态")));
-	this->examModel->setHorizontalHeaderItem(4, new QStandardItem(QStringLiteral("考试总分")));
-	this->examModel->setHorizontalHeaderItem(5, new QStandardItem(QStringLiteral("选择得分")));
-	this->examModel->setHorizontalHeaderItem(6, new QStandardItem(QStringLiteral("判断得分")));
+	int columnWidthStrategy = 0;
+	this->examModel->setHorizontalHeaderItem(0, new QStandardItem(QStringLiteral("考试名称")));
+	this->examModel->setHorizontalHeaderItem(1, new QStandardItem(QStringLiteral("考试时长")));
+	this->examModel->setHorizontalHeaderItem(2, new QStandardItem(QStringLiteral("考试状态")));
+	this->examModel->setHorizontalHeaderItem(3, new QStandardItem(QStringLiteral("考试总分")));
+	this->examModel->setHorizontalHeaderItem(4, new QStandardItem(QStringLiteral("选择得分")));
+	this->examModel->setHorizontalHeaderItem(5, new QStandardItem(QStringLiteral("判断得分")));
 	this->ui.examTable->setModel(examModel);
+	this->ui.examTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	StudentWindow::dataGet();
+	for (int j = 0; j < exam.size(); j++)
+	{
+		if (exam.at(j).getName().length() >= 16)
+		{
+			columnWidthStrategy = 1;
+			break;
+		}
+	}
 	for (int i = 0; i < exam.size(); i++) {
-		QString code = QString::number(exam.at(i).getCode());
 		QString duration = QString::number(exam.at(i).getDuration());
-		this->examModel->setItem(i, 0, new QStandardItem(code));
-		this->examModel->setItem(i, 1, new QStandardItem(exam.at(i).getName()));
-		this->examModel->setItem(i, 2, new QStandardItem(duration));
+		this->examModel->setItem(i, 0, new QStandardItem(exam.at(i).getName()));
+		if (columnWidthStrategy) {
+			this->ui.examTable->resizeColumnToContents(0);
+		}
+		else {
+			this->ui.examTable->setColumnWidth(0, 200);
+		}
+		this->examModel->setItem(i, 1, new QStandardItem(duration.append(QStringLiteral("分钟"))));
 		if (exam.at(i).getIsSubmit() == 1) {
 			QString score = QString::number(exam.at(i).getScore());
 			QString objectScore = QString::number(exam.at(i).getObjectScore());
 			QString judgeScore = QString::number(exam.at(i).getJudgeScore());
-			this->examModel->setItem(i, 3, new QStandardItem(QStringLiteral("已完成")));
-			this->examModel->setItem(i, 4, new QStandardItem(score));
-			this->examModel->setItem(i, 5, new QStandardItem(objectScore));
-			this->examModel->setItem(i, 6, new QStandardItem(judgeScore));
-		}else {
-			this->examModel->setItem(i, 3, new QStandardItem(QStringLiteral("可参加")));
+			this->examModel->setItem(i, 2, new QStandardItem(QStringLiteral("已完成")));
+			this->examModel->setItem(i, 3, new QStandardItem(score));
+			this->examModel->setItem(i, 4, new QStandardItem(objectScore));
+			this->examModel->setItem(i, 5, new QStandardItem(judgeScore));
+		}
+		else {
+			this->examModel->setItem(i, 2, new QStandardItem(QStringLiteral("可参加")));
+			this->examModel->setItem(i, 3, new QStandardItem(QStringLiteral("暂无")));
 			this->examModel->setItem(i, 4, new QStandardItem(QStringLiteral("暂无")));
 			this->examModel->setItem(i, 5, new QStandardItem(QStringLiteral("暂无")));
-			this->examModel->setItem(i, 6, new QStandardItem(QStringLiteral("暂无")));
+		}
+		for (int j = 0; j <= 5; j++)
+		{
+			this->examModel->item(i, j)->setTextAlignment(Qt::AlignCenter);
 		}
 	}
 }
@@ -74,6 +93,7 @@ void StudentWindow::dataGet()
 /**
   * @author:夏林轩
   * @brief:将学生信息在学生主界面上显示出来
+  * @param [in] 输入参数: 当前登录的用户名
   * @date:2018/12/18
   * @version:1.0
   */
@@ -86,6 +106,13 @@ void StudentWindow::showStudent(QString username)
 	this->ui.Id->setText(student.getId());
 }
 
+/**
+  * @author:夏林轩
+  * @brief:接收用户在登录框中输入的用户名用于后续的信息筛选
+  * @param [in] 输入参数: 当前登录的用户名
+  * @date:2018/12/17
+  * @version:1.0
+  */
 void StudentWindow::receiveUserName(QString name)
 {
 	userName = name;

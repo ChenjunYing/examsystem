@@ -230,6 +230,21 @@ bool SqlModel::deleteChoice(int questionId) {
 }
 
 /**
+  * @author:黄思泳
+  * @brief:删除判断题
+  * @param [in] 输入参数: 选择题编号questionId
+  * @param [out] 输出参数: 返回是否删除成功,若修改成功则返回true否则返回false
+  * @date:2018/12/20
+  * @version:1.0
+  */
+bool SqlModel::deleteJudge(int questionId) {
+	QSqlQuery query;
+	query.prepare("delete from judge_question where question_id = :id");
+	query.bindValue(":id", questionId);
+	return query.exec();
+}
+
+/**
   * @author:应承峻
   * @brief:从数据库中筛选相应的选择题,并返回选择题对象的集合
   * @param [int] 输入参数:type,其中0表示单选题,1表示多选题
@@ -429,6 +444,14 @@ QList<Exam> SqlModel::searchExam(QString username)
 	return examList;
 }
 
+/*
+  * @author:夏林轩
+  * @brief:将数据库中查询到的一条选择题数据存放在Exam类中,并根据用户名筛选
+  * @param [in] 输入参数: 查询结果query
+  * @param [out] 输出参数: 返回存放符合条件的信息的一个Student对象
+  * @date:2018/12/17
+  * @version:2.0
+  */
 Student SqlModel::searchStudentInfo(QString username)
 {
 	QSqlQuery query;
@@ -467,6 +490,14 @@ Exam getInformationOfExam(QSqlQuery query) {
 	return Exam::Exam(objectScore, judgeScore, isSubmit, examName, examCode, examDuration);
 }
 
+/**
+  * @author:夏林轩
+  * @brief:将数据库中查询到的考生参加考试以及该考试本身的信息数据存放在Student对象中
+  * @param [in] 输入参数: 查询结果query
+  * @param [out] 输出参数: 返回存放符合条件的学生信息的一个Student对象
+  * @date:2018/12/18
+  * @version:1.0
+  */
 Student getInformationOfStudent(QSqlQuery query)
 {
 	int personNameIndex = query.record().indexOf("person_name");

@@ -6,6 +6,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent) {
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
 	connect(this->ui.submitBtn , SIGNAL(clicked(bool)) , this , SLOT(login())); //绑定登录按钮
 	connect(this, SIGNAL(sendUserName(QString)), &this->student, SLOT(receiveUserName(QString)));
+	connect(this->student.ui.btnLogout, SIGNAL(clicked(bool)), this, SLOT(studentLogout()));
 }
 
 /**
@@ -50,4 +51,19 @@ void LoginDialog::login(){
 
 LoginDialog::~LoginDialog() {
 
+}
+
+/**
+  * @author:夏林轩
+  * @brief:学生点击主界面注销按钮后实现的功能
+  * @date:2018/12/20
+  * @version:1.0
+  */
+void LoginDialog::studentLogout()
+{
+	QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("注销成功"), QMessageBox::Yes);
+	this->student.close();
+	this->ui.username->clear();  //清空输入的用户名
+	this->ui.password->clear();  //清空输入的密码
+	this->show();
 }

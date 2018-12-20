@@ -16,6 +16,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QVBoxLayout>
@@ -26,9 +27,11 @@ QT_BEGIN_NAMESPACE
 class Ui_StudentWindow
 {
 public:
-    QGraphicsView *graphicsView;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents_2;
+    QTableView *examTable;
     QWidget *layoutWidget;
-    QVBoxLayout *verticalLayout_2;
+    QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_5;
     QLabel *LabelName;
     QLabel *Name;
@@ -38,9 +41,8 @@ public:
     QHBoxLayout *horizontalLayout_7;
     QLabel *LabelMajor;
     QLabel *Major;
-    QScrollArea *scrollArea;
-    QWidget *scrollAreaWidgetContents_2;
-    QTableView *examTable;
+    QPushButton *btnLogout;
+    QGraphicsView *graphicsView;
 
     void setupUi(QDialog *StudentWindow)
     {
@@ -49,17 +51,30 @@ public:
         StudentWindow->resize(950, 450);
         StudentWindow->setMinimumSize(QSize(950, 450));
         StudentWindow->setMaximumSize(QSize(950, 450));
-        graphicsView = new QGraphicsView(StudentWindow);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->setGeometry(QRect(20, 20, 171, 211));
+        scrollArea = new QScrollArea(StudentWindow);
+        scrollArea->setObjectName(QStringLiteral("scrollArea"));
+        scrollArea->setGeometry(QRect(210, 9, 721, 430));
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents_2 = new QWidget();
+        scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 719, 428));
+        examTable = new QTableView(scrollAreaWidgetContents_2);
+        examTable->setObjectName(QStringLiteral("examTable"));
+        examTable->setGeometry(QRect(0, 0, 721, 430));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(examTable->sizePolicy().hasHeightForWidth());
+        examTable->setSizePolicy(sizePolicy);
+        scrollArea->setWidget(scrollAreaWidgetContents_2);
         layoutWidget = new QWidget(StudentWindow);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(20, 240, 191, 181));
-        verticalLayout_2 = new QVBoxLayout(layoutWidget);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        layoutWidget->setGeometry(QRect(10, 229, 181, 211));
+        verticalLayout = new QVBoxLayout(layoutWidget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
@@ -77,7 +92,7 @@ public:
         horizontalLayout_5->setStretch(0, 1);
         horizontalLayout_5->setStretch(1, 3);
 
-        verticalLayout_2->addLayout(horizontalLayout_5);
+        verticalLayout->addLayout(horizontalLayout_5);
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
@@ -96,7 +111,7 @@ public:
         horizontalLayout_6->setStretch(0, 1);
         horizontalLayout_6->setStretch(1, 3);
 
-        verticalLayout_2->addLayout(horizontalLayout_6);
+        verticalLayout->addLayout(horizontalLayout_6);
 
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
@@ -115,19 +130,16 @@ public:
         horizontalLayout_7->setStretch(0, 1);
         horizontalLayout_7->setStretch(1, 3);
 
-        verticalLayout_2->addLayout(horizontalLayout_7);
+        verticalLayout->addLayout(horizontalLayout_7);
 
-        scrollArea = new QScrollArea(StudentWindow);
-        scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        scrollArea->setGeometry(QRect(210, 20, 721, 401));
-        scrollArea->setWidgetResizable(true);
-        scrollAreaWidgetContents_2 = new QWidget();
-        scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 719, 399));
-        examTable = new QTableView(scrollAreaWidgetContents_2);
-        examTable->setObjectName(QStringLiteral("examTable"));
-        examTable->setGeometry(QRect(0, 0, 721, 401));
-        scrollArea->setWidget(scrollAreaWidgetContents_2);
+        btnLogout = new QPushButton(layoutWidget);
+        btnLogout->setObjectName(QStringLiteral("btnLogout"));
+
+        verticalLayout->addWidget(btnLogout);
+
+        graphicsView = new QGraphicsView(StudentWindow);
+        graphicsView->setObjectName(QStringLiteral("graphicsView"));
+        graphicsView->setGeometry(QRect(10, 10, 183, 211));
 
         retranslateUi(StudentWindow);
 
@@ -143,6 +155,7 @@ public:
         Id->setText(QString());
         LabelMajor->setText(QApplication::translate("StudentWindow", "\344\270\223\344\270\232\357\274\232", nullptr));
         Major->setText(QString());
+        btnLogout->setText(QApplication::translate("StudentWindow", "\346\263\250\351\224\200", nullptr));
     } // retranslateUi
 
 };

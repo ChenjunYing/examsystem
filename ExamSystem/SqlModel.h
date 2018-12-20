@@ -88,6 +88,8 @@ public:
 
 	bool deleteChoice(int questionId);
 	
+	bool deleteJudge(int questionId);
+	
 	/**
 	  * @author:黄思泳
 	  * @brief:修改多选题操作

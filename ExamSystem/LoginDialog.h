@@ -35,11 +35,12 @@ private slots:
 	  */
 	void login();
 
+	void studentLogout();
+
 private:
 	Ui::LoginDialog ui;
 	MainWindow admin;
 	StudentWindow student;
 };
-
 
 #endif
