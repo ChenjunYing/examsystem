@@ -1,7 +1,9 @@
 x64/
 ExamSystem/x64/
 ExamSystem/x64/Debug/
+ExamSystem/GeneratedFiles/
 .vs/
 .vscode/
-ExamSystem/x64/
-ExamSystem/GeneratedFiles/Debug/
+*.tlog
+*.log
+*.obj
