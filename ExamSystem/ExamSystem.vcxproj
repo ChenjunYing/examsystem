@@ -122,6 +122,8 @@
     <ClCompile Include="AddChoice.cpp" />
     <ClCompile Include="AddJudge.cpp" />
     <ClCompile Include="AddMultiChoice.cpp" />
+    <ClCompile Include="AdminModel.cpp" />
+    <ClCompile Include="Exam.cpp" />
     <ClCompile Include="LoginDialog.cpp" />
     <ClCompile Include="Question.cpp" />
     <ClCompile Include="QuestionBank.cpp" />
@@ -154,6 +156,8 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtWidgets</IncludePath>
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_WIDGETS_LIB</Define>
     </QtMoc>
+    <ClInclude Include="AdminModel.h" />
+    <ClInclude Include="Exam.h" />
     <ClInclude Include="User.h" />
     <QtMoc Include="StudentWindow.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtWidgets</IncludePath>

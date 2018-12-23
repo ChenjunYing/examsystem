@@ -143,11 +143,11 @@ public:
 	  * @author:夏林轩
 	  * @brief:从数据库中筛选与一场考试相应的信息,并返回考试对象的集合
 	  * @param [in] 输入参数:username，当前登录用户的用户名
-	  * @param [out] 输出参数:Judge类的一个对象集合
+	  * @param [out] 输出参数:Config类的一个对象集合
 	  * @date:2018/12/16
 	  * @version:1.0
 	  */
-	QList<Exam> searchExam(QString username);
+	QList<Config> searchExam(QString username);
 
 	/**
 	  * @author:夏林轩

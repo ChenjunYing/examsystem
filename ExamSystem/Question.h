@@ -61,11 +61,11 @@ private:
 };
 
 /*
- * Exam类封装了一场考试的相关信息以及操作
+ * Config类封装了一场考试的相关信息以及操作
  */
-class Exam {
+class Config {
 public:
-	Exam(int oScore, int jScore, int flag, QString Name, int Code, int Duration);
+	Config(int oScore, int jScore, int flag, QString Name, int Code, int Duration);
 	QString getName() const;
 	int getCode() const;
 	int getDuration() const;
@@ -73,7 +73,7 @@ public:
 	int getJudgeScore() const;
 	int getScore() const;
 	int getIsSubmit() const;
-	~Exam(); 
+	~Config();
 private:
 	QString name;
 	int code;
@@ -82,6 +82,6 @@ private:
 	int judgeScore;
 	int score;
 	int isSubmit;
-	Exam();//不允许使用默认无参构造函数
+	Config();//不允许使用默认无参构造函数
 };
 #endif

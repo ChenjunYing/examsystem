@@ -1,6 +1,5 @@
 #include "MainWindow.h"
 
-
 /* MainWindow中应当具备以下功能
  * (1)显示管理员的信息
  * (2)显示当前正在运行的试卷,同时可以进行修改、删除等操作
@@ -8,15 +7,86 @@
  */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	ui.setupUi(this);
-	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::MSWindowsFixedSizeDialogHint);
-	choice = new AddChoice;
-	multichoice = new AddMultiChoice;
-	judge = new AddJudge;
-
+	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint); //设置最小最大化按钮和关闭按钮
+	this->choice = new AddChoice;
+	this->multichoice = new AddMultiChoice;
+	this->judge = new AddJudge;
+	this->exammodel = new QStandardItemModel;
+	MainWindow::dataRefresh();
+	MainWindow::showExamTable();
 	connect(this->ui.choice , SIGNAL(triggered()) , this , SLOT(choiceTriggered()));
 	connect(this->ui.judge , SIGNAL(triggered()) , this , SLOT(judgeTriggered()));
 	connect(this->ui.multichoice , SIGNAL(triggered()) , this , SLOT(multichoiceTriggered()));
 	connect(this->ui.goQuestionBank , SIGNAL(triggered()) , this , SLOT(goQuestionBankTriggered()));
+}
+
+
+/**
+  * @author:应承峻
+  * @brief:刷新考试信息
+  * @date:2018/12/23
+  * @version:1.0
+  */
+void MainWindow::dataRefresh() {
+	AdminModel admin;
+	if (!admin.isOpen()) {
+		QMessageBox::critical(NULL , QStringLiteral("提示") , QStringLiteral("连接失败") , QMessageBox::Yes);
+	} else {
+		this->exam = admin.searchExam();
+	}
+}
+
+
+/**
+  * @author:应承峻
+  * @brief:在管理员界面中显示考试信息
+  * @date:2018/12/23
+  * @version:1.0
+  */
+void MainWindow::showExamTable() {
+	this->exammodel->clear();
+	MainWindow::setTableHeader(this->exammodel); //初始化表头
+	this->ui.examTable->setModel(this->exammodel);
+	this->ui.examTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); //设置等列宽且不可拖动
+	MainWindow::setExamTableItemView(this->exammodel);
+}
+
+
+/**
+  * @author:应承峻
+  * @brief:设置考试信息表格的表头
+  * @date:2018/12/23
+  * @version:1.0
+  */
+void MainWindow::setTableHeader(QStandardItemModel* model) {
+	model->setHorizontalHeaderItem(0 , new QStandardItem(QStringLiteral("考试名称")));
+	model->setHorizontalHeaderItem(1 , new QStandardItem(QStringLiteral("考试时间")));
+	model->setHorizontalHeaderItem(2 , new QStandardItem(QStringLiteral("考试信息")));
+	model->setHorizontalHeaderItem(3 , new QStandardItem(QStringLiteral("编辑考试")));
+	model->setHorizontalHeaderItem(4 , new QStandardItem(QStringLiteral("删除考试")));
+}
+
+
+/**
+  * @author:应承峻
+  * @brief:渲染考试信息
+  * @date:2018/12/23
+  * @version:1.0
+  */
+void MainWindow::setExamTableItemView(QStandardItemModel* model) {
+	for (int i = 0; i < exam.size(); i++) {
+		QString duration = QString::number(exam.at(i).getDuration());
+		model->setItem(i , 0 , new QStandardItem(exam.at(i).getExamName()));
+		model->setItem(i , 1 , new QStandardItem(QString::number(exam.at(i).getDuration())));
+		model->setItem(i , 2 , new QStandardItem(exam.at(i).getInformation()));
+		model->setItem(i , 3 , new QStandardItem(QStringLiteral("查看")));
+		model->setItem(i , 4 , new QStandardItem(QStringLiteral("删除")));
+		model->item(i , 0)->setTextAlignment(Qt::AlignCenter); //设置居中
+		model->item(i , 1)->setTextAlignment(Qt::AlignCenter);
+		model->item(i , 2)->setTextAlignment(Qt::AlignCenter);
+		model->item(i , 3)->setTextAlignment(Qt::AlignCenter);
+		model->item(i , 4)->setTextAlignment(Qt::AlignCenter);
+	}
 }
 
 /*添加单选题接口*/
@@ -89,4 +159,5 @@ MainWindow::~MainWindow() {
 	delete choice;
 	delete multichoice;
 	delete judge;
+	delete exammodel;
 }

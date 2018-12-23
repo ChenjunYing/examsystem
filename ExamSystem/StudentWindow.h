@@ -33,7 +33,7 @@ public slots:
 
 private:
 	Ui::StudentWindow ui;
-	QList<Exam> exam;
+	QList<Config> exam;
 	QString userName;
 	QStandardItemModel* examModel;
 };

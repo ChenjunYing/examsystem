@@ -81,7 +81,7 @@ Judge::~Judge() {
 
 
 
-Exam::Exam(int oScore, int jScore, int flag, QString Name, int Code, int Duration) :objectScore(oScore), judgeScore(jScore),isSubmit(flag),name(Name), code(Code), duration(Duration)
+Config::Config(int oScore, int jScore, int flag, QString Name, int Code, int Duration) :objectScore(oScore), judgeScore(jScore),isSubmit(flag),name(Name), code(Code), duration(Duration)
 {
 	if (flag) {
 		score = objectScore + judgeScore;
@@ -90,42 +90,42 @@ Exam::Exam(int oScore, int jScore, int flag, QString Name, int Code, int Duratio
 	}
 }
 
-QString Exam::getName() const
+QString Config::getName() const
 {
 	return name;
 }
 
 
-int Exam::getCode() const
+int Config::getCode() const
 {
 	return code;
 }
 
-int Exam::getDuration() const
+int Config::getDuration() const
 {
 	return duration;
 }
 
-int Exam::getObjectScore() const
+int Config::getObjectScore() const
 {
 	return objectScore;
 }
 
-int Exam::getJudgeScore() const
+int Config::getJudgeScore() const
 {
 	return judgeScore;
 }
 
-int Exam::getScore() const
+int Config::getScore() const
 {
 	return score;
 }
 
-int Exam::getIsSubmit() const
+int Config::getIsSubmit() const
 {
 	return isSubmit;
 }
 
-Exam::~Exam(){
+Config::~Config(){
 
 }

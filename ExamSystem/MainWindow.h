@@ -9,6 +9,8 @@
 #include "AddMultiChoice.h"
 #include "AddJudge.h"
 #include "QuestionBank.h"
+#include "Exam.h"
+#include "AdminModel.h"
 
 class MainWindow : public QMainWindow {
 
@@ -28,6 +30,10 @@ private slots:
 	void judgeTriggered();
 	void multichoiceTriggered();
 	void goQuestionBankTriggered();
+	void showExamTable();
+	void setTableHeader(QStandardItemModel* model);
+	void setExamTableItemView(QStandardItemModel* model);
+	void dataRefresh();
 
 private:
 	Ui::MainWindowClass ui;
@@ -35,6 +41,8 @@ private:
 	AddMultiChoice* multichoice;
 	AddJudge* judge;
 	QuestionBank* questionbank;
+	QStandardItemModel* exammodel;
+	QList<Exam> exam;
 };
 
 #endif

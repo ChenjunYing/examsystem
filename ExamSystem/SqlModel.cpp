@@ -3,7 +3,7 @@
 #include "Question.h"
 Choice splitChoice(QSqlQuery query);
 Judge splitJudge(QSqlQuery query);
-Exam getInformationOfExam(QSqlQuery query);
+Config getInformationOfExam(QSqlQuery query);
 Student getInformationOfStudent(QSqlQuery query);
 
 /**
@@ -430,10 +430,10 @@ Judge splitJudge(QSqlQuery query) {
   * @date:2018/12/17
   * @version:2.0
   */
-QList<Exam> SqlModel::searchExam(QString username)
+QList<Config> SqlModel::searchExam(QString username)
 {
 	QSqlQuery query;
-	QList<Exam> examList;  //存放考试对象的容器
+	QList<Config> examList;  //存放考试对象的容器
 	query.exec("select * from exam,config where exam.exam_code = config.exam_code");
 	while (query.next())
 	{
@@ -470,11 +470,11 @@ Student SqlModel::searchStudentInfo(QString username)
   * @author:夏林轩
   * @brief:将数据库中查询到的考生参加考试以及该考试本身的信息数据存放在Exam类中
   * @param [in] 输入参数: 查询结果query
-  * @param [out] 输出参数: 返回存放Exam类的一个对象
+  * @param [out] 输出参数: 返回存放Config类的一个对象
   * @date:2018/12/16
   * @version:2.0
   */
-Exam getInformationOfExam(QSqlQuery query) {
+Config getInformationOfExam(QSqlQuery query) {
 	int examNameIndex = query.record().indexOf("exam_name");
 	int examCodeIndex = query.record().indexOf("exam_code");
 	int examDurationIndex = query.record().indexOf("duration");
@@ -487,7 +487,7 @@ Exam getInformationOfExam(QSqlQuery query) {
 	int objectScore = query.record().value(objectScoreIndex).toInt();
 	int judgeScore = query.record().value(judgeScoreIndex).toInt();
 	int isSubmit = query.record().value(isSubmitIndex).toInt();
-	return Exam::Exam(objectScore, judgeScore, isSubmit, examName, examCode, examDuration);
+	return Config::Config(objectScore, judgeScore, isSubmit, examName, examCode, examDuration);
 }
 
 /**
