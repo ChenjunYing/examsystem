@@ -126,6 +126,11 @@ int Config::getIsSubmit() const
 	return isSubmit;
 }
 
+void Question::writeAnswer(QString answer) {
+	this->answer = answer;
+}
+
+
 Config::~Config(){
 
 }

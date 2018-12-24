@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "LoginDialog.h"
+#include "StudentExam.h"
 #include <QFile>
 #include <QApplication>
 #include <QtWidgets/QApplication>
@@ -18,8 +19,10 @@ void initStyle() {
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
 	initStyle();
-	LoginDialog logindialog;
-	logindialog.show();
+	StudentExam s;
+	s.show();
+	//LoginDialog logindialog;
+	//logindialog.show();
 	//MainWindow admin;
 	//admin.show();
 	//StudentWindow student;

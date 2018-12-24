@@ -15,6 +15,7 @@ public:
 	QString getDescription() const;
 	QString getAnswer() const;
 	QString getAuthor() const;
+	void writeAnswer(QString answer);
 	~Question();
 private:
 	int value;
