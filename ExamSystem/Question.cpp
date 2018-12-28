@@ -30,6 +30,11 @@ QString Question::getAuthor() const {
 	return author;
 }
 
+void Question::writeAnswer(QString answer) {
+	this->answer = answer;
+}
+
+
 Question::~Question() {
 
 }

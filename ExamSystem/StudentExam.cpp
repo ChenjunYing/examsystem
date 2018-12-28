@@ -483,6 +483,6 @@ void StudentExam::getScore() {
 	this->judgeScore = judgeSum;
 }
 
-StudentExam::~StudentExam()
-{
+StudentExam::~StudentExam() {
+
 }
