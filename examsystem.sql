@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2018-12-20 23:24:13
+Date: 2018-12-28 21:36:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -58,8 +58,7 @@ CREATE TABLE `config` (
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES ('1', 'test', '1', null, null, '60', null, '40', '1');
-INSERT INTO `config` VALUES ('2', 'test', '3', null, null, '0', null, '0', '0');
+INSERT INTO `config` VALUES ('1', 'test', '3', null, null, '2', null, '0', '0');
 
 -- ----------------------------
 -- Table structure for `exam`
@@ -99,11 +98,20 @@ CREATE TABLE `exam_content` (
   CONSTRAINT `exam_content_ibfk_1` FOREIGN KEY (`object_id`) REFERENCES `object_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_content_ibfk_2` FOREIGN KEY (`judge_id`) REFERENCES `judge_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `exam_content_ibfk_3` FOREIGN KEY (`exam_code`) REFERENCES `exam` (`exam_code`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of exam_content
 -- ----------------------------
+INSERT INTO `exam_content` VALUES ('1', null, '1', '3');
+INSERT INTO `exam_content` VALUES ('2', null, '2', '3');
+INSERT INTO `exam_content` VALUES ('3', '2', null, '3');
+INSERT INTO `exam_content` VALUES ('4', '1', null, '3');
+INSERT INTO `exam_content` VALUES ('5', '3', null, '3');
+INSERT INTO `exam_content` VALUES ('6', '4', null, '3');
+INSERT INTO `exam_content` VALUES ('7', '5', null, '3');
+INSERT INTO `exam_content` VALUES ('8', '6', null, '3');
+INSERT INTO `exam_content` VALUES ('9', '8', null, '3');
 
 -- ----------------------------
 -- Table structure for `judge_answer`
@@ -122,11 +130,13 @@ CREATE TABLE `judge_answer` (
   CONSTRAINT `judge_answer_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `judge_answer_ibfk_2` FOREIGN KEY (`exam_code`) REFERENCES `exam` (`exam_code`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `judge_answer_ibfk_3` FOREIGN KEY (`question_id`) REFERENCES `judge_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of judge_answer
 -- ----------------------------
+INSERT INTO `judge_answer` VALUES ('1', 'test', '3', '1', 'F');
+INSERT INTO `judge_answer` VALUES ('2', 'test', '3', '2', 'F');
 
 -- ----------------------------
 -- Table structure for `judge_question`
@@ -165,11 +175,18 @@ CREATE TABLE `object_answer` (
   CONSTRAINT `object_answer_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `object_answer_ibfk_2` FOREIGN KEY (`exam_code`) REFERENCES `exam` (`exam_code`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `object_answer_ibfk_3` FOREIGN KEY (`question_id`) REFERENCES `object_question` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of object_answer
 -- ----------------------------
+INSERT INTO `object_answer` VALUES ('1', 'test', '3', '2', 'B');
+INSERT INTO `object_answer` VALUES ('2', 'test', '3', '1', 'C');
+INSERT INTO `object_answer` VALUES ('3', 'test', '3', '3', 'C');
+INSERT INTO `object_answer` VALUES ('4', 'test', '3', '6', 'C');
+INSERT INTO `object_answer` VALUES ('5', 'test', '3', '4', 'ABCD');
+INSERT INTO `object_answer` VALUES ('6', 'test', '3', '5', 'ABC');
+INSERT INTO `object_answer` VALUES ('7', 'test', '3', '8', 'ABCD');
 
 -- ----------------------------
 -- Table structure for `object_question`

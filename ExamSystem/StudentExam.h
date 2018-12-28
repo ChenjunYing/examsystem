@@ -20,6 +20,7 @@ class StudentExam : public QWidget
 
 public:
 	StudentExam(QWidget *parent = Q_NULLPTR);
+	void display(QString username , int examCode);
 	~StudentExam();
 
 private slots:
@@ -64,6 +65,7 @@ private slots:
 private:
 
 	Ui::StudentExam ui;
+	QString username;
 	QList<Choice> choice;
 	QList<Choice> multichoice;
 	QList<Judge> judge;
@@ -73,9 +75,10 @@ private:
 	QStandardItemModel* choicemodel;
 	QStandardItemModel* multimodel;
 	QStandardItemModel* judgemodel;
-	int choiceCurrent =0;
+	int choiceCurrent = 0;
 	int multichoiceCurrent = 0;
 	int judgeCurrent = 0;
 	int objectScore = -1;
 	int judgeScore = -1;
+	int examCode;
 };

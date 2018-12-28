@@ -6,8 +6,9 @@ StudentExam::StudentExam(QWidget *parent)
 {
 	ui.setupUi(this);
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
-	StudentExam::dataGet(3);  //从数据库中拉取题目
-	StudentExam::onTabChanged(0); //默认显示单选题
+	
+	//StudentExam::dataGet(3);  //从数据库中拉取题目
+	//StudentExam::onTabChanged(0); //默认显示单选题
 
 	connect(this->ui.tabWindow, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 	connect(this->ui.choicePrevious, SIGNAL(clicked(bool)), this, SLOT(choicePrevious()));
@@ -21,6 +22,21 @@ StudentExam::StudentExam(QWidget *parent)
 	connect(this->ui.judgeNum, SIGNAL(returnPressed()), this, SLOT(judgeJump()));
 	connect(this->ui.submit, SIGNAL(clicked(bool)), this, SLOT(submit()));
 }
+
+/**
+  * @author:应承峻
+  * @brief:根据接收到的用户名和试题编号渲染试题
+  * @date:2018/12/28
+  * @version:1.0
+  */
+void StudentExam::display(QString username , int examCode) {
+	this->username = username;
+	this->examCode = examCode;
+	StudentExam::dataGet(examCode);  //从数据库中拉取题目
+	StudentExam::onTabChanged(0); //默认显示单选题
+}
+
+
 
 /**
   * @author:应承峻
@@ -91,7 +107,7 @@ void StudentExam::dataGet(int examCode) {
   */
 void StudentExam::showChoice() {
 	this->ui.choiceQuestion->setPlainText(this->choice.at(this->choiceCurrent).getDescription());
-	this->ui.choiceQuestion->setAlignment(Qt::AlignCenter);
+	this->ui.choiceQuestion->setAlignment(Qt::AlignLeft);
 	this->ui.choiceA->setPlainText(this->choice.at(this->choiceCurrent).getChoiceA());
 	this->ui.choiceB->setPlainText(this->choice.at(this->choiceCurrent).getChoiceB());
 	this->ui.choiceC->setPlainText(this->choice.at(this->choiceCurrent).getChoiceC());
@@ -146,7 +162,7 @@ void StudentExam::showChoice() {
   */
 void StudentExam::showMultichoice() {
 	this->ui.multichoiceQuestion->setPlainText(this->multichoice.at(this->multichoiceCurrent).getDescription());
-	this->ui.multichoiceQuestion->setAlignment(Qt::AlignCenter);
+	this->ui.multichoiceQuestion->setAlignment(Qt::AlignLeft);
 	this->ui.multichoiceA->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceA());
 	this->ui.multichoiceB->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceB());
 	this->ui.multichoiceC->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceC());
@@ -194,7 +210,7 @@ void StudentExam::showMultichoice() {
   */
 void StudentExam::showJudge() {
 	this->ui.judgeQuestion->setPlainText(this->judge.at(this->judgeCurrent).getDescription());
-	this->ui.judgeQuestion->setAlignment(Qt::AlignCenter);
+	this->ui.judgeQuestion->setAlignment(Qt::AlignLeft);
 
 	if (this->judgeAns.at(this->judgeCurrent).getAnswer() != QString()) {
 		switch (judgeAns.at(this->judgeCurrent).getAnswer().toStdString()[0]) {
@@ -443,7 +459,7 @@ void StudentExam::submit() {
 	}
 	else {
 		int num = this->choice.size();
-		flag=sql.submit(this->choice, this->multichoice, this->judge, 3,this->objectScore,this->judgeScore);
+		flag = sql.submit(this->username , this->choice , this->multichoice , this->judge , this->examCode , this->objectScore , this->judgeScore);
 		if (flag) {
 			QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("提交成功！"), QMessageBox::Yes);
 			this->close();

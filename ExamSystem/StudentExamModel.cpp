@@ -122,7 +122,7 @@ QList<Judge> StudentExamModel::searchJudge(int examCode) {
 * @date:2018/12/24
 * @version:1.0
 */
-int StudentExamModel::submit(QList<Choice> choiceAns, QList<Choice> multichoiceAns, QList<Judge> judgeAns, int examCode,int objectScore, int judgeScore) {
+int StudentExamModel::submit(QString username , QList<Choice> choiceAns, QList<Choice> multichoiceAns, QList<Judge> judgeAns, int examCode,int objectScore, int judgeScore) {
 	int i;
 	int choiceFlag;
 	int multichoiceFlag;
@@ -132,22 +132,22 @@ int StudentExamModel::submit(QList<Choice> choiceAns, QList<Choice> multichoiceA
 		if (!choiceAns.at(i).getAnswer().isEmpty()) {
 			QSqlQuery query;
 			query.prepare("insert into object_answer(username,exam_code,question_id,answer) values(:user,:exam,:id,:ans)");
-			query.bindValue(":user","test" );
+			query.bindValue(":user", username);
 			query.bindValue(":exam", examCode);
 			query.bindValue(":id", choiceAns.at(i).getQuestionId());
 			query.bindValue(":ans", choiceAns.at(i).getAnswer());
-			choiceFlag=query.exec();
+			choiceFlag = query.exec();
 		}
 	}
 	for (i = 0; i < multichoiceAns.size(); i++) {
 		if (!multichoiceAns.at(i).getAnswer().isEmpty()) {
 			QSqlQuery query;
 			query.prepare("insert into object_answer(username,exam_code,question_id,answer) values(:user,:exam,:id,:ans)");
-			query.bindValue(":user", "test");
+			query.bindValue(":user", username);
 			query.bindValue(":exam", examCode);
 			query.bindValue(":id", multichoiceAns.at(i).getQuestionId());
 			query.bindValue(":ans", multichoiceAns.at(i).getAnswer());
-			multichoiceFlag=query.exec();
+			multichoiceFlag = query.exec();
 		}
 	}
 
@@ -155,16 +155,14 @@ int StudentExamModel::submit(QList<Choice> choiceAns, QList<Choice> multichoiceA
 		if (!judgeAns.at(i).getAnswer().isEmpty()) {
 			QSqlQuery query;
 			query.prepare("insert into judge_answer(username,exam_code,question_id,answer) values(:user,:exam,:id,:ans)");
-			query.bindValue(":user", "test");
+			query.bindValue(":user", username);
 			query.bindValue(":exam", examCode);
 			query.bindValue(":id", judgeAns.at(i).getQuestionId());
 			query.bindValue(":ans", judgeAns.at(i).getAnswer());
-			judgeFlag=query.exec();
+			judgeFlag = query.exec();
 		}
 	}
 	QSqlQuery query;
-	QString username;
-	username = "test";
 
 	query.prepare("update config set object_score=:objectScore, judge_score=:judgeScore, is_submit=1 where username=:username and exam_code=:examCode");
 	query.bindValue(":objectScore", objectScore);
@@ -174,7 +172,7 @@ int StudentExamModel::submit(QList<Choice> choiceAns, QList<Choice> multichoiceA
 
 	scoreFlag = query.exec();
 
-	return choiceFlag&&multichoiceFlag &&judgeFlag;
+	return choiceFlag && multichoiceFlag && judgeFlag;
 }
 StudentExamModel::~StudentExamModel() {
 	db.close();  //¹Ø±ÕÊý¾Ý¿â

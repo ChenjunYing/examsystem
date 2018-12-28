@@ -61,7 +61,7 @@ public:
 * @date:2018/12/24
 * @version:1.0
 */
-	int submit(QList<Choice> choiceAns, QList<Choice> multichoiceAns, QList<Judge> judgeAns,int examCode,int objectScore,int judgeScore);
+	int submit(QString username , QList<Choice> choiceAns, QList<Choice> multichoiceAns, QList<Judge> judgeAns,int examCode,int objectScore,int judgeScore);
 
 	~StudentExamModel();
 

@@ -7,12 +7,31 @@ StudentWindow::StudentWindow(QWidget *parent)
 	ui.setupUi(this);
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
 	this->examModel= new QStandardItemModel; //创建考试表格
+	connect(this->ui.examTable , SIGNAL(clicked(const QModelIndex&)) , this , SLOT(examTableClicked(const QModelIndex&)));
 }
 
 StudentWindow::~StudentWindow()
 {
 	delete examModel;
 }
+
+/**
+  * @author:应承峻
+  * @brief:实现点击考试状态进入考试的功能
+  * @date:2018/12/28
+  * @version:1.0
+  */
+void StudentWindow::examTableClicked(const QModelIndex& index) {
+	if (index.isValid() && index.column() == 2 && exam.at(index.row()).getIsSubmit() == 0) {
+		//qDebug() << userName << "," << exam.at(index.row()).getName();
+		int ret = QMessageBox::warning(this , QStringLiteral("提示") , QStringLiteral("确定开始考试吗？") , QMessageBox::Yes | QMessageBox::Cancel);
+		if (ret == QMessageBox::Yes) {
+			newExam.display(userName , exam.at(index.row()).getCode());
+			newExam.show();
+		}
+	}
+}
+
 
 
 /**
