@@ -335,7 +335,7 @@ QList<Choice> SqlModel::searchChoice(int type , QString keyWord, int lowerValue,
 QList<Judge> SqlModel::searchJudge() {
 	QSqlQuery query;
 	QList<Judge> questionList;  //存放判断题对象的容器
-	query.prepare("select * from judge_question");
+	query.exec("select * from judge_question");
 	while (query.next()) {
 		questionList.push_back(splitJudge(query));
 	}

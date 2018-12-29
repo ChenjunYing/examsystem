@@ -120,6 +120,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AddChoice.cpp" />
+    <ClCompile Include="AddExam.cpp" />
+    <ClCompile Include="AddExamModel.cpp" />
     <ClCompile Include="AddJudge.cpp" />
     <ClCompile Include="AddMultiChoice.cpp" />
     <ClCompile Include="AdminModel.cpp" />
@@ -140,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="AddChoice.ui" />
+    <QtUic Include="AddExam.ui" />
     <QtUic Include="AddJudge.ui" />
     <QtUic Include="AddMultiChoice.ui" />
     <QtUic Include="LoginDialog.ui" />
@@ -159,6 +162,13 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtWidgets</IncludePath>
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_WIDGETS_LIB</Define>
     </QtMoc>
+    <QtMoc Include="AddExam.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtWidgets</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_WIDGETS_LIB</Define>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtWidgets</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_WIDGETS_LIB</Define>
+    </QtMoc>
+    <ClInclude Include="AddExamModel.h" />
     <ClInclude Include="AdminModel.h" />
     <ClInclude Include="Exam.h" />
     <QtMoc Include="StudentExam.h">

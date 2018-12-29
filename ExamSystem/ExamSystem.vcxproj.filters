@@ -75,6 +75,12 @@
     <ClCompile Include="StudentExamModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AddExam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AddExamModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -99,6 +105,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="StudentExam.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="AddExam.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -127,6 +136,9 @@
     <QtUic Include="StudentExam.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="AddExam.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SqlModel.h">
@@ -145,6 +157,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StudentExamModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AddExamModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
