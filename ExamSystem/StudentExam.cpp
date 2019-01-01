@@ -16,9 +16,9 @@ StudentExam::StudentExam(QWidget *parent)
 	connect(this->ui.multichoiceNext, SIGNAL(clicked(bool)), this, SLOT(multichoiceNext()));
 	connect(this->ui.judgePrevious, SIGNAL(clicked(bool)), this, SLOT(judgePrevious()));
 	connect(this->ui.judgeNext, SIGNAL(clicked(bool)), this, SLOT(judgeNext()));
-	connect(this->ui.choiceNum, SIGNAL(returnPressed()), this, SLOT(choiceJump()));
-	connect(this->ui.multichoiceNum, SIGNAL(returnPressed()), this, SLOT(multichoiceJump()));
-	connect(this->ui.judgeNum, SIGNAL(returnPressed()), this, SLOT(judgeJump()));
+	connect(this->ui.choiceJump, SIGNAL(clicked(bool)), this, SLOT(choiceJump()));
+	connect(this->ui.multichoiceJump, SIGNAL(clicked(bool)), this, SLOT(multichoiceJump()));
+	connect(this->ui.judgeJump, SIGNAL(clicked(bool)), this, SLOT(judgeJump()));
 	connect(this->ui.submit, SIGNAL(clicked(bool)), this, SLOT(submit()));
 }
 
@@ -86,102 +86,122 @@ void StudentExam::dataGet(int examCode) {
 /**
   * @author:陈欢
   * @brief:显示单选题页面
-  * @date:2018/12/24
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
 void StudentExam::showChoice() {
-	this->ui.choiceQuestion->setPlainText(this->choice.at(this->choiceCurrent).getDescription());
-	this->ui.choiceQuestion->setAlignment(Qt::AlignCenter);
-	this->ui.choiceA->setPlainText(this->choice.at(this->choiceCurrent).getChoiceA());
-	this->ui.choiceB->setPlainText(this->choice.at(this->choiceCurrent).getChoiceB());
-	this->ui.choiceC->setPlainText(this->choice.at(this->choiceCurrent).getChoiceC());
-	this->ui.choiceD->setPlainText(this->choice.at(this->choiceCurrent).getChoiceD());
-	
-	if (this->choiceAns.at(this->choiceCurrent).getAnswer() != QString()) {
-		switch (choiceAns.at(this->choiceCurrent).getAnswer().toStdString()[0]) {
-		case 'A': {
-			this->ui.selectA->setChecked(true);
-			break;
-		}
-		case 'B': {
-			this->ui.selectB->setChecked(true);
-			break;
-		}
-		case 'C': {
-			this->ui.selectC->setChecked(true);
-			break;
-		}
-		case 'D': {
-			this->ui.selectD->setChecked(true);
-			break;
-		}
-		default: {
-			break;
-		}
-		}
-	}
-	else {
-		this->ui.selectA->setAutoExclusive(false);
-		this->ui.selectB->setAutoExclusive(false);
-		this->ui.selectC->setAutoExclusive(false);
-		this->ui.selectD->setAutoExclusive(false);
+	if (!this->choice.isEmpty()) {
+		QString str = "(" + QString::number(this->choice.at(this->choiceCurrent).getValue()) + "')";
+		this->ui.choiceQuestion->setPlainText(str);
+		this->ui.choiceQuestion->insertPlainText(this->choice.at(this->choiceCurrent).getDescription());
+		this->ui.choiceQuestion->setAlignment(Qt::AlignCenter);
+		this->ui.choiceA->setPlainText(this->choice.at(this->choiceCurrent).getChoiceA());
+		this->ui.choiceB->setPlainText(this->choice.at(this->choiceCurrent).getChoiceB());
+		this->ui.choiceC->setPlainText(this->choice.at(this->choiceCurrent).getChoiceC());
+		this->ui.choiceD->setPlainText(this->choice.at(this->choiceCurrent).getChoiceD());
+		
+		this->ui.choiceCurrent->setText(QString::number(this->choiceCurrent+1));
+		this->ui.choiceCurrent->setAlignment(Qt::AlignCenter);
+		this->ui.choiceTotal->setText(QString::number(this->choice.size()));
+		this->ui.choiceTotal->setAlignment(Qt::AlignCenter);
+		this->ui.choiceNum->clear();
 
-		this->ui.selectA->setChecked(false);
-		this->ui.selectB->setChecked(false);
-		this->ui.selectC->setChecked(false);
-		this->ui.selectD->setChecked(false);
-
-		this->ui.selectA->setAutoExclusive(true);
-		this->ui.selectB->setAutoExclusive(true);
-		this->ui.selectC->setAutoExclusive(true);
-		this->ui.selectD->setAutoExclusive(true);
-	}
-}
-
-/**
-  * @author:陈欢
-  * @brief:显示多选题页面
-  * @date:2018/12/24
-  * @version:1.0
-  */
-void StudentExam::showMultichoice() {
-	this->ui.multichoiceQuestion->setPlainText(this->multichoice.at(this->multichoiceCurrent).getDescription());
-	this->ui.multichoiceQuestion->setAlignment(Qt::AlignCenter);
-	this->ui.multichoiceA->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceA());
-	this->ui.multichoiceB->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceB());
-	this->ui.multichoiceC->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceC());
-	this->ui.multichoiceD->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceD());
-
-	this->ui.multiselectA->setChecked(false);
-	this->ui.multiselectB->setChecked(false);
-	this->ui.multiselectC->setChecked(false);
-	this->ui.multiselectD->setChecked(false);
-
-	if (this->multichoiceAns.at(this->multichoiceCurrent).getAnswer() != QString()) {
-		int i = 0;
-		while (multichoiceAns.at(this->multichoiceCurrent).getAnswer().toStdString()[i]) {
-			switch (multichoiceAns.at(this->multichoiceCurrent).getAnswer().toStdString()[i]) {
+		if (this->choiceAns.at(this->choiceCurrent).getAnswer() != QString()) {
+			switch (choiceAns.at(this->choiceCurrent).getAnswer().toStdString()[0]) {
 			case 'A': {
-				this->ui.multiselectA->setChecked(true);
+				this->ui.selectA->setChecked(true);
 				break;
 			}
 			case 'B': {
-				this->ui.multiselectB->setChecked(true);
+				this->ui.selectB->setChecked(true);
 				break;
 			}
 			case 'C': {
-				this->ui.multiselectC->setChecked(true);
+				this->ui.selectC->setChecked(true);
 				break;
 			}
 			case 'D': {
-				this->ui.multiselectD->setChecked(true);
+				this->ui.selectD->setChecked(true);
 				break;
 			}
 			default: {
 				break;
 			}
 			}
-			i++;
+		}
+		else {
+			this->ui.selectA->setAutoExclusive(false);
+			this->ui.selectB->setAutoExclusive(false);
+			this->ui.selectC->setAutoExclusive(false);
+			this->ui.selectD->setAutoExclusive(false);
+
+			this->ui.selectA->setChecked(false);
+			this->ui.selectB->setChecked(false);
+			this->ui.selectC->setChecked(false);
+			this->ui.selectD->setChecked(false);
+
+			this->ui.selectA->setAutoExclusive(true);
+			this->ui.selectB->setAutoExclusive(true);
+			this->ui.selectC->setAutoExclusive(true);
+			this->ui.selectD->setAutoExclusive(true);
+		}
+	}
+}
+
+/**
+  * @author:陈欢
+  * @brief:显示多选题页面
+  * @date:2019/1/2
+  * @version:2.0
+  */
+void StudentExam::showMultichoice() {
+	if (!this->multichoice.isEmpty()) {
+		QString str = "(" + QString::number(this->multichoice.at(this->multichoiceCurrent).getValue()) + "')";
+		this->ui.multichoiceQuestion->setPlainText(str);
+		this->ui.multichoiceQuestion->insertPlainText(this->multichoice.at(this->multichoiceCurrent).getDescription());
+		this->ui.multichoiceQuestion->setAlignment(Qt::AlignCenter);
+		this->ui.multichoiceA->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceA());
+		this->ui.multichoiceB->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceB());
+		this->ui.multichoiceC->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceC());
+		this->ui.multichoiceD->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceD());
+
+		this->ui.multichoiceCurrent->setText(QString::number(this->multichoiceCurrent + 1));
+		this->ui.multichoiceCurrent->setAlignment(Qt::AlignCenter);
+		this->ui.multichoiceTotal->setText(QString::number(this->multichoice.size()));
+		this->ui.multichoiceTotal->setAlignment(Qt::AlignCenter);
+		this->ui.multichoiceNum->clear();
+
+		this->ui.multiselectA->setChecked(false);
+		this->ui.multiselectB->setChecked(false);
+		this->ui.multiselectC->setChecked(false);
+		this->ui.multiselectD->setChecked(false);
+
+		if (this->multichoiceAns.at(this->multichoiceCurrent).getAnswer() != QString()) {
+			int i = 0;
+			while (multichoiceAns.at(this->multichoiceCurrent).getAnswer().toStdString()[i]) {
+				switch (multichoiceAns.at(this->multichoiceCurrent).getAnswer().toStdString()[i]) {
+				case 'A': {
+					this->ui.multiselectA->setChecked(true);
+					break;
+				}
+				case 'B': {
+					this->ui.multiselectB->setChecked(true);
+					break;
+				}
+				case 'C': {
+					this->ui.multiselectC->setChecked(true);
+					break;
+				}
+				case 'D': {
+					this->ui.multiselectD->setChecked(true);
+					break;
+				}
+				default: {
+					break;
+				}
+				}
+				i++;
+			}
 		}
 	}
 }
@@ -189,37 +209,47 @@ void StudentExam::showMultichoice() {
 /**
   * @author:陈欢
   * @brief:显示判断题页面
-  * @date:2018/12/24
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
 void StudentExam::showJudge() {
-	this->ui.judgeQuestion->setPlainText(this->judge.at(this->judgeCurrent).getDescription());
-	this->ui.judgeQuestion->setAlignment(Qt::AlignCenter);
+	if (!this->judge.isEmpty()) {
+		QString str = "(" + QString::number(this->judge.at(this->judgeCurrent).getValue()) + "')";
+		this->ui.judgeQuestion->setPlainText(str);
+		this->ui.judgeQuestion->insertPlainText(this->judge.at(this->judgeCurrent).getDescription());
+		this->ui.judgeQuestion->setAlignment(Qt::AlignCenter);
 
-	if (this->judgeAns.at(this->judgeCurrent).getAnswer() != QString()) {
-		switch (judgeAns.at(this->judgeCurrent).getAnswer().toStdString()[0]) {
-		case 'T': {
-			this->ui.selectT->setChecked(true);
-			break;
-		}
-		case 'F': {
-			this->ui.selectF->setChecked(true);
-			break;
-		}
-		default: {
-			break;
-		}
-		}
-	}
-	else {
-		this->ui.selectT->setAutoExclusive(false);
-		this->ui.selectF->setAutoExclusive(false);
+		this->ui.judgeCurrent->setText(QString::number(this->judgeCurrent + 1));
+		this->ui.judgeCurrent->setAlignment(Qt::AlignCenter);
+		this->ui.judgeTotal->setText(QString::number(this->judge.size()));
+		this->ui.judgeTotal->setAlignment(Qt::AlignCenter);
+		this->ui.judgeNum->clear();
 
-		this->ui.selectT->setChecked(false);
-		this->ui.selectF->setChecked(false);
+		if (this->judgeAns.at(this->judgeCurrent).getAnswer() != QString()) {
+			switch (judgeAns.at(this->judgeCurrent).getAnswer().toStdString()[0]) {
+			case 'T': {
+				this->ui.selectT->setChecked(true);
+				break;
+			}
+			case 'F': {
+				this->ui.selectF->setChecked(true);
+				break;
+			}
+			default: {
+				break;
+			}
+			}
+		}
+		else {
+			this->ui.selectT->setAutoExclusive(false);
+			this->ui.selectF->setAutoExclusive(false);
 
-		this->ui.selectT->setAutoExclusive(true);
-		this->ui.selectF->setAutoExclusive(true);
+			this->ui.selectT->setChecked(false);
+			this->ui.selectF->setChecked(false);
+
+			this->ui.selectT->setAutoExclusive(true);
+			this->ui.selectF->setAutoExclusive(true);
+		}
 	}
 }
 

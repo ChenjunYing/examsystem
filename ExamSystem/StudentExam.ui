@@ -28,7 +28,7 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="choice">
     <attribute name="title">
@@ -223,38 +223,6 @@ p, li { white-space: pre-wrap; }
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>300</x>
-       <y>530</y>
-       <width>121</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="spacing">
-       <number>8</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>跳转到第</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="choiceNum"/>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>题</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
     <widget class="QLabel" name="label_19">
      <property name="geometry">
       <rect>
@@ -306,6 +274,89 @@ p, li { white-space: pre-wrap; }
      <property name="text">
       <string>B.</string>
      </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>530</y>
+       <width>171</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
+      <item>
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>跳转到第</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="choiceNum"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>题</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="choiceJump">
+        <property name="text">
+         <string>确定</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>530</y>
+       <width>103</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QLabel" name="label_23">
+        <property name="text">
+         <string>第</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="choiceCurrent">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_24">
+        <property name="text">
+         <string>题/共</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="choiceTotal">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_25">
+        <property name="text">
+         <string>题</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QWidget" name="multichoice">
@@ -470,38 +521,6 @@ p, li { white-space: pre-wrap; }
       <number>1</number>
      </property>
     </widget>
-    <widget class="QWidget" name="layoutWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>300</x>
-       <y>530</y>
-       <width>121</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <property name="spacing">
-       <number>8</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>跳转到第</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="multichoiceNum"/>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>题</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
@@ -553,6 +572,89 @@ p, li { white-space: pre-wrap; }
      <property name="text">
       <string>D.</string>
      </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>530</y>
+       <width>171</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>跳转到第</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="multichoiceNum"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>题</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="multichoiceJump">
+        <property name="text">
+         <string>确定</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>530</y>
+       <width>103</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <widget class="QLabel" name="label_28">
+        <property name="text">
+         <string>第</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="multichoiceCurrent">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_30">
+        <property name="text">
+         <string>题/共</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="multichoiceTotal">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_32">
+        <property name="text">
+         <string>题</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QWidget" name="judge">
@@ -633,19 +735,16 @@ p, li { white-space: pre-wrap; }
       <number>1</number>
      </property>
     </widget>
-    <widget class="QWidget" name="layoutWidget_4">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>300</x>
+       <x>530</x>
        <y>530</y>
-       <width>121</width>
-       <height>22</height>
+       <width>171</width>
+       <height>26</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <property name="spacing">
-       <number>8</number>
-      </property>
       <item>
        <widget class="QLabel" name="label_10">
         <property name="text">
@@ -658,6 +757,60 @@ p, li { white-space: pre-wrap; }
       </item>
       <item>
        <widget class="QLabel" name="label_15">
+        <property name="text">
+         <string>题</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="judgeJump">
+        <property name="text">
+         <string>确定</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget_4">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>530</y>
+       <width>103</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <item>
+       <widget class="QLabel" name="label_33">
+        <property name="text">
+         <string>第</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="judgeCurrent">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_35">
+        <property name="text">
+         <string>题/共</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="judgeTotal">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_37">
         <property name="text">
          <string>题</string>
         </property>
@@ -948,8 +1101,8 @@ p, li { white-space: pre-wrap; }
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="multichoiceGroup"/>
   <buttongroup name="choiceGroup"/>
   <buttongroup name="judgeGroup"/>
+  <buttongroup name="multichoiceGroup"/>
  </buttongroups>
 </ui>
