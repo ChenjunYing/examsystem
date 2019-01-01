@@ -40,7 +40,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QListView" name="choiceList"/>
+        <widget class="QTableView" name="choiceTable"/>
        </item>
       </layout>
      </widget>
@@ -59,7 +59,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QListView" name="multiList"/>
+        <widget class="QTableView" name="multiTable">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -78,7 +82,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QListView" name="judgeList"/>
+        <widget class="QTableView" name="judgeTable"/>
        </item>
       </layout>
      </widget>
@@ -265,13 +269,6 @@
          <widget class="QPushButton" name="addQuestion">
           <property name="text">
            <string>添加试题</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="deleteQuestion">
-          <property name="text">
-           <string>删除试题</string>
           </property>
          </widget>
         </item>

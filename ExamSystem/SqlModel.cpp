@@ -471,23 +471,25 @@ Student SqlModel::searchStudentInfo(QString username)
   * @brief:将数据库中查询到的考生参加考试以及该考试本身的信息数据存放在Exam类中
   * @param [in] 输入参数: 查询结果query
   * @param [out] 输出参数: 返回存放Config类的一个对象
-  * @date:2018/12/16
-  * @version:2.0
+  * @date:2019/1/1
+  * @version:3.0
   */
 Config getInformationOfExam(QSqlQuery query) {
 	int examNameIndex = query.record().indexOf("exam_name");
 	int examCodeIndex = query.record().indexOf("exam_code");
 	int examDurationIndex = query.record().indexOf("duration");
-	int objectScoreIndex = query.record().indexOf("object_score");
+	int choiceScoreIndex = query.record().indexOf("object_score");
+	int multiScoreIndex = query.record().indexOf("multi_score");
 	int judgeScoreIndex = query.record().indexOf("judge_score");
 	int isSubmitIndex = query.record().indexOf("is_submit");
 	QString examName = query.record().value(examNameIndex).toString();
 	int examCode= query.record().value(examCodeIndex).toInt();
 	int examDuration = query.record().value(examDurationIndex).toInt();
-	int objectScore = query.record().value(objectScoreIndex).toInt();
+	int choiceScore = query.record().value(choiceScoreIndex).toInt();
+	int multiScore = query.record().value(multiScoreIndex).toInt();
 	int judgeScore = query.record().value(judgeScoreIndex).toInt();
 	int isSubmit = query.record().value(isSubmitIndex).toInt();
-	return Config::Config(objectScore, judgeScore, isSubmit, examName, examCode, examDuration);
+	return Config::Config(choiceScore, multiScore, judgeScore, isSubmit, examName, examCode, examDuration);
 }
 
 /**

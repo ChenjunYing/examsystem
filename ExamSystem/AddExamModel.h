@@ -10,6 +10,9 @@
 #include <QtSql/QSqlTableModel>
 #include <QtSql/QSqlError>
 #include <QMessageBox>
+#include "Question.h"
+#include "User.h"
+
 
 class AddExamModel {
 
@@ -17,7 +20,10 @@ public:
 	AddExamModel();
 	int isOpen();
 	~AddExamModel();
-
+	bool AddExamModel::insertExam(QString examName, int examTime, QString examInformation);
+	int AddExamModel::searchExam(QString examName);
+	bool AddExamModel::insertChoice(int examCode, int questionId);
+	bool AddExamModel::insertJudge(int examCode, int questionId);
 private:
 	int openstatus;
 	QSqlDatabase db;

@@ -67,7 +67,7 @@ private slots:
       * @date:2018/12/18
       * @version:1.0
       */
-	void multiDoubleClicked(const QModelIndex&);
+	void multiDoubleClicked(const QModelIndex& index);
 
 	void multiClicked(const QModelIndex& index);
 
