@@ -23,9 +23,9 @@ public:
 	void refreshQuestionBank();
 	void refreshComboBox();
 	~AddExam();
-	void setChoiceModelItemView(QStandardItemModel* model, QList<Choice>& choiceQuestionBank, int* chosenChoice);
-	void setMultiModelItemView(QStandardItemModel* model, QList<Choice>& choiceQuestionBank, int* chosenMulti);
-	void setJudgeModelItemView(QStandardItemModel* model, QList<Judge>& choiceQuestionBank, int* chosenJudge);
+	void setChoiceModelItemView(QStandardItemModel* model, QList<Choice>& choiceQuestionBank, QList<int> chosenChoice);
+	void setMultiModelItemView(QStandardItemModel* model, QList<Choice>& multiQuestionBank, QList<int> chosenMulti);
+	void setJudgeModelItemView(QStandardItemModel* model, QList<Judge>& judgeQuestionBank, QList<int> chosenJudge);
 	void showChoice();
 	void showMulti();
 	void showJudge();
@@ -35,16 +35,16 @@ private slots:
 	void choiceClicked(const QModelIndex& index);
 	void multiClicked(const QModelIndex& index);
 	void judgeClicked(const QModelIndex& index);
-	void creatExam();
+	void NewExam();
 
 private:
 	Ui::AddExam ui;
 	QList<Choice> choiceQuestionBank;
 	QList<Choice> multiQuestionBank;
 	QList<Judge> judgeQuestionBank;
-	int* chosenChoice;
-	int* chosenMulti;
-	int* chosenJudge;
+	QList<int> chosenChoice;
+	QList<int> chosenMulti;
+	QList<int> chosenJudge;
 	QStandardItemModel* examchoicemodel;
 	QStandardItemModel* exammultimodel;
 	QStandardItemModel* examjudgemodel;

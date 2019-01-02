@@ -24,6 +24,7 @@ public:
 	int AddExamModel::searchExam(QString examName);
 	bool AddExamModel::insertChoice(int examCode, int questionId);
 	bool AddExamModel::insertJudge(int examCode, int questionId);
+	void AddExamModel::insertStudent(int examCode);
 private:
 	int openstatus;
 	QSqlDatabase db;
