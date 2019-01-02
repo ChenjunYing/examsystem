@@ -86,10 +86,11 @@ Judge::~Judge() {
 
 
 
-Config::Config(int oScore, int jScore, int flag, QString Name, int Code, int Duration) :objectScore(oScore), judgeScore(jScore),isSubmit(flag),name(Name), code(Code), duration(Duration)
+Config::Config(int cScore, int mScore, int jScore, int flag, QString Name, int Code, int Duration) 
+	:choiceScore(cScore), multiScore(mScore), judgeScore(jScore),isSubmit(flag),name(Name), code(Code), duration(Duration)
 {
 	if (flag) {
-		score = objectScore + judgeScore;
+		score = choiceScore + multiScore + judgeScore;
 	}else {
 		score = NULL;
 	}
@@ -111,10 +112,16 @@ int Config::getDuration() const
 	return duration;
 }
 
-int Config::getObjectScore() const
+int Config::getChoiceScore() const
 {
-	return objectScore;
+	return choiceScore;
 }
+
+int Config::getMultiScore() const 
+{
+	return multiScore;
+}
+
 
 int Config::getJudgeScore() const
 {

@@ -47,8 +47,9 @@ void StudentWindow::showExam()
 	this->examModel->setHorizontalHeaderItem(1, new QStandardItem(QStringLiteral("考试时长")));
 	this->examModel->setHorizontalHeaderItem(2, new QStandardItem(QStringLiteral("考试状态")));
 	this->examModel->setHorizontalHeaderItem(3, new QStandardItem(QStringLiteral("考试总分")));
-	this->examModel->setHorizontalHeaderItem(4, new QStandardItem(QStringLiteral("选择得分")));
-	this->examModel->setHorizontalHeaderItem(5, new QStandardItem(QStringLiteral("判断得分")));
+	this->examModel->setHorizontalHeaderItem(4, new QStandardItem(QStringLiteral("单选得分")));
+	this->examModel->setHorizontalHeaderItem(5 , new QStandardItem(QStringLiteral("多选得分")));
+	this->examModel->setHorizontalHeaderItem(6, new QStandardItem(QStringLiteral("判断得分")));
 	this->ui.examTable->setModel(examModel);
 	this->ui.examTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	StudentWindow::dataGet();
@@ -72,20 +73,23 @@ void StudentWindow::showExam()
 		this->examModel->setItem(i, 1, new QStandardItem(duration.append(QStringLiteral("分钟"))));
 		if (exam.at(i).getIsSubmit() == 1) {
 			QString score = QString::number(exam.at(i).getScore());
-			QString objectScore = QString::number(exam.at(i).getObjectScore());
+			QString choiceScore = QString::number(exam.at(i).getChoiceScore());
+			QString multiScore = QString::number(exam.at(i).getMultiScore());
 			QString judgeScore = QString::number(exam.at(i).getJudgeScore());
 			this->examModel->setItem(i, 2, new QStandardItem(QStringLiteral("已完成")));
 			this->examModel->setItem(i, 3, new QStandardItem(score));
-			this->examModel->setItem(i, 4, new QStandardItem(objectScore));
-			this->examModel->setItem(i, 5, new QStandardItem(judgeScore));
+			this->examModel->setItem(i, 4, new QStandardItem(choiceScore));
+			this->examModel->setItem(i, 5, new QStandardItem(multiScore));
+			this->examModel->setItem(i, 6, new QStandardItem(judgeScore));
 		}
 		else {
 			this->examModel->setItem(i, 2, new QStandardItem(QStringLiteral("可参加")));
 			this->examModel->setItem(i, 3, new QStandardItem(QStringLiteral("暂无")));
 			this->examModel->setItem(i, 4, new QStandardItem(QStringLiteral("暂无")));
 			this->examModel->setItem(i, 5, new QStandardItem(QStringLiteral("暂无")));
+			this->examModel->setItem(i, 6, new QStandardItem(QStringLiteral("暂无")));
 		}
-		for (int j = 0; j <= 5; j++)
+		for (int j = 0; j <= 6; j++)
 		{
 			this->examModel->item(i, j)->setTextAlignment(Qt::AlignCenter);
 		}

@@ -66,11 +66,12 @@ private:
  */
 class Config {
 public:
-	Config(int oScore, int jScore, int flag, QString Name, int Code, int Duration);
+	Config::Config(int cScore , int mScore , int jScore , int flag , QString Name , int Code , int Duration);
 	QString getName() const;
 	int getCode() const;
 	int getDuration() const;
-	int getObjectScore() const;
+	int getChoiceScore() const;
+	int getMultiScore() const;
 	int getJudgeScore() const;
 	int getScore() const;
 	int getIsSubmit() const;
@@ -79,7 +80,8 @@ private:
 	QString name;
 	int code;
 	int duration;
-	int objectScore;
+	int choiceScore;
+	int multiScore;
 	int judgeScore;
 	int score;
 	int isSubmit;
