@@ -19,7 +19,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	connect(this->ui.judge , SIGNAL(triggered()) , this , SLOT(judgeTriggered()));
 	connect(this->ui.multichoice , SIGNAL(triggered()) , this , SLOT(multichoiceTriggered()));
 	connect(this->ui.goQuestionBank , SIGNAL(triggered()) , this , SLOT(goQuestionBankTriggered()));
-	connect(this->ui.examTable , SIGNAL(doubleClicked(const QModelIndex&)), this , SLOT(examDoubleClicked()));
+	connect(this, SIGNAL(sendExamCode(int)), this->scoreReport, SLOT(receiveCode(int)));
+	qDebug()<< connect(this->ui.examTable , SIGNAL(doubleClicked(const QModelIndex&)), this , SLOT(examDoubleClicked(const QModelIndex&)));
 }
 
 
@@ -42,6 +43,7 @@ void MainWindow::examDoubleClicked(const QModelIndex& index)
 {
 	if (index.isValid() && index.column() == 3) {
 		emit sendExamCode(this->exam.at(index.row()).getExamCode());
+		this->scoreReport->exec();
 	}
 }
 
@@ -56,6 +58,7 @@ void MainWindow::showExamTable() {
 	this->exammodel->clear();
 	MainWindow::setTableHeader(this->exammodel); //初始化表头
 	this->ui.examTable->setModel(this->exammodel);
+	this->ui.examTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	this->ui.examTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); //设置等列宽且不可拖动
 	MainWindow::setExamTableItemView(this->exammodel);
 }

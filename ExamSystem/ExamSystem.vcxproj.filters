@@ -81,10 +81,10 @@
     <ClCompile Include="AddExamModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreReport.cpp">
+    <ClCompile Include="ScoreModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreModel.cpp">
+    <ClCompile Include="ScoreReport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

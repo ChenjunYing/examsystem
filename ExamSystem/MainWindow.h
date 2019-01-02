@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QAction>
 #include <QtWidgets/QMainWindow>
+#include <QAbstractItemView>
 #include "ui_MainWindow.h"
 #include "AddChoice.h"
 #include "AddMultiChoice.h"
@@ -48,6 +49,7 @@ private:
 	ScoreReport* scoreReport;
 	QStandardItemModel* exammodel;
 	QList<Exam> exam;
+	int clickedExamCode;
 };
 
 #endif

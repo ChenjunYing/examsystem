@@ -4,10 +4,10 @@
  <widget class="QDialog" name="ScoreReport">
   <property name="geometry">
    <rect>
-	<x>0</x>
-	<y>0</y>
-	<width>868</width>
-	<height>413</height>
+    <x>0</x>
+    <y>0</y>
+    <width>864</width>
+    <height>442</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,16 +15,16 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-	<widget class="QGroupBox" name="groupBox">
-	 <property name="title">
-	  <string>学生成绩</string>
-	 </property>
-	 <layout class="QHBoxLayout" name="horizontalLayout_2">
-	  <item>
-	   <widget class="QTableView" name="tableView"/>
-	  </item>
-	 </layout>
-	</widget>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>学生成绩</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QTableView" name="scoreTable"/>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>

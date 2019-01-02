@@ -10,7 +10,6 @@
 #include <QStandardItemModel>
 #include "ui_StudentWindow.h"
 #include "User.h"
-#include <QList>
 #include <QFile>
 #include <QTableView>
 #include <QHeaderView>

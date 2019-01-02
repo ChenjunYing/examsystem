@@ -22,11 +22,15 @@ public:
 	ScoreReport(QWidget *parent = Q_NULLPTR);
 	~ScoreReport();
 	void showScore();
+	void scoreGet();
+	void setScoreTableHeader(QStandardItemModel* model);
+	void setScoreModelItemView(QStandardItemModel* model, QList<Score>& score);
 private slots:
 	void receiveCode(int code);
 
 private:
 	Ui::ScoreReport ui;
+	QList<Score> score;
 	QStandardItemModel* scoreModel;
 	int code;
 };

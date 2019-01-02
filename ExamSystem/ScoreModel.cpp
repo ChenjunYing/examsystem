@@ -1,5 +1,5 @@
 #include "ScoreModel.h"
-
+Score getInfoOfScore(QSqlQuery query);
 
 
 ScoreModel::ScoreModel()
@@ -28,6 +28,34 @@ QList<Score> ScoreModel::searchScore(int code)
 {
 	QSqlQuery query;
 	QList<Score> scoreList;
-	query.prepare("select * from config order by ");
-	return ;
+	query.prepare("select * from config where exam_code = :code");
+	query.bindValue(":code",code);
+	query.exec();
+	if (query.size()) {
+		while (query.next()) {
+			scoreList.push_back(getInfoOfScore(query));
+		}
+	}
+	return scoreList;
+}
+
+Score getInfoOfScore(QSqlQuery query)
+{
+	int userNameIndex = query.record().indexOf("username");
+	int examNameIndex = query.record().indexOf("exam_name");
+	int examCodeIndex = query.record().indexOf("exam_code");
+	int examDurationIndex = query.record().indexOf("duration");
+	int choiceScoreIndex = query.record().indexOf("object_score");
+	int multiScoreIndex = query.record().indexOf("multi_score");
+	int judgeScoreIndex = query.record().indexOf("judge_score");
+	int isSubmitIndex = query.record().indexOf("is_submit");
+	QString userName = query.record().value(userNameIndex).toString();
+	QString examName = query.record().value(examNameIndex).toString();
+	int examCode = query.record().value(examCodeIndex).toInt();
+	int examDuration = query.record().value(examDurationIndex).toInt();
+	int choiceScore = query.record().value(choiceScoreIndex).toInt();
+	int multiScore = query.record().value(multiScoreIndex).toInt();
+	int judgeScore = query.record().value(judgeScoreIndex).toInt();
+	int isSubmit = query.record().value(isSubmitIndex).toInt();
+	return Score(userName, choiceScore, multiScore, judgeScore, isSubmit, examName, examCode, examDuration);
 }
