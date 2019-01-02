@@ -8,6 +8,8 @@ StudentExam::StudentExam(QWidget *parent)
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
 	StudentExam::dataGet(3);  //从数据库中拉取题目
 	StudentExam::onTabChanged(0); //默认显示单选题
+	QDateTime startT = QDateTime::currentDateTime();
+	this->startT = startT;
 
 	connect(this->ui.tabWindow, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
 	connect(this->ui.choicePrevious, SIGNAL(clicked(bool)), this, SLOT(choicePrevious()));
@@ -20,6 +22,9 @@ StudentExam::StudentExam(QWidget *parent)
 	connect(this->ui.multichoiceJump, SIGNAL(clicked(bool)), this, SLOT(multichoiceJump()));
 	connect(this->ui.judgeJump, SIGNAL(clicked(bool)), this, SLOT(judgeJump()));
 	connect(this->ui.submit, SIGNAL(clicked(bool)), this, SLOT(submit()));
+	QTimer *time_clock = new QTimer(this);
+	connect(time_clock, SIGNAL(timeout()), this, SLOT(Countdown()));
+	time_clock->start(1000);
 }
 
 /**
@@ -56,8 +61,8 @@ void StudentExam::onTabChanged(int index) {
 /**
   * @author:陈欢
   * @brief:根据试卷编号查询数据库得到题目
-  * @date:2018/12/24
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
 void StudentExam::dataGet(int examCode) {
 	StudentExamModel sql;
@@ -71,6 +76,10 @@ void StudentExam::dataGet(int examCode) {
 		this->choiceAns = this->choice;
 		this->multichoiceAns = this->multichoice;
 		this->judgeAns = this->judge;
+		Exam exam = sql.getInformation(examCode);
+		this->duration = exam.getDuration();
+		this->examName = exam.getExamName();
+		this->information = exam.getInformation();
 		for (int i = 0; i < this->choiceAns.size(); i++) {
 			this->choiceAns[i].writeAnswer(QString());
 		}
@@ -80,6 +89,11 @@ void StudentExam::dataGet(int examCode) {
 		for (int i = 0; i < this->judgeAns.size(); i++) {
 			this->judgeAns[i].writeAnswer(QString());
 		}
+		this->ui.examName->setPlainText(this->examName);
+		this->ui.examName->setAlignment(Qt::AlignCenter);
+		this->ui.examDuration->setText(QString::number(this->duration) + " minutes");
+		this->ui.examInformation->setPlainText(this->information);
+		this->ui.examInformation->setAlignment(Qt::AlignCenter);
 	}
 }
 
@@ -473,7 +487,7 @@ void StudentExam::submit() {
 	}
 	else {
 		int num = this->choice.size();
-		flag=sql.submit(this->choice, this->multichoice, this->judge, 3,this->objectScore,this->judgeScore);
+		flag=sql.submit(this->choice, this->multichoice, this->judge, 3,this->objectScore,this->multiScore,this->judgeScore);
 		if (flag) {
 			QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("提交成功！"), QMessageBox::Yes);
 			this->close();
@@ -487,13 +501,14 @@ void StudentExam::submit() {
 /**
   * @author:陈欢
   * @brief:将暂存的答案与标准答案比较，得出分数
-  * @date:2018/12/24
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
 void StudentExam::getScore() {
 	int i;
 	int objectSum = 0;
 	int judgeSum = 0;
+	int multiSum = 0;
 	for (i = 0; i < this->choice.size(); i++) {
 		if (this->choice.at(i).getAnswer() == this->choiceAns.at(i).getAnswer()) {
 			objectSum += choice.at(i).getValue();
@@ -501,7 +516,7 @@ void StudentExam::getScore() {
 	}
 	for (i = 0; i < this->multichoice.size(); i++) {
 		if (this->multichoice.at(i).getAnswer() == this->multichoiceAns.at(i).getAnswer()) {
-			objectSum += multichoice.at(i).getValue();
+			multiSum += multichoice.at(i).getValue();
 		}
 	}
 	for (i = 0; i < this->judge.size(); i++) {
@@ -511,6 +526,23 @@ void StudentExam::getScore() {
 	}
 	this->objectScore = objectSum;
 	this->judgeScore = judgeSum;
+	this->multiScore = multiSum;
+}
+
+/**
+  * @author:陈欢
+  * @brief:实现倒计时功能
+  * @date:2019/1/2
+  * @version:1.0
+  */
+void StudentExam::Countdown() {
+	static int i = this->duration * 60;
+	i--;
+	int hour = i / 3600;
+	int min = (i - hour * 3600) / 60;
+	int sec = i - hour * 3600 - min * 60;
+	this->ui.remainingTime->setText(QString::number(hour) +":"+QString::number(min) +":"+ QString::number(sec));
+	this->ui.remainingTime->setAlignment(Qt::AlignCenter);
 }
 
 StudentExam::~StudentExam()

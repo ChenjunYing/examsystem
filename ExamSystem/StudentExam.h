@@ -61,8 +61,9 @@ private slots:
 
 	void getScore();
 
-private:
+	void Countdown();
 
+private:
 	Ui::StudentExam ui;
 	QList<Choice> choice;
 	QList<Choice> multichoice;
@@ -77,5 +78,11 @@ private:
 	int multichoiceCurrent = 0;
 	int judgeCurrent = 0;
 	int objectScore = -1;
+	int multiScore = -1;
 	int judgeScore = -1;
+	QDateTime startT;
+	QDateTime endT;
+	QString information;
+	QString examName;
+	int duration=120;
 };

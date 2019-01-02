@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include "Question.h"
 #include "User.h"
+#include "Exam.h"
 
 /**
   * @brief 该类封装了考试界面中对数据库的相关操作
@@ -61,8 +62,17 @@ public:
 * @date:2018/12/24
 * @version:1.0
 */
-	int submit(QList<Choice> choiceAns, QList<Choice> multichoiceAns, QList<Judge> judgeAns,int examCode,int objectScore,int judgeScore);
+	int submit(QList<Choice> choiceAns, QList<Choice> multichoiceAns, QList<Judge> judgeAns,int examCode,int objectScore,int multiScore,int judgeScore);
 
+	/**
+* @author:陈欢
+* @brief:查找当前试卷信息
+* @param [in] 输入参数1: 试卷代号
+* @param [out] 输出参数: 返回Exam类 存放试卷信息
+* @date:2019/1/2
+* @version:1.0
+*/
+	Exam getInformation(int examCode);
 	~StudentExamModel();
 
 private:
