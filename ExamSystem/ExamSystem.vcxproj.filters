@@ -81,6 +81,12 @@
     <ClCompile Include="AddExamModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreReport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -108,6 +114,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="AddExam.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ScoreReport.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -139,6 +148,9 @@
     <QtUic Include="AddExam.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="ScoreReport.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SqlModel.h">
@@ -160,6 +172,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AddExamModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

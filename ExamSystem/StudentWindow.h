@@ -44,7 +44,7 @@ private:
 	QList<Config> exam;
 	QString userName;
 	QStandardItemModel* examModel;
-	StudentExam newExam;
+	StudentExam* newExam;
 
 };
 

@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	this->choice = new AddChoice;
 	this->multichoice = new AddMultiChoice;
 	this->judge = new AddJudge;
+	this->scoreReport = new ScoreReport;
 	this->exammodel = new QStandardItemModel;
 	MainWindow::dataRefresh();
 	MainWindow::showExamTable();
@@ -18,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	connect(this->ui.judge , SIGNAL(triggered()) , this , SLOT(judgeTriggered()));
 	connect(this->ui.multichoice , SIGNAL(triggered()) , this , SLOT(multichoiceTriggered()));
 	connect(this->ui.goQuestionBank , SIGNAL(triggered()) , this , SLOT(goQuestionBankTriggered()));
+	connect(this, SIGNAL(sendExamCode(int)), this->scoreReport, SLOT(receiveCode(int)));
+	connect(this->ui.examTable , SIGNAL(doubleClicked(const QModelIndex&)), this , SLOT(examDoubleClicked(const QModelIndex&)));
 }
 
 
@@ -36,6 +39,14 @@ void MainWindow::dataRefresh() {
 	}
 }
 
+void MainWindow::examDoubleClicked(const QModelIndex& index)
+{
+	if (index.isValid() && index.column() == 3) {
+		emit sendExamCode(this->exam.at(index.row()).getExamCode());
+		this->scoreReport->exec();
+	}
+}
+
 
 /**
   * @author:Ó¦³Ð¾þ
@@ -47,6 +58,7 @@ void MainWindow::showExamTable() {
 	this->exammodel->clear();
 	MainWindow::setTableHeader(this->exammodel); //³õÊ¼»¯±íÍ·
 	this->ui.examTable->setModel(this->exammodel);
+	this->ui.examTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	this->ui.examTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); //ÉèÖÃµÈÁÐ¿íÇÒ²»¿ÉÍÏ¶¯
 	MainWindow::setExamTableItemView(this->exammodel);
 }
@@ -62,8 +74,9 @@ void MainWindow::setTableHeader(QStandardItemModel* model) {
 	model->setHorizontalHeaderItem(0 , new QStandardItem(QStringLiteral("¿¼ÊÔÃû³Æ")));
 	model->setHorizontalHeaderItem(1 , new QStandardItem(QStringLiteral("¿¼ÊÔÊ±¼ä")));
 	model->setHorizontalHeaderItem(2 , new QStandardItem(QStringLiteral("¿¼ÊÔÐÅÏ¢")));
-	model->setHorizontalHeaderItem(3 , new QStandardItem(QStringLiteral("±à¼­¿¼ÊÔ")));
-	model->setHorizontalHeaderItem(4 , new QStandardItem(QStringLiteral("É¾³ý¿¼ÊÔ")));
+	model->setHorizontalHeaderItem(3 , new QStandardItem(QStringLiteral("²éÑ¯³É¼¨")));
+	model->setHorizontalHeaderItem(4 , new QStandardItem(QStringLiteral("±à¼­¿¼ÊÔ")));
+	model->setHorizontalHeaderItem(5 , new QStandardItem(QStringLiteral("É¾³ý¿¼ÊÔ")));
 }
 
 
@@ -79,13 +92,15 @@ void MainWindow::setExamTableItemView(QStandardItemModel* model) {
 		model->setItem(i , 0 , new QStandardItem(exam.at(i).getExamName()));
 		model->setItem(i , 1 , new QStandardItem(QString::number(exam.at(i).getDuration())));
 		model->setItem(i , 2 , new QStandardItem(exam.at(i).getInformation()));
-		model->setItem(i , 3 , new QStandardItem(QStringLiteral("²é¿´")));
-		model->setItem(i , 4 , new QStandardItem(QStringLiteral("É¾³ý")));
+		model->setItem(i , 3 , new QStandardItem(QStringLiteral("²éÑ¯")));
+		model->setItem(i , 4 , new QStandardItem(QStringLiteral("²é¿´")));
+		model->setItem(i , 5 , new QStandardItem(QStringLiteral("É¾³ý")));
 		model->item(i , 0)->setTextAlignment(Qt::AlignCenter); //ÉèÖÃ¾ÓÖÐ
 		model->item(i , 1)->setTextAlignment(Qt::AlignCenter);
 		model->item(i , 2)->setTextAlignment(Qt::AlignCenter);
 		model->item(i , 3)->setTextAlignment(Qt::AlignCenter);
 		model->item(i , 4)->setTextAlignment(Qt::AlignCenter);
+		model->item(i , 5)->setTextAlignment(Qt::AlignCenter);
 	}
 }
 

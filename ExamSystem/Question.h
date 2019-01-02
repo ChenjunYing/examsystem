@@ -87,4 +87,14 @@ private:
 	int isSubmit;
 	Config();//不允许使用默认无参构造函数
 };
+
+class Score :public Config {
+public:
+	Score(QString name, int cScore, int mScore, int jScore, int flag, QString Name, int Code, int Duration);
+	~Score();
+	QString getStudentName() const;
+private:
+	Score();
+	QString studentName;
+};
 #endif

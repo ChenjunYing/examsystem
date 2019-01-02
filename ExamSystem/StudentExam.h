@@ -64,7 +64,10 @@ private slots:
 
 	void Countdown();
 
+	void closeEvent(QCloseEvent *event);
+
 private:
+
 	Ui::StudentExam ui;
 	QString username;
 	QList<Choice> choice;
@@ -82,12 +85,11 @@ private:
 	int objectScore = -1;
 	int multiScore = -1;
 	int judgeScore = -1;
-	int duration = 120;
 	int examCode;
+	QTimer *time_clock;
 	QDateTime startT;
 	QDateTime endT;
-	QTimer *time_clock;
 	QString information;
 	QString examName;
-	
+	int duration = 120;
 };

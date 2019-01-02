@@ -1,4 +1,5 @@
 #include "StudentExam.h"
+#include <QCloseEvent>
 
 
 StudentExam::StudentExam(QWidget *parent)
@@ -7,8 +8,8 @@ StudentExam::StudentExam(QWidget *parent)
 	ui.setupUi(this);
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
 	
-	StudentExam::dataGet(3);  //从数据库中拉取题目
-	StudentExam::onTabChanged(0); //默认显示单选题
+	//StudentExam::dataGet(3);  //从数据库中拉取题目
+	//StudentExam::onTabChanged(0); //默认显示单选题
 	QDateTime startT = QDateTime::currentDateTime();
 	this->startT = startT;
 
@@ -23,7 +24,7 @@ StudentExam::StudentExam(QWidget *parent)
 	connect(this->ui.multichoiceJump, SIGNAL(clicked(bool)), this, SLOT(multichoiceJump()));
 	connect(this->ui.judgeJump, SIGNAL(clicked(bool)), this, SLOT(judgeJump()));
 	connect(this->ui.submit, SIGNAL(clicked(bool)), this, SLOT(submit()));
-	time_clock = new QTimer(this);
+	this->time_clock = new QTimer(this);	
 	connect(time_clock, SIGNAL(timeout()), this, SLOT(Countdown()));
 	time_clock->start(1000);
 }
@@ -105,11 +106,9 @@ void StudentExam::dataGet(int examCode) {
 		for (int i = 0; i < this->judgeAns.size(); i++) {
 			this->judgeAns[i].writeAnswer(QString());
 		}
-		this->ui.examName->setPlainText(this->examName);
-		this->ui.examName->setAlignment(Qt::AlignCenter);
-		this->ui.examDuration->setText(QString::number(this->duration) + " minutes");
+		this->ui.examName->setText(this->examName);
+		this->ui.examDuration->setText(QString::number(this->duration) + QStringLiteral(" 分钟"));
 		this->ui.examInformation->setPlainText(this->information);
-		this->ui.examInformation->setAlignment(Qt::AlignCenter);
 	}
 }
 
@@ -124,7 +123,6 @@ void StudentExam::showChoice() {
 		QString str = "(" + QString::number(this->choice.at(this->choiceCurrent).getValue()) + QStringLiteral("分)");
 		this->ui.choiceQuestion->setPlainText(str);
 		this->ui.choiceQuestion->insertPlainText(this->choice.at(this->choiceCurrent).getDescription());
-		this->ui.choiceQuestion->setAlignment(Qt::AlignCenter);
 		this->ui.choiceA->setPlainText(this->choice.at(this->choiceCurrent).getChoiceA());
 		this->ui.choiceB->setPlainText(this->choice.at(this->choiceCurrent).getChoiceB());
 		this->ui.choiceC->setPlainText(this->choice.at(this->choiceCurrent).getChoiceC());
@@ -176,6 +174,13 @@ void StudentExam::showChoice() {
 			this->ui.selectD->setAutoExclusive(true);
 		}
 	}
+	else {
+		this->ui.choiceQuestion->clear();
+		this->ui.choiceA->clear();
+		this->ui.choiceB->clear();
+		this->ui.choiceC->clear();
+		this->ui.choiceD->clear();
+	}
 }
 
 /**
@@ -189,7 +194,6 @@ void StudentExam::showMultichoice() {
 		QString str = "(" + QString::number(this->multichoice.at(this->multichoiceCurrent).getValue()) + QStringLiteral("分)");
 		this->ui.multichoiceQuestion->setPlainText(str);
 		this->ui.multichoiceQuestion->insertPlainText(this->multichoice.at(this->multichoiceCurrent).getDescription());
-		this->ui.multichoiceQuestion->setAlignment(Qt::AlignCenter);
 		this->ui.multichoiceA->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceA());
 		this->ui.multichoiceB->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceB());
 		this->ui.multichoiceC->setPlainText(this->multichoice.at(this->multichoiceCurrent).getChoiceC());
@@ -234,6 +238,13 @@ void StudentExam::showMultichoice() {
 			}
 		}
 	}
+	else {
+		this->ui.multichoiceQuestion->clear();
+		this->ui.multichoiceA->clear();
+		this->ui.multichoiceB->clear();
+		this->ui.multichoiceC->clear();
+		this->ui.multichoiceD->clear();
+	}
 }
 
 /**
@@ -247,8 +258,6 @@ void StudentExam::showJudge() {
 		QString str = "(" + QString::number(this->judge.at(this->judgeCurrent).getValue()) + QStringLiteral("分)");
 		this->ui.judgeQuestion->setPlainText(str);
 		this->ui.judgeQuestion->insertPlainText(this->judge.at(this->judgeCurrent).getDescription());
-		this->ui.judgeQuestion->setAlignment(Qt::AlignCenter);
-
 		this->ui.judgeCurrent->setText(QString::number(this->judgeCurrent + 1));
 		this->ui.judgeCurrent->setAlignment(Qt::AlignCenter);
 		this->ui.judgeTotal->setText(QString::number(this->judge.size()));
@@ -280,6 +289,9 @@ void StudentExam::showJudge() {
 			this->ui.selectT->setAutoExclusive(true);
 			this->ui.selectF->setAutoExclusive(true);
 		}
+	}
+	else {
+		this->ui.judgeQuestion->clear();
 	}
 }
 
@@ -558,11 +570,24 @@ void StudentExam::Countdown() {
 	int min = (i - hour * 3600) / 60;
 	int sec = i - hour * 3600 - min * 60;
 	this->ui.remainingTime->setText(QString::number(hour) + ":" + QString::number(min) + ":" + QString::number(sec));
-	this->ui.remainingTime->setAlignment(Qt::AlignCenter);
 	if (hour == 0 && min == 0 && sec == 0) {
 		submit();
 	}
 }
+
+
+void StudentExam::closeEvent(QCloseEvent *event)
+{
+	int ret = QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("确定要离开考试吗？"), QMessageBox::Yes | QMessageBox::Cancel);
+	if (ret == QMessageBox::Cancel) {
+		event->ignore();
+	}
+	if (ret == QMessageBox::Yes) {
+		submit();
+	}
+}
+
+
 
 StudentExam::~StudentExam()
 {
