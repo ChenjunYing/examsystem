@@ -134,3 +134,16 @@ int Config::getIsSubmit() const
 Config::~Config(){
 
 }
+
+Score::Score(QString name, int oScore, int jScore, int flag, QString Name, int Code, int Duration):studentName(name), Config(oScore, jScore, flag, Name, Code, Duration)
+{
+}
+
+Score::~Score()
+{
+}
+
+QString Score::getstudentName() const
+{
+	return studentName;
+}

@@ -11,6 +11,7 @@
 #include "QuestionBank.h"
 #include "Exam.h"
 #include "AdminModel.h"
+#include "ScoreReport.h"
 
 class MainWindow : public QMainWindow {
 
@@ -19,6 +20,8 @@ class MainWindow : public QMainWindow {
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 	~MainWindow();
+
+signals: void sendExamCode(int code);
 
 public slots:
 	void receiveAddChoicePage(AddChoice*);
@@ -34,6 +37,7 @@ private slots:
 	void setTableHeader(QStandardItemModel* model);
 	void setExamTableItemView(QStandardItemModel* model);
 	void dataRefresh();
+	void examDoubleClicked(const QModelIndex& index);
 
 private:
 	Ui::MainWindowClass ui;
@@ -41,6 +45,7 @@ private:
 	AddMultiChoice* multichoice;
 	AddJudge* judge;
 	QuestionBank* questionbank;
+	ScoreReport* scoreReport;
 	QStandardItemModel* exammodel;
 	QList<Exam> exam;
 };

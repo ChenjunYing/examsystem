@@ -129,6 +129,8 @@
     <ClCompile Include="LoginDialog.cpp" />
     <ClCompile Include="Question.cpp" />
     <ClCompile Include="QuestionBank.cpp" />
+    <ClCompile Include="ScoreModel.cpp" />
+    <ClCompile Include="ScoreReport.cpp" />
     <ClCompile Include="SqlModel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
@@ -148,6 +150,7 @@
     <QtUic Include="LoginDialog.ui" />
     <QtUic Include="MainWindow.ui" />
     <QtUic Include="QuestionBank.ui" />
+    <QtUic Include="ScoreReport.ui" />
     <QtUic Include="StudentExam.ui" />
     <QtUic Include="StudentWindow.ui" />
   </ItemGroup>
@@ -177,6 +180,13 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtWidgets</IncludePath>
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_WIDGETS_LIB</Define>
     </QtMoc>
+    <QtMoc Include="ScoreReport.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtWidgets</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_WIDGETS_LIB</Define>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtWidgets</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_WIDGETS_LIB</Define>
+    </QtMoc>
+    <ClInclude Include="ScoreModel.h" />
     <ClInclude Include="StudentExamModel.h" />
     <ClInclude Include="User.h" />
     <QtMoc Include="StudentWindow.h">

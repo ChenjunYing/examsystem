@@ -12,15 +12,8 @@
 #include "User.h"
 #include <QList>
 #include <QFile>
-#include <QDialog>
-#include <QVariant> 
-#include <QTabWidget>
 #include <QTableView>
 #include <QHeaderView>
-#include <QModelIndex>
-#include <QStandardItem>
-#include <QAbstractItemView>
-#include <QStandardItemModel>
 #include "Question.h"
 #include "StudentExam.h"
 

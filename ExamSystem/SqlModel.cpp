@@ -468,7 +468,7 @@ Student SqlModel::searchStudentInfo(QString username)
 
 /**
   * @author:夏林轩
-  * @brief:将数据库中查询到的考生参加考试以及该考试本身的信息数据存放在Exam类中
+  * @brief:将数据库中查询到的考生参加考试以及该考试本身的信息数据存放在Config类中
   * @param [in] 输入参数: 查询结果query
   * @param [out] 输出参数: 返回存放Config类的一个对象
   * @date:2018/12/16
