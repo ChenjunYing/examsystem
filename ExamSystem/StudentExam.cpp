@@ -543,6 +543,9 @@ void StudentExam::Countdown() {
 	int sec = i - hour * 3600 - min * 60;
 	this->ui.remainingTime->setText(QString::number(hour) +":"+QString::number(min) +":"+ QString::number(sec));
 	this->ui.remainingTime->setAlignment(Qt::AlignCenter);
+	if (hour == 0 && min == 0 && sec == 0) {
+		submit();
+	}
 }
 
 StudentExam::~StudentExam()
