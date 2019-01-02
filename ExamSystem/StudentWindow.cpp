@@ -8,11 +8,23 @@ StudentWindow::StudentWindow(QWidget *parent)
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
 	this->examModel= new QStandardItemModel; //创建考试表格
 	connect(this->ui.examTable , SIGNAL(clicked(const QModelIndex&)) , this , SLOT(examTableClicked(const QModelIndex&)));
+	connect(this->ui.refreshBtn , SIGNAL(clicked(bool)) , this , SLOT(dataRefresh()));
 }
 
 StudentWindow::~StudentWindow()
 {
 	delete examModel;
+}
+
+/**
+  * @author:应承峻
+  * @brief:刷新页面数据并显示
+  * @date:2019/1/2
+  * @version:1.0
+  */
+void StudentWindow::dataRefresh() {
+	StudentWindow::showExam();
+	StudentWindow::showStudent(userName);
 }
 
 /**
