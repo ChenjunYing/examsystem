@@ -89,6 +89,27 @@ bool AddExamModel::insertJudge(int examCode, int questionId)
 	return query.exec();
 }
 
+/**
+  * @author:黄思泳
+  * @brief:将所有考生添加入新建的考试
+  * @date:2019/1/2
+  * @version:1.0
+  */
+void AddExamModel::insertStudent(int examCode)
+{
+	QSqlQuery query1;
+	QSqlQuery query2;
+	query1.exec("select username from user");
+	if (query1.size())
+	{
+		while (query1.next()) {
+			query2.prepare("insert into config(username,exam_code) values(:username,:examCode)");
+			query2.bindValue(":username", query1.record().value(0).toString());
+			query2.bindValue(":examCode", examCode);
+			query2.exec();
+		}
+	}
+}
 
 AddExamModel::~AddExamModel() {
 

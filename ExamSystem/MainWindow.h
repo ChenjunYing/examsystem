@@ -11,6 +11,7 @@
 #include "AddJudge.h"
 #include "QuestionBank.h"
 #include "Exam.h"
+#include "AddExam.h"
 #include "AdminModel.h"
 #include "ScoreReport.h"
 
@@ -21,6 +22,7 @@ class MainWindow : public QMainWindow {
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
 	~MainWindow();
+	friend class LoginDialog;
 
 signals: void sendExamCode(int code);
 
@@ -30,21 +32,23 @@ public slots:
 	void receiveAddJudgePage(AddJudge*);
 
 private slots:
+	void dataRefresh();
+	void showExamTable();
 	void choiceTriggered();
 	void judgeTriggered();
 	void multichoiceTriggered();
 	void goQuestionBankTriggered();
-	void showExamTable();
+	void createExamTriggered();
 	void setTableHeader(QStandardItemModel* model);
 	void setExamTableItemView(QStandardItemModel* model);
-	void dataRefresh();
-	void examClicked(const QModelIndex& index);
+	void examDoubleClicked(const QModelIndex& index);
 
 private:
 	Ui::MainWindowClass ui;
 	AddChoice* choice;
 	AddMultiChoice* multichoice;
 	AddJudge* judge;
+	AddExam* newexam;
 	QuestionBank* questionbank;
 	ScoreReport* scoreReport;
 	QStandardItemModel* exammodel;

@@ -19,10 +19,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	connect(this->ui.judge , SIGNAL(triggered()) , this , SLOT(judgeTriggered()));
 	connect(this->ui.multichoice , SIGNAL(triggered()) , this , SLOT(multichoiceTriggered()));
 	connect(this->ui.goQuestionBank , SIGNAL(triggered()) , this , SLOT(goQuestionBankTriggered()));
+	connect(this->ui.createExam , SIGNAL(triggered()) , this , SLOT(createExamTriggered()));
 	connect(this, SIGNAL(sendExamCode(int)), this->scoreReport, SLOT(receiveCode(int)));
-	qDebug()<< connect(this->ui.examTable , SIGNAL(clicked(const QModelIndex&)), this , SLOT(examClicked(const QModelIndex&)));
+	connect(this->ui.examTable , SIGNAL(doubleClicked(const QModelIndex&)), this , SLOT(examDoubleClicked(const QModelIndex&)));
 }
-
 
 /**
   * @author:应承峻
@@ -39,7 +39,7 @@ void MainWindow::dataRefresh() {
 	}
 }
 
-void MainWindow::examClicked(const QModelIndex& index)
+void MainWindow::examDoubleClicked(const QModelIndex& index)
 {
 	if (index.isValid() && index.column() == 3) {
 		emit sendExamCode(this->exam.at(index.row()).getExamCode());
@@ -119,6 +119,13 @@ void MainWindow::judgeTriggered() {
 	judge->exec();  //弹出添加判断题模态框，此时用户不能对主界面进行操作
 }
 
+/*创建考试接口*/
+void MainWindow::createExamTriggered() {
+	if (newexam) delete newexam;
+	newexam = new AddExam;
+	newexam->show();
+}
+
 /*题库接口*/
 void MainWindow::goQuestionBankTriggered() {
 	questionbank = new QuestionBank;
@@ -129,9 +136,7 @@ void MainWindow::goQuestionBankTriggered() {
 	connect(multichoice, SIGNAL(sendMultiChoicePage(AddMultiChoice*)), this, SLOT(receiveAddMultiChoicePage(AddMultiChoice*)));
 	connect(judge, SIGNAL(sendJudgePage(AddJudge*)), this, SLOT(receiveAddJudgePage(AddJudge*)));
 	questionbank->exec(); //弹出查看题库模态框，此时用户不能对主界面进行操作
-	if (questionbank) {
-		delete questionbank;
-	}
+	if (questionbank) delete questionbank;
 }
 
 /**
@@ -175,4 +180,5 @@ MainWindow::~MainWindow() {
 	delete multichoice;
 	delete judge;
 	delete exammodel;
+	delete newexam;
 }

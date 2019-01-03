@@ -23,6 +23,8 @@ public:
 	void display(QString username , int examCode);
 	~StudentExam();
 
+signals: void examFinish();
+
 private slots:
 	void onTabChanged(int index);
 
@@ -62,6 +64,10 @@ private slots:
 
 	void getScore();
 
+	void Countdown();
+
+	void closeEvent(QCloseEvent *event);
+
 private:
 
 	Ui::StudentExam ui;
@@ -79,6 +85,14 @@ private:
 	int multichoiceCurrent = 0;
 	int judgeCurrent = 0;
 	int objectScore = -1;
+	int multiScore = -1;
 	int judgeScore = -1;
 	int examCode;
+	QTimer *time_clock;
+	QDateTime startT;
+	QDateTime endT;
+	QString information;
+	QString examName;
+	int duration = 120;
+	int is_submit = 0;
 };

@@ -8,9 +8,6 @@ AddExam::AddExam(QWidget *parent) : QWidget(parent) {
 	this->examchoicemodel = new QStandardItemModel; 
 	this->exammultimodel = new QStandardItemModel;  
 	this->examjudgemodel = new QStandardItemModel;
-	this->chosenChoice = new int[choiceQuestionBank.size()];
-	this->chosenMulti = new int[multiQuestionBank.size()];
-	this->chosenJudge = new int[judgeQuestionBank.size()];
 	showMulti();
 	showJudge();
 	showChoice();
@@ -18,7 +15,7 @@ AddExam::AddExam(QWidget *parent) : QWidget(parent) {
 	connect(this->ui.choiceTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(choiceClicked(const QModelIndex&)));
 	connect(this->ui.multiTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(multiClicked(const QModelIndex&)));
 	connect(this->ui.judgeTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(judgeClicked(const QModelIndex&)));
-	connect(this->ui.submitBtn, SIGNAL(clicked(bool)), this, SLOT(creatExam()));
+	connect(this->ui.submitBtn, SIGNAL(clicked(bool)), this, SLOT(NewExam()));
 }
 
 /**
@@ -65,21 +62,27 @@ void AddExam::refreshComboBox() {
 /**
   * @author:黄思泳
   * @brief:渲染单选题内容
-  * @date:2019/1/1
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
-void AddExam::setChoiceModelItemView(QStandardItemModel* model, QList<Choice>& choiceQuestionBank, int* chosenChoice) {
-	int j = 0;
-	for (int i = 0; i < choiceQuestionBank.size(); i++) {
-		QString questionId = QString::number(choiceQuestionBank.at(i).getQuestionId()); //将ID转换成字符串
-		if (chosenChoice[choiceQuestionBank.at(i).getQuestionId()] == 1)
+void AddExam::setChoiceModelItemView(QStandardItemModel* model, QList<Choice>& choiceQuestionBank, QList<int> chosenChoice) {
+	for (int i = 0; i < chosenChoice.size(); i++) {
+		for (int j = 0; j < choiceQuestionBank.size(); j++)
 		{
-			QString value = QString::number(choiceQuestionBank.at(i).getValue()); //将分值转换成字符串
-			model->setItem(j, 0, new QStandardItem(questionId));
-			model->setItem(j, 1, new QStandardItem(choiceQuestionBank.at(i).getDescription()));
-			model->setItem(j, 2, new QStandardItem(value));
-			model->setItem(j, 3,new QStandardItem(QStringLiteral("删除")));
-			j++;
+			if (choiceQuestionBank.at(j).getQuestionId() == chosenChoice.at(i))
+			{
+				QString questionId = QString::number(choiceQuestionBank.at(j).getQuestionId()); //将ID转换成字符串
+				QString value = QString::number(choiceQuestionBank.at(j).getValue()); //将分值转换成字符串
+				model->setItem(i, 0, new QStandardItem(questionId));
+				model->setItem(i, 1, new QStandardItem(choiceQuestionBank.at(j).getDescription()));
+				model->setItem(i, 2, new QStandardItem(value));
+				model->setItem(i, 3, new QStandardItem(QStringLiteral("删除")));
+				model->item(i, 0)->setTextAlignment(Qt::AlignCenter); //设置居中
+				model->item(i, 1)->setTextAlignment(Qt::AlignCenter);
+				model->item(i, 2)->setTextAlignment(Qt::AlignCenter);
+				model->item(i, 3)->setTextAlignment(Qt::AlignCenter);
+				break;
+			}
 		}
 	}
 }
@@ -87,21 +90,27 @@ void AddExam::setChoiceModelItemView(QStandardItemModel* model, QList<Choice>& c
 /**
   * @author:黄思泳
   * @brief:渲染多选题内容
-  * @date:2019/1/1
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
-void AddExam::setMultiModelItemView(QStandardItemModel* model, QList<Choice>& multiQuestionBank, int* chosenMulti) {
-	int j = 0;
-	for (int i = 0; i < multiQuestionBank.size(); i++) {
-		QString questionId = QString::number(multiQuestionBank.at(i).getQuestionId()); //将ID转换成字符串
-		if (chosenMulti[multiQuestionBank.at(i).getQuestionId()] == 1)
+void AddExam::setMultiModelItemView(QStandardItemModel* model, QList<Choice>& multiQuestionBank, QList<int> chosenMulti) {
+	for (int i = 0; i < chosenMulti.size(); i++) {
+		for (int j = 0; j < multiQuestionBank.size(); j++)
 		{
-			QString value = QString::number(multiQuestionBank.at(i).getValue()); //将分值转换成字符串
-			model->setItem(j, 0, new QStandardItem(questionId));
-			model->setItem(j, 1, new QStandardItem(multiQuestionBank.at(i).getDescription()));
-			model->setItem(j, 2, new QStandardItem(value));
-			model->setItem(j, 3, new QStandardItem(QStringLiteral("删除")));
-			j++;
+			if (multiQuestionBank.at(j).getQuestionId() == chosenMulti.at(i))
+			{
+				QString questionId = QString::number(multiQuestionBank.at(j).getQuestionId()); //将ID转换成字符串
+				QString value = QString::number(multiQuestionBank.at(j).getValue()); //将分值转换成字符串
+				model->setItem(i, 0, new QStandardItem(questionId));
+				model->setItem(i, 1, new QStandardItem(multiQuestionBank.at(j).getDescription()));
+				model->setItem(i, 2, new QStandardItem(value));
+				model->setItem(i, 3, new QStandardItem(QStringLiteral("删除")));
+				model->item(i, 0)->setTextAlignment(Qt::AlignCenter); //设置居中
+				model->item(i, 1)->setTextAlignment(Qt::AlignCenter);
+				model->item(i, 2)->setTextAlignment(Qt::AlignCenter);
+				model->item(i, 3)->setTextAlignment(Qt::AlignCenter);
+				break;
+			}
 		}
 	}
 }
@@ -109,21 +118,27 @@ void AddExam::setMultiModelItemView(QStandardItemModel* model, QList<Choice>& mu
 /**
   * @author:黄思泳
   * @brief:渲染判断题内容
-  * @date:2019/1/1
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
-void AddExam::setJudgeModelItemView(QStandardItemModel* model, QList<Judge>& judgeQuestionBank,int* chosenJudge) {
-	int j = 0;
-	for (int i = 0; i < judgeQuestionBank.size(); i++) {
-		QString questionId = QString::number(judgeQuestionBank.at(i).getQuestionId()); //将ID转换成字符串
-		if (chosenJudge[judgeQuestionBank.at(i).getQuestionId()] == 1)
+void AddExam::setJudgeModelItemView(QStandardItemModel* model, QList<Judge>& judgeQuestionBank, QList<int> chosenJudge) {
+	for (int i = 0; i < chosenJudge.size(); i++) {
+		for (int j = 0; j < judgeQuestionBank.size(); j++)
 		{
-			QString value = QString::number(judgeQuestionBank.at(i).getValue()); //将分值转换成字符串
-			model->setItem(j, 0, new QStandardItem(questionId));
-			model->setItem(j, 1, new QStandardItem(judgeQuestionBank.at(i).getDescription()));
-			model->setItem(j, 2, new QStandardItem(value));
-			model->setItem(j, 3, new QStandardItem(QStringLiteral("删除")));
-			j++;
+			if (judgeQuestionBank.at(j).getQuestionId() == chosenJudge.at(i))
+			{
+				QString questionId = QString::number(judgeQuestionBank.at(j).getQuestionId()); //将ID转换成字符串
+				QString value = QString::number(judgeQuestionBank.at(j).getValue()); //将分值转换成字符串
+				model->setItem(i, 0, new QStandardItem(questionId));
+				model->setItem(i, 1, new QStandardItem(judgeQuestionBank.at(j).getDescription()));
+				model->setItem(i, 2, new QStandardItem(value));
+				model->setItem(i, 3, new QStandardItem(QStringLiteral("删除")));
+				model->item(i, 0)->setTextAlignment(Qt::AlignCenter); //设置居中
+				model->item(i, 1)->setTextAlignment(Qt::AlignCenter);
+				model->item(i, 2)->setTextAlignment(Qt::AlignCenter);
+				model->item(i, 3)->setTextAlignment(Qt::AlignCenter);
+				break;
+			}
 		}
 	}
 }
@@ -131,46 +146,88 @@ void AddExam::setJudgeModelItemView(QStandardItemModel* model, QList<Judge>& jud
 /**
   * @author:黄思泳
   * @brief:将添加的单选题在列表上显示出来
-  * @date:2019/1/1
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
 void AddExam::showChoice() {
 	this->examchoicemodel->clear();
 	AddExam::setTableHeader(this->examchoicemodel); //初始化表头
 	this->ui.choiceTable->setModel(examchoicemodel);
 	this->ui.choiceTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	this->ui.choiceTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); //设置等列宽且不可拖动
+	this->ui.choiceTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed); //设置等列宽且不可拖动
 	AddExam::setChoiceModelItemView(this->examchoicemodel, choiceQuestionBank, chosenChoice); //渲染单选题
+	if (chosenChoice.size() == 0)
+	{
+		this->ui.choiceTable->setColumnWidth(0, 100);
+		this->ui.choiceTable->setColumnWidth(1, 400);
+		this->ui.choiceTable->setColumnWidth(2, 100);
+		this->ui.choiceTable->setColumnWidth(3, 113);
+	}
+	else
+	{
+		this->ui.choiceTable->setColumnWidth(0, 100);
+		this->ui.choiceTable->setColumnWidth(1, 400);
+		this->ui.choiceTable->setColumnWidth(2, 100);
+		this->ui.choiceTable->setColumnWidth(3, 88);
+	}
 }
 
 /**
   * @author:黄思泳
   * @brief:将添加的多选题在列表上显示出来
-  * @date:2019/1/1
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
 void AddExam::showMulti() {
 	this->exammultimodel->clear();
 	AddExam::setTableHeader(this->exammultimodel); //初始化表头
 	this->ui.multiTable->setModel(exammultimodel);
 	this->ui.multiTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	this->ui.multiTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); //设置等列宽且不可拖动
+	this->ui.multiTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed); //设置等列宽且不可拖动
 	AddExam::setMultiModelItemView(this->exammultimodel, multiQuestionBank, chosenMulti); //渲染多选题
+	if (chosenMulti.size() == 0)
+	{
+		this->ui.multiTable->setColumnWidth(0, 100);
+		this->ui.multiTable->setColumnWidth(1, 400);
+		this->ui.multiTable->setColumnWidth(2, 100);
+		this->ui.multiTable->setColumnWidth(3, 113);
+	}
+	else
+	{
+		this->ui.multiTable->setColumnWidth(0, 100);
+		this->ui.multiTable->setColumnWidth(1, 400);
+		this->ui.multiTable->setColumnWidth(2, 100);
+		this->ui.multiTable->setColumnWidth(3, 88);
+	}
 }
 
 /**
   * @author:黄思泳
   * @brief:将添加的判断题在列表上显示出来
-  * @date:2019/1/1
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
 void AddExam::showJudge() {
 	this->examjudgemodel->clear();
 	AddExam::setTableHeader(this->examjudgemodel); //初始化表头
 	this->ui.judgeTable->setModel(examjudgemodel);
 	this->ui.judgeTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	this->ui.judgeTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch); //设置等列宽且不可拖动
+	this->ui.judgeTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed); //设置不可拖动
 	AddExam::setJudgeModelItemView(this->examjudgemodel, judgeQuestionBank, chosenJudge); //渲染判断题
+	if (chosenJudge.size()==0)
+	{
+		this->ui.judgeTable->setColumnWidth(0, 100);
+		this->ui.judgeTable->setColumnWidth(1, 400);
+		this->ui.judgeTable->setColumnWidth(2, 100);
+		this->ui.judgeTable->setColumnWidth(3, 113);
+	}
+	else
+	{
+		this->ui.judgeTable->setColumnWidth(0, 100);
+		this->ui.judgeTable->setColumnWidth(1, 400);
+		this->ui.judgeTable->setColumnWidth(2, 100);
+		this->ui.judgeTable->setColumnWidth(3, 88);
+	}
 }
 
 /**
@@ -189,17 +246,17 @@ void AddExam::setTableHeader(QStandardItemModel* model) {
 /**
   * @author:黄思泳
   * @brief:单击删除单选题
-  * @date:2019/1/1
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
 void AddExam::choiceClicked(const QModelIndex & index)
 {
 	if (index.isValid() && index.column() == 3)	//点击删除键
 	{
 		int row=index.row();
-		QModelIndex index = examchoicemodel->index(row, 0);
-		int questionId = examchoicemodel->data(index).toInt();
-		chosenChoice[questionId] = 0;
+		//QModelIndex index = examchoicemodel->index(row, 0);
+		//int questionId = examchoicemodel->data(index).toInt();
+		chosenChoice.removeAt(row);
 		showChoice();
 	}
 }
@@ -207,17 +264,17 @@ void AddExam::choiceClicked(const QModelIndex & index)
 /**
   * @author:黄思泳
   * @brief:单击删除多选题
-  * @date:2019/1/1
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
 void AddExam::multiClicked(const QModelIndex & index)
 {
 	if (index.isValid() && index.column() == 3) //点击删除
 	{
 		int row = index.row();
-		QModelIndex index = exammultimodel->index(row, 0);
-		int questionId = exammultimodel->data(index).toInt();
-		chosenMulti[questionId] = 0;
+		//QModelIndex index = exammultimodel->index(row, 0);
+		//int questionId = exammultimodel->data(index).toInt();
+		chosenMulti.removeAt(row);
 		showMulti();
 	}
 }
@@ -225,22 +282,27 @@ void AddExam::multiClicked(const QModelIndex & index)
 /**
   * @author:黄思泳
   * @brief:单击删除判断题
-  * @date:2019/1/1
-  * @version:1.0
+  * @date:2019/1/2
+  * @version:2.0
   */
 void AddExam::judgeClicked(const QModelIndex & index)
 {
 	if (index.isValid() && index.column() == 3)	//点击删除
 	{
 		int row = index.row();
-		QModelIndex index = examjudgemodel->index(row, 0);
-		int questionId = examjudgemodel->data(index).toInt();
-		chosenJudge[questionId] = 0;
+		//QModelIndex index = examjudgemodel->index(row, 0);
+		//int questionId = examjudgemodel->data(index).toInt();
+		chosenJudge.removeAt(row);
 		showJudge();
 	}
 }
-
-void AddExam::creatExam()
+/**
+  * @author:黄思泳
+  * @brief:创建考试
+  * @date:2019/1/2
+  * @version:2.0
+  */
+void AddExam::NewExam()
 {
 	QString examName = this->ui.examName->text(); //获取试卷名称
 	int examTime = this->ui.examTime->value(); //获取考试时间
@@ -260,30 +322,22 @@ void AddExam::creatExam()
 		information = sql.insertExam(examName, examTime, examInformation);
 		if (information) {
 			int exam_code = sql.searchExam(examName);
-			for (int i = 0; i < choiceQuestionBank.size(); i++)
+			for (int i = 0; i < chosenChoice.size(); i++)
 			{
-				int questionId = choiceQuestionBank.at(i).getQuestionId();
-				if (chosenChoice[questionId] == 1)
-				{
-					sql.insertChoice(exam_code,questionId);
-				}
+				int questionId = chosenChoice.at(i);
+				sql.insertChoice(exam_code,questionId);
 			}
-			for (int i = 0; i < multiQuestionBank.size(); i++)
+			for (int i = 0; i < chosenMulti.size(); i++)
 			{
-				int questionId = multiQuestionBank.at(i).getQuestionId();
-				if (chosenMulti[questionId] == 1)
-				{
-					sql.insertChoice(exam_code, questionId);
-				}
+				int questionId = chosenMulti.at(i);
+				sql.insertChoice(exam_code, questionId);
 			}
-			for (int i = 0; i < judgeQuestionBank.size(); i++)
+			for (int i = 0; i < chosenJudge.size(); i++)
 			{
-				int questionId = judgeQuestionBank.at(i).getQuestionId();
-				if (chosenJudge[questionId] == 1)
-				{
-					sql.insertJudge(exam_code, questionId);
-				}
+				int questionId = chosenJudge.at(i);
+				sql.insertJudge(exam_code, questionId);
 			}
+			sql.insertStudent(exam_code);
 			QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("创建成功！"), QMessageBox::Yes);
 			this->close();
 		}
@@ -302,34 +356,50 @@ void AddExam::creatExam()
 void AddExam::addQuestion()
 {
 	int type = this->ui.tabWidget->currentIndex();
+	int i = 0;
 	if (type == 0)	//添加单选题
 	{
 		int index = this->ui.choiceBox->currentIndex();
-		chosenChoice[choiceQuestionBank.at(index).getQuestionId()] = 1;
-		showChoice();
+		int questionId = choiceQuestionBank.at(index).getQuestionId();
+		for (i = 0; i < chosenChoice.size() && chosenChoice.at(i)!=questionId; i++);
+		if (i == chosenChoice.size())
+		{
+			chosenChoice.append(questionId);
+			showChoice();
+		}
+		else
+			QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("试题已添加过！"), QMessageBox::Yes);
 	}
 	else if (type == 1)	//添加多选题
 	{
 		int index = this->ui.multiBox->currentIndex();
-		chosenMulti[multiQuestionBank.at(index).getQuestionId()] = 1;
-		showMulti();
+		int questionId = multiQuestionBank.at(index).getQuestionId();
+		for (i = 0; i < chosenMulti.size() && chosenMulti.at(i) != questionId; i++);
+		if (i == chosenMulti.size())
+		{
+			chosenMulti.append(multiQuestionBank.at(index).getQuestionId());
+			showMulti();
+		}
+		else
+			QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("试题已添加过！"), QMessageBox::Yes);
 	}
 	else if (type == 2)	//添加判断题
 	{
 		int index = this->ui.judgeBox->currentIndex();
-		chosenJudge[judgeQuestionBank.at(index).getQuestionId()] = 1;
-		showJudge();
+		int questionId = judgeQuestionBank.at(index).getQuestionId();
+		for (i = 0; i < chosenJudge.size() && chosenJudge.at(i) != questionId; i++);
+		if (i == chosenJudge.size())
+		{
+			chosenJudge.append(judgeQuestionBank.at(index).getQuestionId());
+			showJudge();
+		}
+		else
+			QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("试题已添加过！"), QMessageBox::Yes);
 	}
 }
 
 
 AddExam::~AddExam() {
-	if (chosenChoice)
-		delete[] chosenChoice;
-	if (chosenMulti)
-		delete[] chosenMulti;
-	if (chosenJudge)
-		delete[] chosenJudge;
 	delete examchoicemodel;
 	delete exammultimodel;
 	delete examjudgemodel;

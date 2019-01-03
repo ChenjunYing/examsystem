@@ -122,7 +122,7 @@ QList<Judge> StudentExamModel::searchJudge(int examCode) {
 * @date:2018/12/24
 * @version:1.0
 */
-int StudentExamModel::submit(QString username , QList<Choice> choiceAns, QList<Choice> multichoiceAns, QList<Judge> judgeAns, int examCode,int objectScore, int judgeScore) {
+int StudentExamModel::submit(QString username, QList<Choice> choiceAns, QList<Choice> multichoiceAns, QList<Judge> judgeAns, int examCode, int objectScore, int multiScore, int judgeScore) {
 	int i;
 	int choiceFlag;
 	int multichoiceFlag;
@@ -164,18 +164,38 @@ int StudentExamModel::submit(QString username , QList<Choice> choiceAns, QList<C
 	}
 	QSqlQuery query;
 
-	query.prepare("update config set object_score=:objectScore, judge_score=:judgeScore, is_submit=1 where username=:username and exam_code=:examCode");
+	query.prepare("update config set object_score=:objectScore, multi_score=:multiScore,judge_score=:judgeScore, is_submit=1 where username=:username and exam_code=:examCode");
 	query.bindValue(":objectScore", objectScore);
+	query.bindValue(":multiScore", multiScore);
 	query.bindValue(":judgeScore", judgeScore);
 	query.bindValue(":username", username);
 	query.bindValue(":examCode", examCode);
 
 	scoreFlag = query.exec();
 
-	return choiceFlag && multichoiceFlag && judgeFlag;
+	return choiceFlag && multichoiceFlag &&judgeFlag;
 }
 StudentExamModel::~StudentExamModel() {
 	db.close();  //¹Ø±ÕÊý¾Ý¿â
+}
+
+Exam StudentExamModel::getInformation(int examCode) {
+	QSqlQuery query;
+	query.prepare("select * from exam where exam_code=:examCode");
+	query.bindValue(":examCode", examCode);
+	query.exec();
+	if (query.size()) {
+		if (query.next()) {
+			int nameIndex = query.record().indexOf("exam_name");
+			int durationIndex = query.record().indexOf("duration");
+			int informationIndex = query.record().indexOf("information");
+			QString examName = query.record().value(nameIndex).toString();
+			int duration = query.record().value(durationIndex).toInt();
+			QString information = query.record().value(informationIndex).toString();
+			Exam exam(examCode, duration, examName, information);
+			return exam;
+		}
+	}
 }
 
 /**

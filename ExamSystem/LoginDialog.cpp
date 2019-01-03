@@ -1,5 +1,4 @@
 #include "LoginDialog.h"
-#include "SqlModel.h"
 
 LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent) {
 	ui.setupUi(this);
@@ -7,6 +6,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent) {
 	connect(this->ui.submitBtn , SIGNAL(clicked(bool)) , this , SLOT(login())); //绑定登录按钮
 	connect(this, SIGNAL(sendUserName(QString)), &this->student, SLOT(receiveUserName(QString)));
 	connect(this->student.ui.btnLogout, SIGNAL(clicked(bool)), this, SLOT(studentLogout()));
+	connect(this->admin.ui.logout , SIGNAL(triggered()) , this , SLOT(adminLogout()));
 }
 
 /**
@@ -15,7 +15,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent) {
   * @date:2018/12/12
   * @version:1.0
   */
-void LoginDialog::login(){
+void LoginDialog::login() {
 	int i;
 	SqlModel sql;
 	QString username = this->ui.username->text();   //获取用户输入的用户名
@@ -59,10 +59,23 @@ LoginDialog::~LoginDialog() {
   * @date:2018/12/20
   * @version:1.0
   */
-void LoginDialog::studentLogout()
-{
+void LoginDialog::studentLogout() {
 	QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("注销成功"), QMessageBox::Yes);
 	this->student.close();
+	this->ui.username->clear();  //清空输入的用户名
+	this->ui.password->clear();  //清空输入的密码
+	this->show();
+}
+
+/**
+  * @author:应承峻
+  * @brief:管理员点击主界面注销按钮后实现的功能
+  * @date:2019/1/3
+  * @version:1.0
+  */
+void LoginDialog::adminLogout() {
+	QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("注销成功"), QMessageBox::Yes);
+	this->admin.close();
 	this->ui.username->clear();  //清空输入的用户名
 	this->ui.password->clear();  //清空输入的密码
 	this->show();

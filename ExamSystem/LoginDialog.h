@@ -11,12 +11,13 @@
 #include <QtWidgets/QApplication>
 #include <QMessageBox>
 #include <QDebug>
+#include "SqlModel.h"
 #include "MainWindow.h"
 #include "StudentWindow.h"
 #include "ui_LoginDialog.h"
 
-class LoginDialog : public QDialog
-{
+class LoginDialog : public QDialog {
+	
 	Q_OBJECT
 
 public:
@@ -27,20 +28,15 @@ signals:
 	void sendUserName(QString name);
 
 private slots:
-	/**
-	  * @author:应承峻
-	  * @brief:用户点击登录按钮后实现的功能
-	  * @date:2018/12/12
-	  * @version:1.0
-	  */
 	void login();
-
 	void studentLogout();
+	void adminLogout();
 
 private:
 	Ui::LoginDialog ui;
 	MainWindow admin;
 	StudentWindow student;
+
 };
 
 #endif
