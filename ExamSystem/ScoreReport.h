@@ -23,8 +23,8 @@ public:
 	~ScoreReport();
 	void showScore();
 	void scoreGet();
-	void setScoreTableHeader(QStandardItemModel* model);
-	void setScoreModelItemView(QStandardItemModel* model, QList<Score>& score);
+	void setScoreTableHeader();
+	void setScoreModelItemView();
 private slots:
 	void receiveCode(int code);
 

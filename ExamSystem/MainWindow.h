@@ -38,7 +38,7 @@ private slots:
 	void setTableHeader(QStandardItemModel* model);
 	void setExamTableItemView(QStandardItemModel* model);
 	void dataRefresh();
-	void examDoubleClicked(const QModelIndex& index);
+	void examClicked(const QModelIndex& index);
 
 private:
 	Ui::MainWindowClass ui;

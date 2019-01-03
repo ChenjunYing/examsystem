@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	connect(this->ui.multichoice , SIGNAL(triggered()) , this , SLOT(multichoiceTriggered()));
 	connect(this->ui.goQuestionBank , SIGNAL(triggered()) , this , SLOT(goQuestionBankTriggered()));
 	connect(this, SIGNAL(sendExamCode(int)), this->scoreReport, SLOT(receiveCode(int)));
-	qDebug()<< connect(this->ui.examTable , SIGNAL(doubleClicked(const QModelIndex&)), this , SLOT(examDoubleClicked(const QModelIndex&)));
+	qDebug()<< connect(this->ui.examTable , SIGNAL(clicked(const QModelIndex&)), this , SLOT(examClicked(const QModelIndex&)));
 }
 
 
@@ -39,7 +39,7 @@ void MainWindow::dataRefresh() {
 	}
 }
 
-void MainWindow::examDoubleClicked(const QModelIndex& index)
+void MainWindow::examClicked(const QModelIndex& index)
 {
 	if (index.isValid() && index.column() == 3) {
 		emit sendExamCode(this->exam.at(index.row()).getExamCode());
