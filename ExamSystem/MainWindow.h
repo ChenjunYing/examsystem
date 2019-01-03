@@ -42,7 +42,7 @@ private slots:
 	void setTableHeader(QStandardItemModel* model);
 	void setExamTableItemView(QStandardItemModel* model);
 	void examClicked(const QModelIndex& index);
-
+	void deleteClicked(const QModelIndex& index);
 private:
 	Ui::MainWindowClass ui;
 	AddChoice* choice;

@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	connect(this->ui.createExam , SIGNAL(triggered()) , this , SLOT(createExamTriggered()));
 	connect(this, SIGNAL(sendExamCode(int)), this->scoreReport, SLOT(receiveCode(int)));
 	connect(this->ui.examTable , SIGNAL(clicked(const QModelIndex&)), this , SLOT(examClicked(const QModelIndex&)));
+	connect(this->ui.examTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(deleteClicked(const QModelIndex&)));
 }
 
 /**
@@ -44,6 +45,25 @@ void MainWindow::examClicked(const QModelIndex& index)
 	if (index.isValid() && index.column() == 3) {
 		emit sendExamCode(this->exam.at(index.row()).getExamCode());
 		this->scoreReport->exec();
+	}
+}
+
+void MainWindow::deleteClicked(const QModelIndex & index)
+{
+	AdminModel admin;
+	if (index.isValid() && index.column() == 5) {
+		int ret = QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("确定删除这场考试吗？将删除许多信息且删除后无法恢复！"), QMessageBox::Yes | QMessageBox::Cancel);
+		if (ret == QMessageBox::Yes) {
+			int code = exam.at(index.row()).getExamCode();
+			if (admin.isOpen() && admin.deleteExam(code)) {
+				QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("删除成功！"), QMessageBox::Ok);
+				MainWindow::dataRefresh();//刷新页面
+				MainWindow::showExamTable();
+			}
+			else {
+				QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("删除失败！"), QMessageBox::Ok);
+			}
+		}
 	}
 }
 
@@ -181,4 +201,5 @@ MainWindow::~MainWindow() {
 	delete judge;
 	delete exammodel;
 	delete newexam;
+	delete scoreReport;
 }
