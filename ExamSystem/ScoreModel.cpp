@@ -41,7 +41,14 @@ QList<Score> ScoreModel::searchScore(int code)
 
 Score getInfoOfScore(QSqlQuery query)
 {
+	QSqlQuery queryForName;
 	int userNameIndex = query.record().indexOf("username");
+	QString userName = query.record().value(userNameIndex).toString();
+	queryForName.prepare("select person_name from user where username = :userName");
+	queryForName.bindValue(":userName",userName);
+	queryForName.exec();
+	queryForName.next();
+	QString studentName = queryForName.record().value(0).toString();
 	int examNameIndex = query.record().indexOf("exam_name");
 	int examCodeIndex = query.record().indexOf("exam_code");
 	int examDurationIndex = query.record().indexOf("duration");
@@ -49,7 +56,6 @@ Score getInfoOfScore(QSqlQuery query)
 	int multiScoreIndex = query.record().indexOf("multi_score");
 	int judgeScoreIndex = query.record().indexOf("judge_score");
 	int isSubmitIndex = query.record().indexOf("is_submit");
-	QString userName = query.record().value(userNameIndex).toString();
 	QString examName = query.record().value(examNameIndex).toString();
 	int examCode = query.record().value(examCodeIndex).toInt();
 	int examDuration = query.record().value(examDurationIndex).toInt();
@@ -57,5 +63,5 @@ Score getInfoOfScore(QSqlQuery query)
 	int multiScore = query.record().value(multiScoreIndex).toInt();
 	int judgeScore = query.record().value(judgeScoreIndex).toInt();
 	int isSubmit = query.record().value(isSubmitIndex).toInt();
-	return Score(userName, choiceScore, multiScore, judgeScore, isSubmit, examName, examCode, examDuration);
+	return Score(studentName, choiceScore, multiScore, judgeScore, isSubmit, examName, examCode, examDuration);
 }

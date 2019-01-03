@@ -41,7 +41,7 @@ private slots:
 	void createExamTriggered();
 	void setTableHeader(QStandardItemModel* model);
 	void setExamTableItemView(QStandardItemModel* model);
-	void examDoubleClicked(const QModelIndex& index);
+	void examClicked(const QModelIndex& index);
 
 private:
 	Ui::MainWindowClass ui;
