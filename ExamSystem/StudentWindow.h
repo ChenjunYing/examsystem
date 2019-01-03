@@ -34,17 +34,18 @@ signals: void sendExamInformation(QString , int);
 
 public slots:
 	void receiveUserName(QString name);
+	void receiveExamFinish();
 
 private slots:
-	void examTableClicked(const QModelIndex&);
 	void dataRefresh();
-
+	void examTableClicked(const QModelIndex&);
+	
 private:
 	Ui::StudentWindow ui;
 	QList<Config> exam;
 	QString userName;
-	QStandardItemModel* examModel;
-	StudentExam* newExam;
+	QStandardItemModel* examModel = NULL;
+	StudentExam* newExam = NULL;
 
 };
 

@@ -23,6 +23,8 @@ public:
 	void display(QString username , int examCode);
 	~StudentExam();
 
+signals: void examFinish();
+
 private slots:
 	void onTabChanged(int index);
 
@@ -92,4 +94,5 @@ private:
 	QString information;
 	QString examName;
 	int duration = 120;
+	int is_submit = 0;
 };

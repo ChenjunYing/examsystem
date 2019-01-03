@@ -2,31 +2,25 @@
 #include <QCloseEvent>
 
 
-StudentExam::StudentExam(QWidget *parent)
-	: QWidget(parent)
-{
+StudentExam::StudentExam(QWidget *parent) : QWidget(parent) {
 	ui.setupUi(this);
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
-	
-	//StudentExam::dataGet(3);  //从数据库中拉取题目
-	//StudentExam::onTabChanged(0); //默认显示单选题
 	QDateTime startT = QDateTime::currentDateTime();
 	this->startT = startT;
-
-	connect(this->ui.tabWindow, SIGNAL(currentChanged(int)), this, SLOT(onTabChanged(int)));
-	connect(this->ui.choicePrevious, SIGNAL(clicked(bool)), this, SLOT(choicePrevious()));
-	connect(this->ui.choiceNext, SIGNAL(clicked(bool)), this, SLOT(choiceNext()));
-	connect(this->ui.multichoicePrevious, SIGNAL(clicked(bool)), this, SLOT(multichoicePrevious()));
-	connect(this->ui.multichoiceNext, SIGNAL(clicked(bool)), this, SLOT(multichoiceNext()));
-	connect(this->ui.judgePrevious, SIGNAL(clicked(bool)), this, SLOT(judgePrevious()));
-	connect(this->ui.judgeNext, SIGNAL(clicked(bool)), this, SLOT(judgeNext()));
-	connect(this->ui.choiceJump, SIGNAL(clicked(bool)), this, SLOT(choiceJump()));
-	connect(this->ui.multichoiceJump, SIGNAL(clicked(bool)), this, SLOT(multichoiceJump()));
-	connect(this->ui.judgeJump, SIGNAL(clicked(bool)), this, SLOT(judgeJump()));
-	connect(this->ui.submit, SIGNAL(clicked(bool)), this, SLOT(submit()));
-	this->time_clock = new QTimer(this);	
+	this->time_clock = new QTimer(this);
+	this->time_clock->start(1000);
 	connect(time_clock, SIGNAL(timeout()), this, SLOT(Countdown()));
-	time_clock->start(1000);
+	connect(this->ui.tabWindow , SIGNAL(currentChanged(int)) , this , SLOT(onTabChanged(int)));
+	connect(this->ui.choicePrevious , SIGNAL(clicked(bool)) , this , SLOT(choicePrevious()));
+	connect(this->ui.choiceNext , SIGNAL(clicked(bool)) , this , SLOT(choiceNext()));
+	connect(this->ui.multichoicePrevious , SIGNAL(clicked(bool)) , this , SLOT(multichoicePrevious()));
+	connect(this->ui.multichoiceNext , SIGNAL(clicked(bool)) , this , SLOT(multichoiceNext()));
+	connect(this->ui.judgePrevious , SIGNAL(clicked(bool)) , this , SLOT(judgePrevious()));
+	connect(this->ui.judgeNext , SIGNAL(clicked(bool)) , this , SLOT(judgeNext()));
+	connect(this->ui.choiceJump , SIGNAL(clicked(bool)) , this , SLOT(choiceJump()));
+	connect(this->ui.multichoiceJump , SIGNAL(clicked(bool)) , this , SLOT(multichoiceJump()));
+	connect(this->ui.judgeJump , SIGNAL(clicked(bool)) , this , SLOT(judgeJump()));
+	connect(this->ui.submit , SIGNAL(clicked(bool)) , this , SLOT(submit()));
 }
 
 /**
@@ -39,7 +33,24 @@ void StudentExam::display(QString username , int examCode) {
 	this->username = username;
 	this->examCode = examCode;
 	StudentExam::dataGet(examCode);  //从数据库中拉取题目
-	StudentExam::onTabChanged(0); //默认显示单选题
+	if (this->choice.size() == 0) {
+		this->ui.tabWindow->setTabEnabled(0, false);
+	}
+	if (this->multichoice.size() == 0) {
+		this->ui.tabWindow->setTabEnabled(1, false);
+	}
+	if (this->judge.size() == 0) {
+		this->ui.tabWindow->setTabEnabled(2, false);
+	}
+	if (this->choice.size()>0) {
+		StudentExam::onTabChanged(0); //默认显示单选题
+	}
+	else if (this->multichoice.size() > 0) {
+		StudentExam::onTabChanged(1);
+	}
+	else if (this->judge.size() > 0) {
+		StudentExam::onTabChanged(2);
+	}
 }
 
 
@@ -53,25 +64,25 @@ void StudentExam::display(QString username , int examCode) {
   */
 void StudentExam::onTabChanged(int index) {
 	switch (index) {
-	case 0: {
-		multichoiceStorage();
-		judgeStorage();
-		showChoice(); 
-		break; 
-	}
-	case 1: {
-		choiceStorage();
-		judgeStorage();
-		showMultichoice(); 
-		break; 
-	}
-	case 2: {
-		choiceStorage();
-		multichoiceStorage();
-		showJudge(); 
-		break; 
-	}
-	default: break;
+		case 0: {
+			multichoiceStorage();
+			judgeStorage();
+			showChoice();
+			break; 
+		}
+		case 1: {
+			choiceStorage();
+			judgeStorage();
+			showMultichoice();
+			break; 
+		}
+		case 2: {
+			choiceStorage();
+			multichoiceStorage();
+			showJudge();
+			break; 
+		}
+		default: break;
 	}
 }
 
@@ -107,7 +118,7 @@ void StudentExam::dataGet(int examCode) {
 			this->judgeAns[i].writeAnswer(QString());
 		}
 		this->ui.examName->setText(this->examName);
-		this->ui.examDuration->setText(QString::number(this->duration) + QStringLiteral(" 分钟"));
+		this->ui.examDuration->setText(QString::number(this->duration) + QStringLiteral("分钟"));
 		this->ui.examInformation->setPlainText(this->information);
 	}
 }
@@ -127,34 +138,34 @@ void StudentExam::showChoice() {
 		this->ui.choiceB->setPlainText(this->choice.at(this->choiceCurrent).getChoiceB());
 		this->ui.choiceC->setPlainText(this->choice.at(this->choiceCurrent).getChoiceC());
 		this->ui.choiceD->setPlainText(this->choice.at(this->choiceCurrent).getChoiceD());
-
+		
 		this->ui.choiceCurrent->setText(QString::number(this->choiceCurrent + 1));
 		this->ui.choiceCurrent->setAlignment(Qt::AlignCenter);
 		this->ui.choiceTotal->setText(QString::number(this->choice.size()));
 		this->ui.choiceTotal->setAlignment(Qt::AlignCenter);
 		this->ui.choiceNum->clear();
-
+		
 		if (this->choiceAns.at(this->choiceCurrent).getAnswer() != QString()) {
 			switch (choiceAns.at(this->choiceCurrent).getAnswer().toStdString()[0]) {
-			case 'A': {
-				this->ui.selectA->setChecked(true);
-				break;
-			}
-			case 'B': {
-				this->ui.selectB->setChecked(true);
-				break;
-			}
-			case 'C': {
-				this->ui.selectC->setChecked(true);
-				break;
-			}
-			case 'D': {
-				this->ui.selectD->setChecked(true);
-				break;
-			}
-			default: {
-				break;
-			}
+				case 'A': {
+					this->ui.selectA->setChecked(true);
+					break;
+				}
+				case 'B': {
+					this->ui.selectB->setChecked(true);
+					break;
+				}
+				case 'C': {
+					this->ui.selectC->setChecked(true);
+					break;
+				}
+				case 'D': {
+					this->ui.selectD->setChecked(true);
+					break;
+				}
+				default: {
+					break;
+				}
 			}
 		}
 		else {
@@ -214,25 +225,25 @@ void StudentExam::showMultichoice() {
 			int i = 0;
 			while (multichoiceAns.at(this->multichoiceCurrent).getAnswer().toStdString()[i]) {
 				switch (multichoiceAns.at(this->multichoiceCurrent).getAnswer().toStdString()[i]) {
-				case 'A': {
-					this->ui.multiselectA->setChecked(true);
-					break;
-				}
-				case 'B': {
-					this->ui.multiselectB->setChecked(true);
-					break;
-				}
-				case 'C': {
-					this->ui.multiselectC->setChecked(true);
-					break;
-				}
-				case 'D': {
-					this->ui.multiselectD->setChecked(true);
-					break;
-				}
-				default: {
-					break;
-				}
+					case 'A': {
+						this->ui.multiselectA->setChecked(true);
+						break;
+					}
+					case 'B': {
+						this->ui.multiselectB->setChecked(true);
+						break;
+					}
+					case 'C': {
+						this->ui.multiselectC->setChecked(true);
+						break;
+					}
+					case 'D': {
+						this->ui.multiselectD->setChecked(true);
+						break;
+					}
+					default: {
+						break;
+					}
 				}
 				i++;
 			}
@@ -258,6 +269,7 @@ void StudentExam::showJudge() {
 		QString str = "(" + QString::number(this->judge.at(this->judgeCurrent).getValue()) + QStringLiteral("分)");
 		this->ui.judgeQuestion->setPlainText(str);
 		this->ui.judgeQuestion->insertPlainText(this->judge.at(this->judgeCurrent).getDescription());
+
 		this->ui.judgeCurrent->setText(QString::number(this->judgeCurrent + 1));
 		this->ui.judgeCurrent->setAlignment(Qt::AlignCenter);
 		this->ui.judgeTotal->setText(QString::number(this->judge.size()));
@@ -266,17 +278,17 @@ void StudentExam::showJudge() {
 
 		if (this->judgeAns.at(this->judgeCurrent).getAnswer() != QString()) {
 			switch (judgeAns.at(this->judgeCurrent).getAnswer().toStdString()[0]) {
-			case 'T': {
-				this->ui.selectT->setChecked(true);
-				break;
-			}
-			case 'F': {
-				this->ui.selectF->setChecked(true);
-				break;
-			}
-			default: {
-				break;
-			}
+				case 'T': {
+					this->ui.selectT->setChecked(true);
+					break;
+				}
+				case 'F': {
+					this->ui.selectF->setChecked(true);
+					break;
+				}
+				default: {
+					break;
+				}
 			}
 		}
 		else {
@@ -475,7 +487,6 @@ void StudentExam::multichoiceStorage() {
 	if (this->ui.multiselectD->isChecked()) {
 		ans.append(this->ui.multiselectD->text());
 	}
-
 	if (!ans.isEmpty()) {
 		this->multichoiceAns[this->multichoiceCurrent].writeAnswer(ans);
 	}
@@ -510,6 +521,7 @@ void StudentExam::submit() {
 	multichoiceStorage();
 	judgeStorage();
 	getScore();
+	is_submit = 1;
 	if (!sql.isOpen()) {
 		QMessageBox::critical(NULL, QStringLiteral("提示"), QStringLiteral("连接失败"), QMessageBox::Yes);
 	}
@@ -518,10 +530,11 @@ void StudentExam::submit() {
 		flag = sql.submit(this->username,this->choice, this->multichoice, this->judge, this->examCode, this->objectScore, this->multiScore, this->judgeScore);
 		if (flag) {
 			QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("提交成功！"), QMessageBox::Yes);
-			this->close();
+			emit examFinish();
 		}
 		else {
 			QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("提交失败！"), QMessageBox::Yes);
+			//emit examFinish();
 		}
 	}
 }
@@ -570,26 +583,27 @@ void StudentExam::Countdown() {
 	int min = (i - hour * 3600) / 60;
 	int sec = i - hour * 3600 - min * 60;
 	this->ui.remainingTime->setText(QString::number(hour) + ":" + QString::number(min) + ":" + QString::number(sec));
+	this->ui.remainingTime->setAlignment(Qt::AlignCenter);
 	if (hour == 0 && min == 0 && sec == 0) {
+		is_submit = 1;
 		submit();
 	}
 }
 
 
-void StudentExam::closeEvent(QCloseEvent *event)
-{
-	int ret = QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("确定要离开考试吗？"), QMessageBox::Yes | QMessageBox::Cancel);
-	if (ret == QMessageBox::Cancel) {
-		event->ignore();
-	}
-	if (ret == QMessageBox::Yes) {
-		submit();
+void StudentExam::closeEvent(QCloseEvent *event) {
+	if (is_submit == 0) {
+		int ret = QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("确定要离开考试吗？"), QMessageBox::Yes | QMessageBox::Cancel);
+		if (ret == QMessageBox::Cancel) {
+			event->ignore();
+		}
+		if (ret == QMessageBox::Yes) {
+			is_submit = 1;
+			submit();
+		}
 	}
 }
 
-
-
-StudentExam::~StudentExam()
-{
+StudentExam::~StudentExam() {
 	delete time_clock;
 }

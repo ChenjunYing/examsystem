@@ -1,9 +1,7 @@
 #include "StudentWindow.h"
 #include "SqlModel.h"
 
-StudentWindow::StudentWindow(QWidget *parent)
-	: QDialog(parent)
-{
+StudentWindow::StudentWindow(QWidget *parent) : QDialog(parent) {
 	ui.setupUi(this);
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
 	this->examModel= new QStandardItemModel; //创建考试表格
@@ -11,10 +9,8 @@ StudentWindow::StudentWindow(QWidget *parent)
 	connect(this->ui.refreshBtn , SIGNAL(clicked(bool)) , this , SLOT(dataRefresh()));
 }
 
-StudentWindow::~StudentWindow()
-{
-	if (examModel) delete examModel;
-	if (newExam) delete newExam;
+StudentWindow::~StudentWindow() {
+	delete examModel;
 }
 
 /**
@@ -39,14 +35,14 @@ void StudentWindow::examTableClicked(const QModelIndex& index) {
 		//qDebug() << userName << "," << exam.at(index.row()).getName();
 		int ret = QMessageBox::warning(this , QStringLiteral("提示") , QStringLiteral("确定开始考试吗？") , QMessageBox::Yes | QMessageBox::Cancel);
 		if (ret == QMessageBox::Yes) {
+			this->close();
 			newExam = new StudentExam;
+			connect(this->newExam , SIGNAL(examFinish()) , this , SLOT(receiveExamFinish()));
 			newExam->display(userName , exam.at(index.row()).getCode());
 			newExam->show();
 		}
 	}
 }
-
-
 
 /**
   * @author:夏林轩
@@ -127,6 +123,7 @@ void StudentWindow::dataGet()
 		this->exam = sql.searchExam(this->userName);
 	}
 }
+
 /**
   * @author:夏林轩
   * @brief:将学生信息在学生主界面上显示出来
@@ -155,4 +152,16 @@ void StudentWindow::receiveUserName(QString name)
 	userName = name;
 	StudentWindow::showExam();
 	StudentWindow::showStudent(userName);
+}
+
+/**
+  * @author:应承峻
+  * @brief:接收到考试完成信号后删除考试页面并做页面刷新
+  * @date:2019/1/3
+  * @version:1.0
+  */
+void StudentWindow::receiveExamFinish() {
+	delete newExam;
+	StudentWindow::dataRefresh();
+	this->show();
 }
