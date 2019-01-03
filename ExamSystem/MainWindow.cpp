@@ -19,10 +19,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	connect(this->ui.judge , SIGNAL(triggered()) , this , SLOT(judgeTriggered()));
 	connect(this->ui.multichoice , SIGNAL(triggered()) , this , SLOT(multichoiceTriggered()));
 	connect(this->ui.goQuestionBank , SIGNAL(triggered()) , this , SLOT(goQuestionBankTriggered()));
+	connect(this->ui.createExam , SIGNAL(triggered()) , this , SLOT(createExamTriggered()));
 	connect(this, SIGNAL(sendExamCode(int)), this->scoreReport, SLOT(receiveCode(int)));
 	connect(this->ui.examTable , SIGNAL(doubleClicked(const QModelIndex&)), this , SLOT(examDoubleClicked(const QModelIndex&)));
 }
-
 
 /**
   * @author:应承峻
@@ -119,6 +119,13 @@ void MainWindow::judgeTriggered() {
 	judge->exec();  //弹出添加判断题模态框，此时用户不能对主界面进行操作
 }
 
+/*创建考试接口*/
+void MainWindow::createExamTriggered() {
+	if (newexam) delete newexam;
+	newexam = new AddExam;
+	newexam->show();
+}
+
 /*题库接口*/
 void MainWindow::goQuestionBankTriggered() {
 	questionbank = new QuestionBank;
@@ -129,9 +136,7 @@ void MainWindow::goQuestionBankTriggered() {
 	connect(multichoice, SIGNAL(sendMultiChoicePage(AddMultiChoice*)), this, SLOT(receiveAddMultiChoicePage(AddMultiChoice*)));
 	connect(judge, SIGNAL(sendJudgePage(AddJudge*)), this, SLOT(receiveAddJudgePage(AddJudge*)));
 	questionbank->exec(); //弹出查看题库模态框，此时用户不能对主界面进行操作
-	if (questionbank) {
-		delete questionbank;
-	}
+	if (questionbank) delete questionbank;
 }
 
 /**
@@ -171,8 +176,9 @@ void MainWindow::receiveAddJudgePage(AddJudge* a) {
  * @note:修复了questionbank为空时删除出现的bug
  */
 MainWindow::~MainWindow() {
-	delete choice;
-	delete multichoice;
-	delete judge;
-	delete exammodel;
+	if (choice) delete choice;
+	if (multichoice) delete multichoice;
+	if (judge) delete judge;
+	if (exammodel) delete exammodel;
+	if (newexam) delete newexam;
 }

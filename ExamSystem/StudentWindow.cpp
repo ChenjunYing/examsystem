@@ -13,10 +13,8 @@ StudentWindow::StudentWindow(QWidget *parent)
 
 StudentWindow::~StudentWindow()
 {
-	delete examModel;
-	if (newExam) {
-		delete newExam;
-	}
+	if (examModel) delete examModel;
+	if (newExam) delete newExam;
 }
 
 /**
@@ -41,10 +39,6 @@ void StudentWindow::examTableClicked(const QModelIndex& index) {
 		//qDebug() << userName << "," << exam.at(index.row()).getName();
 		int ret = QMessageBox::warning(this , QStringLiteral("提示") , QStringLiteral("确定开始考试吗？") , QMessageBox::Yes | QMessageBox::Cancel);
 		if (ret == QMessageBox::Yes) {
-			if (newExam) {
-				newExam->close();
-				delete newExam;
-			}
 			newExam = new StudentExam;
 			newExam->display(userName , exam.at(index.row()).getCode());
 			newExam->show();
