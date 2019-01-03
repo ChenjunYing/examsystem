@@ -176,9 +176,9 @@ void MainWindow::receiveAddJudgePage(AddJudge* a) {
  * @note:修复了questionbank为空时删除出现的bug
  */
 MainWindow::~MainWindow() {
-	if (choice) delete choice;
-	if (multichoice) delete multichoice;
-	if (judge) delete judge;
-	if (exammodel) delete exammodel;
-	if (newexam) delete newexam;
+	delete choice;
+	delete multichoice;
+	delete judge;
+	delete exammodel;
+	delete newexam;
 }
