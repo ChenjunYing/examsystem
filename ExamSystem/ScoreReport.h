@@ -15,8 +15,8 @@
 #include "Question.h"
 #include "DetailedScore.h"
 
-class ScoreReport : public QDialog
-{
+class ScoreReport : public QDialog {
+
 	Q_OBJECT
 
 public:
@@ -36,8 +36,10 @@ private slots:
 
 private:
 	Ui::ScoreReport ui;
+	int code;
 	QList<Score> score;
 	DetailedScore* detailedScore;
 	QStandardItemModel* scoreModel;
-	int code;
+	
+
 };

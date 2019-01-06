@@ -13,22 +13,21 @@
 #include "Question.h"
 #include "User.h"
 
-
 class AddExamModel {
 
 public:
 	AddExamModel();
-	int isOpen();
 	~AddExamModel();
+	int isOpen();
 	bool AddExamModel::insertExam(QString examName, int examTime, QString examInformation);
 	int AddExamModel::searchExam(QString examName);
 	bool AddExamModel::insertChoice(int examCode, int questionId);
 	bool AddExamModel::insertJudge(int examCode, int questionId);
 	void AddExamModel::insertStudent(int examCode);
+
 private:
 	int openstatus;
 	QSqlDatabase db;
-
 
 };
 
