@@ -53,3 +53,15 @@ int AdminModel::isOpen() {
 AdminModel::~AdminModel() {
 	db.close();  //¹Ø±ÕÊý¾Ý¿â
 }
+
+bool AdminModel::deleteExam(int code)
+{
+	QSqlQuery deleteForExam, deleteForContent, deleteForConfig;
+	deleteForExam.prepare("delete from exam where exam_code = :code");
+	deleteForExam.bindValue(":code", code);
+	deleteForContent.prepare("delete from exam_content where exam_code = :code");
+	deleteForContent.bindValue(":code", code);
+	deleteForConfig.prepare("delete from config where exam_code = :code");
+	deleteForConfig.bindValue(":code", code);
+	return deleteForExam.exec() && deleteForContent.exec() && deleteForConfig.exec();
+}

@@ -112,5 +112,5 @@ void AddExamModel::insertStudent(int examCode)
 }
 
 AddExamModel::~AddExamModel() {
-
+	db.close();
 }

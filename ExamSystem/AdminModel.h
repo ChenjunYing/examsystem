@@ -18,7 +18,7 @@ public:
 	int isOpen();
 	QList<Exam> searchExam();
 	~AdminModel();
-
+	bool deleteExam(int code);
 private:
 	int openstatus;
 	QSqlDatabase db;

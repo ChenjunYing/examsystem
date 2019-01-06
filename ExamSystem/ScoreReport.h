@@ -13,6 +13,7 @@
 #include <QStandardItemModel>
 #include "ui_ScoreReport.h"
 #include "Question.h"
+#include "DetailedScore.h"
 
 class ScoreReport : public QDialog
 {
@@ -23,14 +24,20 @@ public:
 	~ScoreReport();
 	void showScore();
 	void scoreGet();
-	void setScoreTableHeader(QStandardItemModel* model);
-	void setScoreModelItemView(QStandardItemModel* model, QList<Score>& score);
+	void setScoreTableHeader();
+	void setScoreModelItemView();
+
+signals:
+	void sendUserName(QString name);
+
 private slots:
 	void receiveCode(int code);
+	void detailsRequest(const QModelIndex& index);
 
 private:
 	Ui::ScoreReport ui;
 	QList<Score> score;
+	DetailedScore* detailedScore;
 	QStandardItemModel* scoreModel;
 	int code;
 };

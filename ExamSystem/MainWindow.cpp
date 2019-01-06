@@ -21,7 +21,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	connect(this->ui.goQuestionBank , SIGNAL(triggered()) , this , SLOT(goQuestionBankTriggered()));
 	connect(this->ui.createExam , SIGNAL(triggered()) , this , SLOT(createExamTriggered()));
 	connect(this, SIGNAL(sendExamCode(int)), this->scoreReport, SLOT(receiveCode(int)));
-	connect(this->ui.examTable , SIGNAL(doubleClicked(const QModelIndex&)), this , SLOT(examDoubleClicked(const QModelIndex&)));
+	connect(this->ui.examTable , SIGNAL(clicked(const QModelIndex&)), this , SLOT(examClicked(const QModelIndex&)));
+	connect(this->ui.examTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(deleteClicked(const QModelIndex&)));
 }
 
 /**
@@ -38,13 +39,49 @@ void MainWindow::dataRefresh() {
 		this->exam = admin.searchExam();
 	}
 }
-
-void MainWindow::examDoubleClicked(const QModelIndex& index)
+/**
+  * @author:夏林轩
+  * @brief:查看参加一场考试的考生成绩的触发信号
+  * @date:2019/1/1
+  * @version:1.0
+  */
+void MainWindow::examClicked(const QModelIndex& index)
 {
 	if (index.isValid() && index.column() == 3) {
 		emit sendExamCode(this->exam.at(index.row()).getExamCode());
 		this->scoreReport->exec();
 	}
+}
+
+/**
+  * @author:夏林轩
+  * @brief:删除一场考试及其所有相关信息的接口
+  * @date:2019/1/1
+  * @version:1.0
+  */
+void MainWindow::deleteClicked(const QModelIndex & index)
+{
+	AdminModel admin;
+	if (index.isValid() && index.column() == 5) {
+		int ret = QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("确定删除这场考试吗？将删除许多信息且删除后无法恢复！"), QMessageBox::Yes | QMessageBox::Cancel);
+		if (ret == QMessageBox::Yes) {
+			int code = exam.at(index.row()).getExamCode();
+			if (admin.isOpen() && admin.deleteExam(code)) {
+				QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("删除成功！"), QMessageBox::Ok);
+				MainWindow::dataRefresh();//刷新页面
+				MainWindow::showExamTable();
+			}
+			else {
+				QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("删除失败！"), QMessageBox::Ok);
+			}
+		}
+	}
+}
+
+void MainWindow::refreshAfterCreat()
+{
+	MainWindow::dataRefresh();
+	MainWindow::showExamTable();
 }
 
 
@@ -106,16 +143,19 @@ void MainWindow::setExamTableItemView(QStandardItemModel* model) {
 
 /*添加单选题接口*/
 void MainWindow::choiceTriggered() {
+	choice->resetData();
 	choice->exec();  //弹出添加单选题模态框，此时用户不能对主界面进行操作
 }
 
 /*添加多选题接口*/
 void MainWindow::multichoiceTriggered() {
+	multichoice->resetData();
 	multichoice->exec();  //弹出添加多选题模态框，此时用户不能对主界面进行操作
 }
 
 /*添加判断题接口*/
 void MainWindow::judgeTriggered() {
+	judge->resetData();
 	judge->exec();  //弹出添加判断题模态框，此时用户不能对主界面进行操作
 }
 
@@ -123,6 +163,7 @@ void MainWindow::judgeTriggered() {
 void MainWindow::createExamTriggered() {
 	if (newexam) delete newexam;
 	newexam = new AddExam;
+	qDebug() << connect(this->newexam, SIGNAL(creatFinished()), this, SLOT(refreshAfterCreat()));
 	newexam->show();
 }
 
@@ -181,4 +222,5 @@ MainWindow::~MainWindow() {
 	delete judge;
 	delete exammodel;
 	delete newexam;
+	delete scoreReport;
 }

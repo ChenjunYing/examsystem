@@ -424,9 +424,9 @@ Judge splitJudge(QSqlQuery query) {
 
 /*
   * @author:夏林轩
-  * @brief:将数据库中查询到的一条选择题数据存放在Exam类中,并根据用户名筛选
-  * @param [in] 输入参数: 查询结果query
-  * @param [out] 输出参数: 返回存放Exam类的一个对象
+  * @brief:将数据库中查询到的一场考试数据存放在Config类中,并根据用户名筛选
+  * @param [in] 输入参数: 字符串username
+  * @param [out] 输出参数: 返回存放Config类的一个对象
   * @date:2018/12/17
   * @version:2.0
   */
@@ -446,8 +446,8 @@ QList<Config> SqlModel::searchExam(QString username)
 
 /*
   * @author:夏林轩
-  * @brief:将数据库中查询到的一条选择题数据存放在Exam类中,并根据用户名筛选
-  * @param [in] 输入参数: 查询结果query
+  * @brief:将数据库中查询到的一个学生数据存放在Exam类中,并根据用户名筛选
+  * @param [in] 输入参数: 字符串username
   * @param [out] 输出参数: 返回存放符合条件的信息的一个Student对象
   * @date:2018/12/17
   * @version:2.0
@@ -468,9 +468,9 @@ Student SqlModel::searchStudentInfo(QString username)
 
 /**
   * @author:夏林轩
-  * @brief:将数据库中查询到的考生参加考试以及该考试本身的信息数据存放在Exam类中
+  * @brief:将数据库中查询到的考生参加考试以及该考试本身的信息数据存放在Config类中
   * @param [in] 输入参数: 查询结果query
-  * @param [out] 输出参数: 返回存放Config类的一个对象
+  * @param [out] 输出参数: 返回一个Config类的对象
   * @date:2019/1/1
   * @version:3.0
   */
@@ -494,7 +494,7 @@ Config getInformationOfExam(QSqlQuery query) {
 
 /**
   * @author:夏林轩
-  * @brief:将数据库中查询到的考生参加考试以及该考试本身的信息数据存放在Student对象中
+  * @brief:将数据库中查询到的考生数据存放在Student对象中
   * @param [in] 输入参数: 查询结果query
   * @param [out] 输出参数: 返回存放符合条件的学生信息的一个Student对象
   * @date:2018/12/18

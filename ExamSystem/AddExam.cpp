@@ -299,8 +299,8 @@ void AddExam::judgeClicked(const QModelIndex & index)
 /**
   * @author:黄思泳
   * @brief:创建考试
-  * @date:2019/1/2
-  * @version:2.0
+  * @date:2019/1/4
+  * @version:3.0
   */
 void AddExam::NewExam()
 {
@@ -315,6 +315,9 @@ void AddExam::NewExam()
 	}
 	else if (!examInformation.length()) {
 		QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("试卷说明不能为空！"), QMessageBox::Yes);
+	}
+	else if (chosenChoice.size()==0&&chosenMulti.size()==0&&chosenJudge.size()==0) {
+		QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("请选择试题！"), QMessageBox::Yes);
 	}
 	else {
 		AddExamModel sql;
@@ -340,6 +343,7 @@ void AddExam::NewExam()
 			sql.insertStudent(exam_code);
 			QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("创建成功！"), QMessageBox::Yes);
 			this->close();
+			emit creatFinished();
 		}
 		else {
 			QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("创建失败！"), QMessageBox::Yes);

@@ -41,8 +41,9 @@ private slots:
 	void createExamTriggered();
 	void setTableHeader(QStandardItemModel* model);
 	void setExamTableItemView(QStandardItemModel* model);
-	void examDoubleClicked(const QModelIndex& index);
-
+	void examClicked(const QModelIndex& index);
+	void deleteClicked(const QModelIndex& index);
+	void refreshAfterCreat();
 private:
 	Ui::MainWindowClass ui;
 	AddChoice* choice;

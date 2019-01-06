@@ -18,6 +18,7 @@ public:
 	~ScoreModel();
 	int isOpen();
 	QList<Score> searchScore(int code);
+	QList<Details> searchDetails(int code, QString name);
 private:
 	int openstatus;
 	QSqlDatabase db;

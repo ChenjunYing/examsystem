@@ -30,6 +30,8 @@ public:
 	void showMulti();
 	void showJudge();
 	void setTableHeader(QStandardItemModel* model);
+signals:
+	void creatFinished();
 private slots:
 	void addQuestion();
 	void choiceClicked(const QModelIndex& index);

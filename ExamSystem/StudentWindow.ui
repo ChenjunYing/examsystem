@@ -156,11 +156,17 @@
   <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>183</width>
-     <height>211</height>
+     <x>30</x>
+     <y>40</y>
+     <width>151</width>
+     <height>151</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image:url(./Resources/image/img.jpg);</string>
+   </property>
+   <property name="resizeAnchor">
+    <enum>QGraphicsView::NoAnchor</enum>
    </property>
   </widget>
  </widget>

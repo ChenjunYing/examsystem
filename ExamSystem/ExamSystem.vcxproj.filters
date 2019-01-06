@@ -87,6 +87,9 @@
     <ClCompile Include="ScoreReport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DetailedScore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -119,6 +122,9 @@
     <QtMoc Include="ScoreReport.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="DetailedScore.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindow.ui">
@@ -149,6 +155,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ScoreReport.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="DetailedScore.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

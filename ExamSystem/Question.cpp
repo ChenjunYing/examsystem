@@ -142,8 +142,8 @@ Config::~Config(){
 
 }
 
-Score::Score(QString name, int cScore, int mScore, int jScore, int flag, QString Name, int Code, int Duration)
-	:studentName(name), Config(cScore, mScore, jScore, flag, Name, Code, Duration)
+Score::Score(QString sname, QString uname, int cScore, int mScore, int jScore, int flag, QString Name, int Code, int Duration)
+	:studentName(sname), userName(uname),Config(cScore, mScore, jScore, flag, Name, Code, Duration)
 {
 }
 
@@ -154,4 +154,28 @@ Score::~Score()
 QString Score::getStudentName() const
 {
 	return studentName;
+}
+
+QString Score::getUserName() const
+{
+	return userName;
+}
+
+Details::Details(QString sAnswer, QString answer, int score):studentAnswer(sAnswer),answer(answer),score(score)
+{
+}
+
+QString Details::getStudentAnswer() const
+{
+	return studentAnswer;
+}
+
+QString Details::getAnswer() const
+{
+	return answer;
+}
+
+int Details::getScore() const
+{
+	return score;
 }

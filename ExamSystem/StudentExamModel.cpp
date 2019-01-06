@@ -114,13 +114,13 @@ QList<Judge> StudentExamModel::searchJudge(int examCode) {
 
 /**
 * @author:陈欢
-* @brief:提交答案，插入回答库，更新config库
+* @brief:提交答案，插入回答库，更新config库，同时将正确答案及分数插入回答库
 * @param [in] 输入参数1~3: 单选题、多选题、判断题的对象集合
 * @param [in] 输入参数4: 试卷编号
 * @param [in] 输入参数5~6: 选择题、判断题分数
 * @param [out] 输出参数: 判断提交是否成功，成功返回1，失败返回0
-* @date:2018/12/24
-* @version:1.0
+* @date:2019/1/6
+* @version:2.0
 */
 int StudentExamModel::submit(QString username, QList<Choice> choiceAns, QList<Choice> multichoiceAns, QList<Judge> judgeAns, int examCode, int objectScore, int multiScore, int judgeScore) {
 	int i;
@@ -131,22 +131,62 @@ int StudentExamModel::submit(QString username, QList<Choice> choiceAns, QList<Ch
 	for (i = 0; i < choiceAns.size(); i++) {
 		if (!choiceAns.at(i).getAnswer().isEmpty()) {
 			QSqlQuery query;
-			query.prepare("insert into object_answer(username,exam_code,question_id,answer) values(:user,:exam,:id,:ans)");
+			QSqlQuery query1;
+			QString canswer;
+			int value;
+			int score;
+			query1.prepare("select * from object_question where question_id=:questionid");
+			query1.bindValue(":questionid", choiceAns.at(i).getQuestionId());
+			query1.exec();
+			if (query1.size())
+			{
+				while (query1.next()) {
+					canswer = query1.record().value(query1.record().indexOf("answer")).toString();
+					value = query1.record().value(query1.record().indexOf("value")).toInt();
+				}
+			}
+			if (choiceAns.at(i).getAnswer().compare(canswer))
+				score = 0;
+			else
+				score = value;
+			query.prepare("insert into object_answer(username,exam_code,question_id,answer,canswer,score) values(:user,:exam,:id,:ans,:cans,:sco)");
 			query.bindValue(":user", username);
 			query.bindValue(":exam", examCode);
 			query.bindValue(":id", choiceAns.at(i).getQuestionId());
 			query.bindValue(":ans", choiceAns.at(i).getAnswer());
+			query.bindValue(":cans", canswer);
+			query.bindValue(":sco", score);
 			choiceFlag = query.exec();
 		}
 	}
 	for (i = 0; i < multichoiceAns.size(); i++) {
 		if (!multichoiceAns.at(i).getAnswer().isEmpty()) {
 			QSqlQuery query;
-			query.prepare("insert into object_answer(username,exam_code,question_id,answer) values(:user,:exam,:id,:ans)");
+			QSqlQuery query1;
+			QString canswer;
+			int value;
+			int score;
+			query1.prepare("select * from object_question where question_id=:questionid");
+			query1.bindValue(":questionid", multichoiceAns.at(i).getQuestionId());
+			query1.exec();
+			if (query1.size())
+			{
+				while (query1.next()) {
+					canswer = query1.record().value(query1.record().indexOf("answer")).toString();
+					value = query1.record().value(query1.record().indexOf("value")).toInt();
+				}
+			}
+			if (multichoiceAns.at(i).getAnswer().compare(canswer))
+				score = 0;
+			else
+				score = value;
+			query.prepare("insert into object_answer(username,exam_code,question_id,answer,canswer,score) values(:user,:exam,:id,:ans,:cans,:sco)");
 			query.bindValue(":user", username);
 			query.bindValue(":exam", examCode);
 			query.bindValue(":id", multichoiceAns.at(i).getQuestionId());
 			query.bindValue(":ans", multichoiceAns.at(i).getAnswer());
+			query.bindValue(":cans", canswer);
+			query.bindValue(":sco", score);
 			multichoiceFlag = query.exec();
 		}
 	}
@@ -154,11 +194,31 @@ int StudentExamModel::submit(QString username, QList<Choice> choiceAns, QList<Ch
 	for (i = 0; i < judgeAns.size(); i++) {
 		if (!judgeAns.at(i).getAnswer().isEmpty()) {
 			QSqlQuery query;
-			query.prepare("insert into judge_answer(username,exam_code,question_id,answer) values(:user,:exam,:id,:ans)");
+			QSqlQuery query1;
+			QString canswer;
+			int value;
+			int score;
+			query1.prepare("select * from judge_question where question_id=:questionid");
+			query1.bindValue(":questionid", judgeAns.at(i).getQuestionId());
+			query1.exec();
+			if (query1.size())
+			{
+				while (query1.next()) {
+					canswer = query1.record().value(query1.record().indexOf("answer")).toString();
+					value = query1.record().value(query1.record().indexOf("value")).toInt();
+				}
+			}
+			if (judgeAns.at(i).getAnswer().compare(canswer))
+				score = 0;
+			else
+				score = value;
+			query.prepare("insert into judge_answer(username,exam_code,question_id,answer,canswer,score) values(:user,:exam,:id,:ans,:cans,:sco)");
 			query.bindValue(":user", username);
 			query.bindValue(":exam", examCode);
 			query.bindValue(":id", judgeAns.at(i).getQuestionId());
 			query.bindValue(":ans", judgeAns.at(i).getAnswer());
+			query.bindValue(":cans", canswer);
+			query.bindValue(":sco", score);
 			judgeFlag = query.exec();
 		}
 	}

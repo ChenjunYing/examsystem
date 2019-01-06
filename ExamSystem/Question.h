@@ -90,11 +90,26 @@ private:
 
 class Score :public Config {
 public:
-	Score(QString name, int cScore, int mScore, int jScore, int flag, QString Name, int Code, int Duration);
+	Score(QString sname, QString uname, int cScore, int mScore, int jScore, int flag, QString Name, int Code, int Duration);
 	~Score();
 	QString getStudentName() const;
+	QString getUserName() const;
 private:
 	Score();
 	QString studentName;
+	QString userName;
+};
+
+class Details {
+public:
+	Details(QString sAnswer, QString answer, int score);
+	QString getStudentAnswer() const;
+	QString getAnswer() const;
+	int getScore() const;
+private:
+	Details();
+	QString studentAnswer;
+	QString answer;
+	int score;
 };
 #endif
