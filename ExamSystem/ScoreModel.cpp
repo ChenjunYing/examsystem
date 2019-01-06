@@ -1,7 +1,6 @@
 #include "ScoreModel.h"
 Score getInfoOfScore(QSqlQuery query);
-Details getInfoOfJudgeDetail(QSqlQuery query);
-Details getInfoOfObjectDetail(QSqlQuery query);
+Details getInfoOfDetail(QSqlQuery query);
 
 ScoreModel::ScoreModel()
 {
@@ -66,7 +65,7 @@ QList<Details> ScoreModel::searchDetails(int code, QString name)
 	queryForObject.exec();
 	if (queryForObject.size()) {
 		while (queryForObject.next()) {
-			detailsList.push_back(getInfoOfObjectDetail(queryForObject));
+			detailsList.push_back(getInfoOfDetail(queryForObject));
 		}
 	}
 	queryForJudge.prepare("select * from judge_answer where exam_code = :code and username = :name");
@@ -75,7 +74,7 @@ QList<Details> ScoreModel::searchDetails(int code, QString name)
 	queryForJudge.exec();
 	if (queryForJudge.size()) {
 		while (queryForJudge.next()) {
-			detailsList.push_back(getInfoOfJudgeDetail(queryForJudge));
+			detailsList.push_back(getInfoOfDetail(queryForJudge));
 		}
 	}
 	
@@ -125,7 +124,7 @@ Score getInfoOfScore(QSqlQuery query)
   * @date:2019/1/2
   * @version:1.0
   */
-Details getInfoOfJudgeDetail(QSqlQuery query)
+Details getInfoOfDetail(QSqlQuery query)
 {
 	int questionIdIndex = query.record().indexOf("question_id");
 	int studentAnswerIndex = query.record().indexOf("answer");
@@ -133,28 +132,6 @@ Details getInfoOfJudgeDetail(QSqlQuery query)
 	int questionId = query.record().value(questionIdIndex).toInt();
 	int scoreIndex = query.record().indexOf("score");
 	QString answer = query.record().value(answerIndex).toString();
-	QString studentAnswer = query.record().value(studentAnswerIndex).toString();
-	int score = query.record().value(scoreIndex).toInt();
-	return Details::Details(studentAnswer, answer, score);
-}
-
-/*
-  * @author:夏林轩
-  * @brief:将数据库中查询到的一个学生的选择题小题分数据存放在Details类中
-  * @param [in] 输入参数: 查询结果query
-  * @param [out] 输出参数: 返回一个Details类的对象
-  * @date:2019/1/2
-  * @version:1.0
-  */
-Details getInfoOfObjectDetail(QSqlQuery query)
-{
-	QSqlQuery queryForAnswer;
-	int questionIdIndex = query.record().indexOf("question_id");
-	int studentAnswerIndex = query.record().indexOf("answer");
-	int answerIndex = query.record().indexOf("canswer");
-	int questionId = query.record().value(questionIdIndex).toInt();
-	int scoreIndex = query.record().indexOf("score");
-	QString answer = queryForAnswer.record().value(answerIndex).toString();
 	QString studentAnswer = query.record().value(studentAnswerIndex).toString();
 	int score = query.record().value(scoreIndex).toInt();
 	return Details::Details(studentAnswer, answer, score);

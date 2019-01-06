@@ -5,7 +5,7 @@ ScoreReport::ScoreReport(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
-	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
+	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowMaximizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
 	this->detailedScore = new DetailedScore;
 	this->scoreModel = new QStandardItemModel;
 	connect(this->ui.scoreTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(detailsRequest(const QModelIndex&)));
