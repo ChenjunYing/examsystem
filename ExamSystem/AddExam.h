@@ -12,6 +12,7 @@
 #include "ui_AddExam.h"
 #include "SqlModel.h"
 #include "Question.h"
+#include "QuestionBank.h"
 #include "AddExamModel.h"
 
 class AddExam : public QWidget {
@@ -30,15 +31,18 @@ public:
 	void showMulti();
 	void showJudge();
 	void setTableHeader(QStandardItemModel* model);
+
 signals:
 	void creatFinished();
+
 private slots:
+	void NewExam();
 	void addQuestion();
+	void openBtnClicked();
 	void choiceClicked(const QModelIndex& index);
 	void multiClicked(const QModelIndex& index);
 	void judgeClicked(const QModelIndex& index);
-	void NewExam();
-
+	
 private:
 	Ui::AddExam ui;
 	QList<Choice> choiceQuestionBank;
@@ -50,6 +54,7 @@ private:
 	QStandardItemModel* examchoicemodel;
 	QStandardItemModel* exammultimodel;
 	QStandardItemModel* examjudgemodel;
+	QuestionBank questionbank;
 };
 
 #endif

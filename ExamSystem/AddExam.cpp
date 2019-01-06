@@ -12,10 +12,21 @@ AddExam::AddExam(QWidget *parent) : QWidget(parent) {
 	showJudge();
 	showChoice();
 	connect(this->ui.addQuestion, SIGNAL(clicked(bool)), this, SLOT(addQuestion()));
+	connect(this->ui.openBtn , SIGNAL(clicked(bool)) , this , SLOT(openBtnClicked()));
 	connect(this->ui.choiceTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(choiceClicked(const QModelIndex&)));
 	connect(this->ui.multiTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(multiClicked(const QModelIndex&)));
 	connect(this->ui.judgeTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(judgeClicked(const QModelIndex&)));
 	connect(this->ui.submitBtn, SIGNAL(clicked(bool)), this, SLOT(NewExam()));
+}
+
+/**
+  * @author:应承峻
+  * @brief:打开题库
+  * @date:2019/1/6
+  * @version:1.0
+  */
+void AddExam::openBtnClicked() {
+	this->questionbank.show();
 }
 
 /**
