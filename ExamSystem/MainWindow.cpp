@@ -15,13 +15,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	this->exammodel = new QStandardItemModel;
 	MainWindow::dataRefresh();
 	MainWindow::showExamTable();
-	connect(this->ui.choice , SIGNAL(triggered()) , this , SLOT(choiceTriggered()));
-	connect(this->ui.judge , SIGNAL(triggered()) , this , SLOT(judgeTriggered()));
-	connect(this->ui.multichoice , SIGNAL(triggered()) , this , SLOT(multichoiceTriggered()));
-	connect(this->ui.goQuestionBank , SIGNAL(triggered()) , this , SLOT(goQuestionBankTriggered()));
-	connect(this->ui.createExam , SIGNAL(triggered()) , this , SLOT(createExamTriggered()));
+	connect(this->ui.choice, SIGNAL(triggered()), this, SLOT(choiceTriggered()));
+	connect(this->ui.judge, SIGNAL(triggered()), this, SLOT(judgeTriggered()));
+	connect(this->ui.multichoice, SIGNAL(triggered()), this, SLOT(multichoiceTriggered()));
+	connect(this->ui.goQuestionBank, SIGNAL(triggered()), this, SLOT(goQuestionBankTriggered()));
+	connect(this->ui.createExam, SIGNAL(triggered()), this, SLOT(createExamTriggered()));
 	connect(this, SIGNAL(sendExamCode(int)), this->scoreReport, SLOT(receiveCode(int)));
-	connect(this->ui.examTable , SIGNAL(clicked(const QModelIndex&)), this , SLOT(examClicked(const QModelIndex&)));
+	connect(this->ui.examTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(examClicked(const QModelIndex&)));
 	connect(this->ui.examTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(deleteClicked(const QModelIndex&)));
 }
 
@@ -34,8 +34,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 void MainWindow::dataRefresh() {
 	AdminModel admin;
 	if (!admin.isOpen()) {
-		QMessageBox::critical(NULL , QStringLiteral("提示") , QStringLiteral("连接失败") , QMessageBox::Yes);
-	} else {
+		QMessageBox::critical(NULL, QStringLiteral("提示"), QStringLiteral("连接失败"), QMessageBox::Yes);
+	}
+	else {
 		this->exam = admin.searchExam();
 	}
 }
@@ -45,8 +46,7 @@ void MainWindow::dataRefresh() {
   * @date:2019/1/1
   * @version:1.0
   */
-void MainWindow::examClicked(const QModelIndex& index)
-{
+void MainWindow::examClicked(const QModelIndex& index) {
 	if (index.isValid() && index.column() == 3) {
 		emit sendExamCode(this->exam.at(index.row()).getExamCode());
 		this->scoreReport->exec();
@@ -59,8 +59,7 @@ void MainWindow::examClicked(const QModelIndex& index)
   * @date:2019/1/1
   * @version:1.0
   */
-void MainWindow::deleteClicked(const QModelIndex & index)
-{
+void MainWindow::deleteClicked(const QModelIndex & index) {
 	AdminModel admin;
 	if (index.isValid() && index.column() == 5) {
 		int ret = QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("确定删除这场考试吗？将删除许多信息且删除后无法恢复！"), QMessageBox::Yes | QMessageBox::Cancel);
@@ -78,8 +77,7 @@ void MainWindow::deleteClicked(const QModelIndex & index)
 	}
 }
 
-void MainWindow::refreshAfterCreat()
-{
+void MainWindow::refreshAfterCreat() {
 	MainWindow::dataRefresh();
 	MainWindow::showExamTable();
 }
@@ -108,12 +106,12 @@ void MainWindow::showExamTable() {
   * @version:1.0
   */
 void MainWindow::setTableHeader(QStandardItemModel* model) {
-	model->setHorizontalHeaderItem(0 , new QStandardItem(QStringLiteral("考试名称")));
-	model->setHorizontalHeaderItem(1 , new QStandardItem(QStringLiteral("考试时间")));
-	model->setHorizontalHeaderItem(2 , new QStandardItem(QStringLiteral("考试信息")));
-	model->setHorizontalHeaderItem(3 , new QStandardItem(QStringLiteral("查询成绩")));
-	model->setHorizontalHeaderItem(4 , new QStandardItem(QStringLiteral("编辑考试")));
-	model->setHorizontalHeaderItem(5 , new QStandardItem(QStringLiteral("删除考试")));
+	model->setHorizontalHeaderItem(0, new QStandardItem(QStringLiteral("考试名称")));
+	model->setHorizontalHeaderItem(1, new QStandardItem(QStringLiteral("考试时间")));
+	model->setHorizontalHeaderItem(2, new QStandardItem(QStringLiteral("考试信息")));
+	model->setHorizontalHeaderItem(3, new QStandardItem(QStringLiteral("查询成绩")));
+	model->setHorizontalHeaderItem(4, new QStandardItem(QStringLiteral("编辑考试")));
+	model->setHorizontalHeaderItem(5, new QStandardItem(QStringLiteral("删除考试")));
 }
 
 
@@ -126,18 +124,18 @@ void MainWindow::setTableHeader(QStandardItemModel* model) {
 void MainWindow::setExamTableItemView(QStandardItemModel* model) {
 	for (int i = 0; i < exam.size(); i++) {
 		QString duration = QString::number(exam.at(i).getDuration());
-		model->setItem(i , 0 , new QStandardItem(exam.at(i).getExamName()));
-		model->setItem(i , 1 , new QStandardItem(QString::number(exam.at(i).getDuration())));
-		model->setItem(i , 2 , new QStandardItem(exam.at(i).getInformation()));
-		model->setItem(i , 3 , new QStandardItem(QStringLiteral("查询")));
-		model->setItem(i , 4 , new QStandardItem(QStringLiteral("查看")));
-		model->setItem(i , 5 , new QStandardItem(QStringLiteral("删除")));
-		model->item(i , 0)->setTextAlignment(Qt::AlignCenter); //设置居中
-		model->item(i , 1)->setTextAlignment(Qt::AlignCenter);
-		model->item(i , 2)->setTextAlignment(Qt::AlignCenter);
-		model->item(i , 3)->setTextAlignment(Qt::AlignCenter);
-		model->item(i , 4)->setTextAlignment(Qt::AlignCenter);
-		model->item(i , 5)->setTextAlignment(Qt::AlignCenter);
+		model->setItem(i, 0, new QStandardItem(exam.at(i).getExamName()));
+		model->setItem(i, 1, new QStandardItem(QString::number(exam.at(i).getDuration())));
+		model->setItem(i, 2, new QStandardItem(exam.at(i).getInformation()));
+		model->setItem(i, 3, new QStandardItem(QStringLiteral("查询")));
+		model->setItem(i, 4, new QStandardItem(QStringLiteral("查看")));
+		model->setItem(i, 5, new QStandardItem(QStringLiteral("删除")));
+		model->item(i, 0)->setTextAlignment(Qt::AlignCenter); //设置居中
+		model->item(i, 1)->setTextAlignment(Qt::AlignCenter);
+		model->item(i, 2)->setTextAlignment(Qt::AlignCenter);
+		model->item(i, 3)->setTextAlignment(Qt::AlignCenter);
+		model->item(i, 4)->setTextAlignment(Qt::AlignCenter);
+		model->item(i, 5)->setTextAlignment(Qt::AlignCenter);
 	}
 }
 
@@ -170,10 +168,10 @@ void MainWindow::createExamTriggered() {
 /*题库接口*/
 void MainWindow::goQuestionBankTriggered() {
 	questionbank = new QuestionBank;
-	connect(questionbank , SIGNAL(sendChoiceData(Choice)) , choice , SLOT(receiveData(Choice)));  //题库和修改单选题页面传递数据
-	connect(questionbank , SIGNAL(sendMultiChoiceData(Choice)) , multichoice , SLOT(receiveData(Choice)));  //题库和修改多选题页面传递数据
-	connect(questionbank , SIGNAL(sendJudgeData(Judge)) , judge , SLOT(receiveData(Judge)));  //题库和修改判断题页面传递数据
-	connect(choice , SIGNAL(sendChoicePage(AddChoice*)) , this , SLOT(receiveAddChoicePage(AddChoice*)));
+	connect(questionbank, SIGNAL(sendChoiceData(Choice)), choice, SLOT(receiveData(Choice)));  //题库和修改单选题页面传递数据
+	connect(questionbank, SIGNAL(sendMultiChoiceData(Choice)), multichoice, SLOT(receiveData(Choice)));  //题库和修改多选题页面传递数据
+	connect(questionbank, SIGNAL(sendJudgeData(Judge)), judge, SLOT(receiveData(Judge)));  //题库和修改判断题页面传递数据
+	connect(choice, SIGNAL(sendChoicePage(AddChoice*)), this, SLOT(receiveAddChoicePage(AddChoice*)));
 	connect(multichoice, SIGNAL(sendMultiChoicePage(AddMultiChoice*)), this, SLOT(receiveAddMultiChoicePage(AddMultiChoice*)));
 	connect(judge, SIGNAL(sendJudgePage(AddJudge*)), this, SLOT(receiveAddJudgePage(AddJudge*)));
 	questionbank->exec(); //弹出查看题库模态框，此时用户不能对主界面进行操作
@@ -188,7 +186,7 @@ void MainWindow::goQuestionBankTriggered() {
   * @note:与题库修改完成刷新事件绑定
   */
 void MainWindow::receiveAddChoicePage(AddChoice* a) {
-	connect(a , SIGNAL(updateOK(int)) , questionbank , SLOT(receiveOK(int)));
+	connect(a, SIGNAL(updateOK(int)), questionbank, SLOT(receiveOK(int)));
 }
 
 /**

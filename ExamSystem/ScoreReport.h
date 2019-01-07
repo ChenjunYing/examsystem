@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SCOREREPORT_H
+#define _SCOREREPORT_H
 
 #include <QList>
 #include <QFile>
@@ -43,3 +44,4 @@ private:
 	
 
 };
+#endif

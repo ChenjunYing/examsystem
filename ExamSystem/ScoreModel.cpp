@@ -2,8 +2,7 @@
 Score getInfoOfScore(QSqlQuery query);
 Details getInfoOfDetail(QSqlQuery query);
 
-ScoreModel::ScoreModel()
-{
+ScoreModel::ScoreModel() {
 	db = QSqlDatabase::addDatabase("QMYSQL");   //MySQL驱动 
 	db.setHostName("localhost");       //数据库地址，一般为localhost
 	db.setDatabaseName("examsystem");  //数据库名
@@ -14,13 +13,11 @@ ScoreModel::ScoreModel()
 }
 
 
-ScoreModel::~ScoreModel()
-{
+ScoreModel::~ScoreModel() {
 	db.close();  //关闭数据库
 }
 
-int ScoreModel::isOpen()
-{
+int ScoreModel::isOpen() {
 	return openstatus;
 }
 
@@ -32,12 +29,11 @@ int ScoreModel::isOpen()
   * @date:2019/1/2
   * @version:1.0
   */
-QList<Score> ScoreModel::searchScore(int code)
-{
+QList<Score> ScoreModel::searchScore(int code) {
 	QSqlQuery query;
 	QList<Score> scoreList;
 	query.prepare("select * from config where exam_code = :code");
-	query.bindValue(":code",code);
+	query.bindValue(":code", code);
 	query.exec();
 	if (query.size()) {
 		while (query.next()) {
@@ -55,9 +51,8 @@ QList<Score> ScoreModel::searchScore(int code)
   * @date:2019/1/2
   * @version:1.0
   */
-QList<Details> ScoreModel::searchDetails(int code, QString name)
-{
-	QSqlQuery queryForJudge,queryForObject;
+QList<Details> ScoreModel::searchDetails(int code, QString name) {
+	QSqlQuery queryForJudge, queryForObject;
 	QList<Details> detailsList;
 	queryForObject.prepare("select * from object_answer where exam_code = :code and username = :name");
 	queryForObject.bindValue(":code", code);
@@ -77,7 +72,7 @@ QList<Details> ScoreModel::searchDetails(int code, QString name)
 			detailsList.push_back(getInfoOfDetail(queryForJudge));
 		}
 	}
-	
+
 	return detailsList;
 }
 
@@ -89,13 +84,12 @@ QList<Details> ScoreModel::searchDetails(int code, QString name)
   * @date:2019/1/2
   * @version:1.0
   */
-Score getInfoOfScore(QSqlQuery query)
-{
+Score getInfoOfScore(QSqlQuery query) {
 	QSqlQuery queryForName;
 	int userNameIndex = query.record().indexOf("username");
 	QString userName = query.record().value(userNameIndex).toString();
 	queryForName.prepare("select person_name from user where username = :userName");
-	queryForName.bindValue(":userName",userName);
+	queryForName.bindValue(":userName", userName);
 	queryForName.exec();
 	queryForName.next();
 	QString studentName = queryForName.record().value(0).toString();
@@ -124,8 +118,7 @@ Score getInfoOfScore(QSqlQuery query)
   * @date:2019/1/2
   * @version:1.0
   */
-Details getInfoOfDetail(QSqlQuery query)
-{
+Details getInfoOfDetail(QSqlQuery query) {
 	int questionIdIndex = query.record().indexOf("question_id");
 	int studentAnswerIndex = query.record().indexOf("answer");
 	int answerIndex = query.record().indexOf("canswer");

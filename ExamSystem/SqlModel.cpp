@@ -43,17 +43,18 @@ int SqlModel::isOpen() {
   * @date:2018/12/13
   * @version:1.0
   */
-QSqlQuery SqlModel::check(QString username , QString password , QString identity) {
+QSqlQuery SqlModel::check(QString username, QString password, QString identity) {
 	QSqlQuery query;
 	if (identity.compare(QStringLiteral("管理员")) == 0) {
 		query.prepare("select * from admin where username = :name and password = :pwd");
-		query.bindValue(":name" , username);
-		query.bindValue(":pwd" , password);
+		query.bindValue(":name", username);
+		query.bindValue(":pwd", password);
 		query.exec();
-	} else if (identity.compare(QStringLiteral("普通用户")) == 0) {
+	}
+	else if (identity.compare(QStringLiteral("普通用户")) == 0) {
 		query.prepare("select * from user where username = :name and password = :pwd");
-		query.bindValue(":name" , username);
-		query.bindValue(":pwd" , password);
+		query.bindValue(":name", username);
+		query.bindValue(":pwd", password);
 		query.exec();
 	}
 	return query;
@@ -71,18 +72,18 @@ QSqlQuery SqlModel::check(QString username , QString password , QString identity
   * @date:2018/12/16
   * @version:2.0
   */
-bool SqlModel::insertChoice(QString description , QString choiceA ,
-	QString choiceB , QString choiceC , QString choiceD , QString answer , int value) {
+bool SqlModel::insertChoice(QString description, QString choiceA,
+	QString choiceB, QString choiceC, QString choiceD, QString answer, int value) {
 	QSqlQuery query;
 	query.prepare("insert into object_question(description,A,B,C,D,answer,value,author) values(:des,:A,:B,:C,:D,:ans,:val,:author)");
-	query.bindValue(":des" , description);
-	query.bindValue(":A" , choiceA);
-	query.bindValue(":B" , choiceB);
-	query.bindValue(":C" , choiceC);
-	query.bindValue(":D" , choiceD);
-	query.bindValue(":ans" , answer);
-	query.bindValue(":val" , value);
-	query.bindValue(":author" , "admin");
+	query.bindValue(":des", description);
+	query.bindValue(":A", choiceA);
+	query.bindValue(":B", choiceB);
+	query.bindValue(":C", choiceC);
+	query.bindValue(":D", choiceD);
+	query.bindValue(":ans", answer);
+	query.bindValue(":val", value);
+	query.bindValue(":author", "admin");
 	return query.exec();
 }
 
@@ -125,8 +126,7 @@ bool SqlModel::insertMultiChoice(QString description, QString choiceA, QString c
   * @date:2018/12/19
   * @version:1.0
   */
-bool SqlModel::insertJudge(QString description, QString answer, int value)
-{
+bool SqlModel::insertJudge(QString description, QString answer, int value) {
 	QSqlQuery query;
 	int type;
 	query.prepare("insert into judge_question(description,answer,value,author) values(:des,:ans,:val,:author)");
@@ -148,20 +148,20 @@ bool SqlModel::insertJudge(QString description, QString answer, int value)
   * @param [out] 输出参数: 返回是否修改成功,若修改成功则返回true否则返回false
   * @date:2018/12/17
   * @version:1.0
-  */	
-bool SqlModel::updateChoice(QString description , QString choiceA , QString choiceB ,
-	QString choiceC , QString choiceD , QString answer , int value , int questionId) {
+  */
+bool SqlModel::updateChoice(QString description, QString choiceA, QString choiceB,
+	QString choiceC, QString choiceD, QString answer, int value, int questionId) {
 	QSqlQuery query;
 	query.prepare("update object_question set description=:des,A=:A,B=:B,C=:C,D=:D,answer=:ans,value=:val,author=:author where question_id=:Id");
-	query.bindValue(":des" , description);
-	query.bindValue(":A" , choiceA);
-	query.bindValue(":B" , choiceB);
-	query.bindValue(":C" , choiceC);
-	query.bindValue(":D" , choiceD);
-	query.bindValue(":ans" , answer);
-	query.bindValue(":val" , value);
-	query.bindValue(":author" , "admin");
-	query.bindValue(":Id" , questionId);
+	query.bindValue(":des", description);
+	query.bindValue(":A", choiceA);
+	query.bindValue(":B", choiceB);
+	query.bindValue(":C", choiceC);
+	query.bindValue(":D", choiceD);
+	query.bindValue(":ans", answer);
+	query.bindValue(":val", value);
+	query.bindValue(":author", "admin");
+	query.bindValue(":Id", questionId);
 	return query.exec();
 }
 
@@ -221,11 +221,11 @@ bool SqlModel::updateJudge(QString description, QString answer, int value, int q
   * @param [out] 输出参数: 返回是否删除成功,若修改成功则返回true否则返回false
   * @date:2018/12/19
   * @version:1.0
-  */	
+  */
 bool SqlModel::deleteChoice(int questionId) {
 	QSqlQuery query;
 	query.prepare("delete from object_question where question_id = :id");
-	query.bindValue(":id" , questionId);
+	query.bindValue(":id", questionId);
 	return query.exec();
 }
 
@@ -256,24 +256,24 @@ QList<Choice> SqlModel::searchChoice(int type) {
 	QSqlQuery query;
 	QList<Choice> questionList;   //存放选择题对象的容器
 	switch (type) {
-		case 0: 
-			query.exec("select * from object_question where type = 0"); 
-			if (query.size()) {
-				while (query.next()) {
-					questionList.push_back(splitChoice(query));
-				}
+	case 0:
+		query.exec("select * from object_question where type = 0");
+		if (query.size()) {
+			while (query.next()) {
+				questionList.push_back(splitChoice(query));
 			}
-			break;
-		case 1: 
-			query.exec("select * from object_question where type = 1"); 
-			if (query.size()) {
-				while (query.next()) {
-					questionList.push_back(splitChoice(query));
-				}
+		}
+		break;
+	case 1:
+		query.exec("select * from object_question where type = 1");
+		if (query.size()) {
+			while (query.next()) {
+				questionList.push_back(splitChoice(query));
 			}
-			break;
-		default: 
-			break;
+		}
+		break;
+	default:
+		break;
 	}
 	return questionList;
 }
@@ -287,40 +287,40 @@ QList<Choice> SqlModel::searchChoice(int type) {
   * @note:重载函数
   * @version:1.0
   */
-QList<Choice> SqlModel::searchChoice(int type , QString keyWord, int lowerValue, int upperValue, QString author) {
+QList<Choice> SqlModel::searchChoice(int type, QString keyWord, int lowerValue, int upperValue, QString author) {
 	QSqlQuery query;
 	QList<Choice> questionList;   //存放选择题对象的容器
 	switch (type) {
-		case 0:
-			query.prepare("select * from object_question where type = 0 and value>=:low and value<=:up");
-			query.bindValue(":low" , lowerValue);
-			query.bindValue(":up" , upperValue);
-			query.exec();
-			if (query.size()) {
-				while (query.next()) {
-					QString description = query.record().value(query.record().indexOf("description")).toString();
-					QString auth = query.record().value(query.record().indexOf("author")).toString();
-					if (description.contains(keyWord , Qt::CaseSensitive) && auth.contains(author , Qt::CaseSensitive))
-						questionList.push_back(splitChoice(query));
-				}
+	case 0:
+		query.prepare("select * from object_question where type = 0 and value>=:low and value<=:up");
+		query.bindValue(":low", lowerValue);
+		query.bindValue(":up", upperValue);
+		query.exec();
+		if (query.size()) {
+			while (query.next()) {
+				QString description = query.record().value(query.record().indexOf("description")).toString();
+				QString auth = query.record().value(query.record().indexOf("author")).toString();
+				if (description.contains(keyWord, Qt::CaseSensitive) && auth.contains(author, Qt::CaseSensitive))
+					questionList.push_back(splitChoice(query));
 			}
-			break;
-		case 1:
-			query.prepare("select * from object_question where type = 1 and value>=:low and value<=:up");
-			query.bindValue(":low" , lowerValue);
-			query.bindValue(":up" , upperValue);
-			query.exec();
-			if (query.size()) {
-				while (query.next()) {
-					QString description = query.record().value(query.record().indexOf("description")).toString();
-					QString auth = query.record().value(query.record().indexOf("author")).toString();
-					if (description.contains(keyWord , Qt::CaseSensitive) && auth.contains(author , Qt::CaseSensitive))
-						questionList.push_back(splitChoice(query));
-				}
+		}
+		break;
+	case 1:
+		query.prepare("select * from object_question where type = 1 and value>=:low and value<=:up");
+		query.bindValue(":low", lowerValue);
+		query.bindValue(":up", upperValue);
+		query.exec();
+		if (query.size()) {
+			while (query.next()) {
+				QString description = query.record().value(query.record().indexOf("description")).toString();
+				QString auth = query.record().value(query.record().indexOf("author")).toString();
+				if (description.contains(keyWord, Qt::CaseSensitive) && auth.contains(author, Qt::CaseSensitive))
+					questionList.push_back(splitChoice(query));
 			}
-			break;
-		default:
-			break;
+		}
+		break;
+	default:
+		break;
 	}
 	return questionList;
 }
@@ -352,17 +352,17 @@ QList<Judge> SqlModel::searchJudge() {
   * @version:1.0
   */
 
-QList<Judge> SqlModel::searchJudge(QString keyWord , int lowerValue , int upperValue , QString author) {
+QList<Judge> SqlModel::searchJudge(QString keyWord, int lowerValue, int upperValue, QString author) {
 	QSqlQuery query;
 	QList<Judge> questionList;  //存放判断题对象的容器
 	query.prepare("select * from judge_question where value>=:low and value<=:up");
-	query.bindValue(":low" , lowerValue);
-	query.bindValue(":up" , upperValue);
+	query.bindValue(":low", lowerValue);
+	query.bindValue(":up", upperValue);
 	query.exec();
 	while (query.next()) {
 		QString description = query.record().value(query.record().indexOf("description")).toString();
 		QString auth = query.record().value(query.record().indexOf("author")).toString();
-		if (description.contains(keyWord , Qt::CaseSensitive) && auth.contains(author , Qt::CaseSensitive))
+		if (description.contains(keyWord, Qt::CaseSensitive) && auth.contains(author, Qt::CaseSensitive))
 			questionList.push_back(splitJudge(query));
 	}
 	return questionList;
@@ -379,7 +379,7 @@ QList<Judge> SqlModel::searchJudge(QString keyWord , int lowerValue , int upperV
   */
 Choice splitChoice(QSqlQuery query) {
 	int questionIdIndex = query.record().indexOf("question_id"); //获取列下标
-	int descriptionIndex = query.record().indexOf("description"); 
+	int descriptionIndex = query.record().indexOf("description");
 	int choiceAIndex = query.record().indexOf("A");
 	int choiceBIndex = query.record().indexOf("B");
 	int choiceCIndex = query.record().indexOf("C");
@@ -396,7 +396,7 @@ Choice splitChoice(QSqlQuery query) {
 	QString author = query.record().value(authorIndex).toString();
 	int value = query.record().value(valueIndex).toInt();
 	int questionId = query.record().value(questionIdIndex).toInt();
-	return Choice::Choice(questionId , description , choiceA , choiceB , choiceC , choiceD , answer , value , author);
+	return Choice::Choice(questionId, description, choiceA, choiceB, choiceC, choiceD, answer, value, author);
 }
 
 
@@ -419,7 +419,7 @@ Judge splitJudge(QSqlQuery query) {
 	QString author = query.record().value(authorIndex).toString();
 	int value = query.record().value(valueIndex).toInt();
 	int questionId = query.record().value(questionIdIndex).toInt();
-	return Judge::Judge(questionId , description , answer , value , author);
+	return Judge::Judge(questionId, description, answer, value, author);
 }
 
 /*
@@ -430,8 +430,7 @@ Judge splitJudge(QSqlQuery query) {
   * @date:2018/12/17
   * @version:2.0
   */
-QList<Config> SqlModel::searchExam(QString username)
-{
+QList<Config> SqlModel::searchExam(QString username) {
 	QSqlQuery query;
 	QList<Config> examList;  //存放考试对象的容器
 	query.exec("select * from exam,config where exam.exam_code = config.exam_code");
@@ -439,7 +438,7 @@ QList<Config> SqlModel::searchExam(QString username)
 	{
 		int userNameIndex = query.record().indexOf("username");
 		QString userName = query.record().value(userNameIndex).toString();
-		if (userName.compare(username)==0) examList.push_back(getInformationOfExam(query));
+		if (userName.compare(username) == 0) examList.push_back(getInformationOfExam(query));
 	}
 	return examList;
 }
@@ -452,8 +451,7 @@ QList<Config> SqlModel::searchExam(QString username)
   * @date:2018/12/17
   * @version:2.0
   */
-Student SqlModel::searchStudentInfo(QString username)
-{
+Student SqlModel::searchStudentInfo(QString username) {
 	QSqlQuery query;
 	query.exec("select * from user");
 	while (query.next())
@@ -500,7 +498,7 @@ Config getInformationOfExam(QSqlQuery query) {
 	int judgeScoreIndex = query.record().indexOf("judge_score");
 	int isSubmitIndex = query.record().indexOf("is_submit");
 	QString examName = query.record().value(examNameIndex).toString();
-	int examCode= query.record().value(examCodeIndex).toInt();
+	int examCode = query.record().value(examCodeIndex).toInt();
 	int examDuration = query.record().value(examDurationIndex).toInt();
 	int choiceScore = query.record().value(choiceScoreIndex).toInt();
 	int multiScore = query.record().value(multiScoreIndex).toInt();
@@ -517,8 +515,7 @@ Config getInformationOfExam(QSqlQuery query) {
   * @date:2019/1/7
   * @version:2.0
   */
-Student getInformationOfStudent(QSqlQuery query)
-{
+Student getInformationOfStudent(QSqlQuery query) {
 	int usernameIndex = query.record().indexOf("username");
 	int passwordIndex = query.record().indexOf("password");
 	int phonenumberIndex = query.record().indexOf("phone_number");
@@ -533,7 +530,7 @@ Student getInformationOfStudent(QSqlQuery query)
 	QString personName = query.record().value(personNameIndex).toString();
 	QString major = query.record().value(majorIndex).toString();
 	QString studentId = query.record().value(studentIdIndex).toString();
-	return Student::Student(username , password , phonenumber , personName , major , studentId , sex);
+	return Student::Student(username, password, phonenumber, personName, major, studentId, sex);
 }
 
 SqlModel::~SqlModel() {

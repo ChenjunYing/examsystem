@@ -238,6 +238,12 @@
     <ClInclude Include="Question.h" />
     <ClInclude Include="SqlModel.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ExamSystem.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

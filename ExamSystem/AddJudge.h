@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _ADDJUDGE_H
+#define _ADDJUDGE_H
 
 #include <QDialog>
 #include "ui_AddJudge.h"
@@ -31,3 +32,4 @@ private:
 	Ui::AddJudge ui;
 	int tempQuestionId;
 };
+#endif

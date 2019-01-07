@@ -4,9 +4,9 @@
 StudentWindow::StudentWindow(QWidget *parent) : QDialog(parent) {
 	ui.setupUi(this);
 	setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint); //设置最小化按钮和关闭按钮
-	this->examModel= new QStandardItemModel; //创建考试表格
-	connect(this->ui.examTable , SIGNAL(clicked(const QModelIndex&)) , this , SLOT(examTableClicked(const QModelIndex&)));
-	connect(this->ui.refreshBtn , SIGNAL(clicked(bool)) , this , SLOT(dataRefresh()));
+	this->examModel = new QStandardItemModel; //创建考试表格
+	connect(this->ui.examTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(examTableClicked(const QModelIndex&)));
+	connect(this->ui.refreshBtn, SIGNAL(clicked(bool)), this, SLOT(dataRefresh()));
 }
 
 StudentWindow::~StudentWindow() {
@@ -33,12 +33,12 @@ void StudentWindow::dataRefresh() {
 void StudentWindow::examTableClicked(const QModelIndex& index) {
 	if (index.isValid() && index.column() == 2 && exam.at(index.row()).getIsSubmit() == 0) {
 		//qDebug() << userName << "," << exam.at(index.row()).getName();
-		int ret = QMessageBox::warning(this , QStringLiteral("提示") , QStringLiteral("确定开始考试吗？") , QMessageBox::Yes | QMessageBox::Cancel);
+		int ret = QMessageBox::warning(this, QStringLiteral("提示"), QStringLiteral("确定开始考试吗？"), QMessageBox::Yes | QMessageBox::Cancel);
 		if (ret == QMessageBox::Yes) {
 			this->close();
 			newExam = new StudentExam;
-			connect(this->newExam , SIGNAL(examFinish()) , this , SLOT(receiveExamFinish()));
-			newExam->display(userName , exam.at(index.row()).getCode());
+			connect(this->newExam, SIGNAL(examFinish()), this, SLOT(receiveExamFinish()));
+			newExam->display(userName, exam.at(index.row()).getCode());
 			newExam->show();
 		}
 	}
@@ -50,15 +50,14 @@ void StudentWindow::examTableClicked(const QModelIndex& index) {
   * @date:2018/12/20
   * @version:3.0
   */
-void StudentWindow::showExam()
-{
+void StudentWindow::showExam() {
 	int columnWidthStrategy = 0;
 	this->examModel->setHorizontalHeaderItem(0, new QStandardItem(QStringLiteral("考试名称")));
 	this->examModel->setHorizontalHeaderItem(1, new QStandardItem(QStringLiteral("考试时长")));
 	this->examModel->setHorizontalHeaderItem(2, new QStandardItem(QStringLiteral("考试状态")));
 	this->examModel->setHorizontalHeaderItem(3, new QStandardItem(QStringLiteral("考试总分")));
 	this->examModel->setHorizontalHeaderItem(4, new QStandardItem(QStringLiteral("单选得分")));
-	this->examModel->setHorizontalHeaderItem(5 , new QStandardItem(QStringLiteral("多选得分")));
+	this->examModel->setHorizontalHeaderItem(5, new QStandardItem(QStringLiteral("多选得分")));
 	this->examModel->setHorizontalHeaderItem(6, new QStandardItem(QStringLiteral("判断得分")));
 	this->ui.examTable->setModel(examModel);
 	this->ui.examTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -112,8 +111,7 @@ void StudentWindow::showExam()
   * @date:2018/12/17
   * @version:1.0
   */
-void StudentWindow::dataGet()
-{
+void StudentWindow::dataGet() {
 	SqlModel sql;
 	if (!sql.isOpen()) {
 		QMessageBox::critical(NULL, QStringLiteral("提示"), QStringLiteral("连接失败"), QMessageBox::Yes);
@@ -131,8 +129,7 @@ void StudentWindow::dataGet()
   * @date:2018/12/18
   * @version:1.0
   */
-void StudentWindow::showStudent(QString username)
-{
+void StudentWindow::showStudent(QString username) {
 	SqlModel sql;
 	Student student = sql.searchStudentInfo(username);
 	this->ui.Name->setText(student.getName());
@@ -147,8 +144,7 @@ void StudentWindow::showStudent(QString username)
   * @date:2018/12/17
   * @version:1.0
   */
-void StudentWindow::receiveUserName(QString name)
-{
+void StudentWindow::receiveUserName(QString name) {
 	userName = name;
 	StudentWindow::showExam();
 	StudentWindow::showStudent(userName);

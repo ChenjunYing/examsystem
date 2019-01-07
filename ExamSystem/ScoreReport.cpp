@@ -12,8 +12,7 @@ ScoreReport::ScoreReport(QWidget *parent)
 	connect(this, SIGNAL(sendUserName(QString)), this->detailedScore, SLOT(receiveName(QString)));
 }
 
-ScoreReport::~ScoreReport()
-{
+ScoreReport::~ScoreReport() {
 	delete scoreModel;
 }
 
@@ -23,8 +22,7 @@ ScoreReport::~ScoreReport()
   * @date:2019/1/1
   * @version:1.0
   */
-void ScoreReport::showScore()
-{
+void ScoreReport::showScore() {
 	this->scoreModel->clear();
 	ScoreReport::setScoreTableHeader();
 	this->ui.scoreTable->setModel(scoreModel);
@@ -40,8 +38,7 @@ void ScoreReport::showScore()
   * @date:2019/1/1
   * @version:1.0
   */
-void ScoreReport::scoreGet()
-{
+void ScoreReport::scoreGet() {
 	ScoreModel sql;
 	if (!sql.isOpen()) {
 		QMessageBox::critical(NULL, QStringLiteral("提示"), QStringLiteral("连接失败"), QMessageBox::Yes);
@@ -58,8 +55,7 @@ void ScoreReport::scoreGet()
   * @date:2019/1/1
   * @version:1.0
   */
-void ScoreReport::setScoreTableHeader()
-{
+void ScoreReport::setScoreTableHeader() {
 	scoreModel->setHorizontalHeaderItem(0, new QStandardItem(QStringLiteral("考生姓名")));
 	scoreModel->setHorizontalHeaderItem(1, new QStandardItem(QStringLiteral("总分")));
 	scoreModel->setHorizontalHeaderItem(2, new QStandardItem(QStringLiteral("单选得分")));
@@ -73,8 +69,7 @@ void ScoreReport::setScoreTableHeader()
   * @date:2019/1/1
   * @version:1.0
   */
-void ScoreReport::setScoreModelItemView()
-{
+void ScoreReport::setScoreModelItemView() {
 	for (int i = 0; i < score.size(); i++)
 	{
 		scoreModel->setItem(i, 0, new QStandardItem(score.at(i).getStudentName()));
@@ -108,8 +103,7 @@ void ScoreReport::setScoreModelItemView()
   * @date:2019/1/1
   * @version:1.0
   */
-void ScoreReport::detailsRequest(const QModelIndex & index)
-{
+void ScoreReport::detailsRequest(const QModelIndex & index) {
 	if (index.isValid() && index.column() == 1) {
 		emit sendUserName(this->score.at(index.row()).getUserName());
 		this->detailedScore->exec();
@@ -122,8 +116,7 @@ void ScoreReport::detailsRequest(const QModelIndex & index)
   * @date:2019/1/1
   * @version:1.0
   */
-void ScoreReport::receiveCode(int code)
-{
+void ScoreReport::receiveCode(int code) {
 	this->code = code;
 	this->detailedScore->code = code;
 	ScoreReport::showScore();
