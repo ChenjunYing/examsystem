@@ -10,6 +10,7 @@
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlTableModel>
 #include "Exam.h"
+#include "User.h"
 
 class AdminModel {
 

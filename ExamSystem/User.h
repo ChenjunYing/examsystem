@@ -7,7 +7,6 @@
 class Student{
 
 public:
-	Student(QString name , QString major , QString id);
 	Student(QString username , QString password , QString phonenumber , QString name , QString major , QString id , int sex);
 	~Student();
 	int getSex() const;

@@ -1,11 +1,5 @@
 #include "User.h"
 
-Student::Student(QString name, QString major, QString id) :name(name), major(major), id(id) {
-	this->name = name;
-	this->major = major;
-	this->id = id;
-}
-
 Student::Student(QString username , QString password , QString phonenumber , 
 	QString name , QString major , QString id , int sex) {
 	this->username = username;

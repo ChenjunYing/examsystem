@@ -445,7 +445,7 @@ QList<Config> SqlModel::searchExam(QString username)
 }
 
 /*
-  * @author:夏林轩
+  * @author:夏林轩 应承峻
   * @brief:将数据库中查询到的一个学生数据存放在Exam类中,并根据用户名筛选
   * @param [in] 输入参数: 字符串username
   * @param [out] 输出参数: 返回存放符合条件的信息的一个Student对象
@@ -464,6 +464,23 @@ Student SqlModel::searchStudentInfo(QString username)
 			return getInformationOfStudent(query);
 		}
 	}
+}
+
+/*
+  * @author:应承峻
+  * @brief:查询学生信息
+  * @param [out] 输出参数: 返回存放符合条件的信息的一个Student对象数组
+  * @date:2019/1/7
+  * @version:1.0
+  */
+QList<Student> SqlModel::searchStudent() {
+	QSqlQuery query;
+	QList<Student> studentList;
+	query.exec("select * from user");
+	while (query.next()) {
+		studentList.push_back(getInformationOfStudent(query));
+	}
+	return studentList;
 }
 
 /**
@@ -493,22 +510,30 @@ Config getInformationOfExam(QSqlQuery query) {
 }
 
 /**
-  * @author:夏林轩
+  * @author:夏林轩 应承峻
   * @brief:将数据库中查询到的考生数据存放在Student对象中
   * @param [in] 输入参数: 查询结果query
   * @param [out] 输出参数: 返回存放符合条件的学生信息的一个Student对象
-  * @date:2018/12/18
-  * @version:1.0
+  * @date:2019/1/7
+  * @version:2.0
   */
 Student getInformationOfStudent(QSqlQuery query)
 {
+	int usernameIndex = query.record().indexOf("username");
+	int passwordIndex = query.record().indexOf("password");
+	int phonenumberIndex = query.record().indexOf("phone_number");
+	int sexIndex = query.record().indexOf("sex");
 	int personNameIndex = query.record().indexOf("person_name");
 	int majorIndex = query.record().indexOf("major");
 	int studentIdIndex = query.record().indexOf("student_id");
-	QString personNmae = query.record().value(personNameIndex).toString();
+	int sex = query.record().value(sexIndex).toInt();
+	QString username = query.record().value(usernameIndex).toString();
+	QString password = query.record().value(passwordIndex).toString();
+	QString phonenumber = query.record().value(phonenumberIndex).toString();
+	QString personName = query.record().value(personNameIndex).toString();
 	QString major = query.record().value(majorIndex).toString();
 	QString studentId = query.record().value(studentIdIndex).toString();
-	return Student::Student(personNmae, major, studentId);
+	return Student::Student(username , password , phonenumber , personName , major , studentId , sex);
 }
 
 SqlModel::~SqlModel() {

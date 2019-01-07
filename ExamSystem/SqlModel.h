@@ -40,6 +40,7 @@ public:
 	QList<Judge> searchJudge();
 	QList<Judge> searchJudge(QString keyWord , int lowerValue , int upperValue , QString author);
 	QList<Config> searchExam(QString username);
+	QList<Student> searchStudent();
 	Student searchStudentInfo(QString username);
 	QSqlQuery check(QString username , QString password , QString identity);
 	
