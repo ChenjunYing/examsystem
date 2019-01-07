@@ -1,25 +1,52 @@
 #include "User.h"
 
-Student::Student(QString name, QString major, QString id) :name(name), major(major), id(id)
-{
+Student::Student(QString name, QString major, QString id) :name(name), major(major), id(id) {
+	this->name = name;
+	this->major = major;
+	this->id = id;
 }
 
-Student::~Student()
-{
+Student::Student(QString username , QString password , QString phonenumber , 
+	QString name , QString major , QString id , int sex) {
+	this->username = username;
+	this->password = password;
+	this->phonenumber = phonenumber;
+	this->name = name;
+	this->major = major;
+	this->id = id;
+	this->sex = sex;
 }
 
-QString Student::getName() const
-{
+
+Student::~Student() {
+
+}
+
+int Student::getSex() const {
+	return sex;
+}
+
+QString Student::getUsername() const {
+	return username;
+}
+
+QString Student::getPassword() const {
+	return password;
+}
+
+QString Student::getPhonenumber() const {
+	return phonenumber;
+}
+
+QString Student::getName() const {
 	return name;
 }
 
-QString Student::getMajor() const
-{
+QString Student::getMajor() const {
 	return major;
 }
 
-QString Student::getId() const
-{
+QString Student::getId() const {
 	return id;
 }
 
