@@ -2,7 +2,7 @@
 #include <QSqlQuery>
 #include <QString>
 
-Question::Question(int id , QString description , QString answer , int value , QString author) {
+Question::Question(int id, QString description, QString answer, int value, QString author) {
 	this->questionId = id;
 	this->description = description;
 	this->answer = answer;
@@ -39,9 +39,9 @@ Question::~Question() {
 
 }
 
-Choice::Choice(int id , QString description , QString choiceA , QString choiceB , QString choiceC ,
-	QString choiceD , QString answer , int value , QString author) :
-	Question(id , description , answer , value , author) {
+Choice::Choice(int id, QString description, QString choiceA, QString choiceB, QString choiceC,
+	QString choiceD, QString answer, int value, QString author) :
+	Question(id, description, answer, value, author) {
 	this->choiceA = choiceA;
 	this->choiceB = choiceB;
 	this->choiceC = choiceC;
@@ -68,8 +68,8 @@ Choice::~Choice() {
 
 }
 
-Judge::Judge(int id , QString description , QString answer , int value , QString author)
-	: Question(id , description , answer , value , author) {
+Judge::Judge(int id, QString description, QString answer, int value, QString author)
+	: Question(id, description, answer, value, author) {
 
 }
 
@@ -86,64 +86,57 @@ Judge::~Judge() {
 
 
 
-Config::Config(int cScore, int mScore, int jScore, int flag, QString Name, int Code, int Duration) 
-	:choiceScore(cScore), multiScore(mScore), judgeScore(jScore),isSubmit(flag),name(Name), code(Code), duration(Duration)
+Config::Config(int cScore, int mScore, int jScore, int flag, QString Name, int Code, int Duration)
+	:choiceScore(cScore), multiScore(mScore), judgeScore(jScore), isSubmit(flag), name(Name), code(Code), duration(Duration)
 {
 	if (flag) {
 		score = choiceScore + multiScore + judgeScore;
-	}else {
+	}
+	else {
 		score = NULL;
 	}
 }
 
-QString Config::getName() const
-{
+QString Config::getName() const {
 	return name;
 }
 
 
-int Config::getCode() const
-{
+int Config::getCode() const {
 	return code;
 }
 
-int Config::getDuration() const
-{
+int Config::getDuration() const {
 	return duration;
 }
 
-int Config::getChoiceScore() const
-{
+int Config::getChoiceScore() const {
 	return choiceScore;
 }
 
-int Config::getMultiScore() const 
-{
+int Config::getMultiScore() const {
 	return multiScore;
 }
 
 
-int Config::getJudgeScore() const
-{
+int Config::getJudgeScore() const {
 	return judgeScore;
 }
 
-int Config::getScore() const
-{
+int Config::getScore() const {
 	return score;
 }
 
-int Config::getIsSubmit() const
-{
+int Config::getIsSubmit() const {
 	return isSubmit;
 }
 
-Config::~Config(){
+Config::~Config() {
 
 }
 
 Score::Score(QString sname, QString uname, int cScore, int mScore, int jScore, int flag, QString Name, int Code, int Duration)
-	:studentName(sname), userName(uname),Config(cScore, mScore, jScore, flag, Name, Code, Duration)
+	:studentName(sname), userName(uname), Config(cScore, mScore, jScore, flag, Name, Code, Duration)
 {
 }
 
@@ -151,31 +144,26 @@ Score::~Score()
 {
 }
 
-QString Score::getStudentName() const
-{
+QString Score::getStudentName() const {
 	return studentName;
 }
 
-QString Score::getUserName() const
-{
+QString Score::getUserName() const {
 	return userName;
 }
 
-Details::Details(QString sAnswer, QString answer, int score):studentAnswer(sAnswer),answer(answer),score(score)
+Details::Details(QString sAnswer, QString answer, int score) :studentAnswer(sAnswer), answer(answer), score(score)
 {
 }
 
-QString Details::getStudentAnswer() const
-{
+QString Details::getStudentAnswer() const {
 	return studentAnswer;
 }
 
-QString Details::getAnswer() const
-{
+QString Details::getAnswer() const {
 	return answer;
 }
 
-int Details::getScore() const
-{
+int Details::getScore() const {
 	return score;
 }

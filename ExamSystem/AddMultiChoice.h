@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _ADDMULTICHOICE_H
+#define _ADDMULTICHOICE_H
 
 #include <QDialog>
 #include <QString>
@@ -34,3 +35,4 @@ private:
 
 };
 
+#endif

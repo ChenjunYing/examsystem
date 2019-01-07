@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SCOREMODEL_H
+#define _SCOREMODEL_H
 
 #include <QtSql>
 #include <QList>
@@ -26,3 +27,4 @@ private:
 
 };
 
+#endif

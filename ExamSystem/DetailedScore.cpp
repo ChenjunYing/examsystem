@@ -19,8 +19,7 @@ DetailedScore::~DetailedScore()
   * @date:2019/1/1
   * @version:1.0
   */
-void DetailedScore::showDetails()
-{
+void DetailedScore::showDetails() {
 	this->detailModel->clear();
 	DetailedScore::setDetailsTableHeader();
 	this->ui.detailsTable->setModel(detailModel);
@@ -36,8 +35,7 @@ void DetailedScore::showDetails()
   * @date:2019/1/1
   * @version:1.0
   */
-void DetailedScore::setDetailsTableHeader()
-{
+void DetailedScore::setDetailsTableHeader() {
 	detailModel->setHorizontalHeaderItem(0, new QStandardItem(QStringLiteral("考生答案")));
 	detailModel->setHorizontalHeaderItem(1, new QStandardItem(QStringLiteral("正确答案")));
 	detailModel->setHorizontalHeaderItem(2, new QStandardItem(QStringLiteral("得分")));
@@ -49,8 +47,7 @@ void DetailedScore::setDetailsTableHeader()
   * @date:2019/1/1
   * @version:1.0
   */
-void DetailedScore::setDetailModelItemView()
-{
+void DetailedScore::setDetailModelItemView() {
 	for (int i = 0; i < details.size(); i++)
 	{
 		detailModel->setItem(i, 0, new QStandardItem(details.at(i).getStudentAnswer()));
@@ -69,8 +66,7 @@ void DetailedScore::setDetailModelItemView()
   * @date:2019/1/1
   * @version:1.0
   */
-void DetailedScore::dataGet()
-{
+void DetailedScore::dataGet() {
 	ScoreModel sql;
 	if (!sql.isOpen()) {
 		QMessageBox::critical(NULL, QStringLiteral("提示"), QStringLiteral("连接失败"), QMessageBox::Yes);
@@ -87,8 +83,7 @@ void DetailedScore::dataGet()
   * @date:2019/1/1
   * @version:1.0
   */
-void DetailedScore::receiveName(QString name)
-{
+void DetailedScore::receiveName(QString name) {
 	userName = name;
 	DetailedScore::showDetails();
 }

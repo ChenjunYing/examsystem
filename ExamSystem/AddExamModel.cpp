@@ -27,8 +27,7 @@ int AddExamModel::isOpen() {
   * @date:2019/1/1
   * @version:1.0
   */
-bool AddExamModel::insertExam(QString examName, int examTime, QString examInformation)
-{
+bool AddExamModel::insertExam(QString examName, int examTime, QString examInformation) {
 	QSqlQuery query;
 	query.prepare("insert into exam(exam_name,duration,information) values(:examName,:duration,:information)");
 	query.bindValue(":examName", examName);
@@ -43,10 +42,9 @@ bool AddExamModel::insertExam(QString examName, int examTime, QString examInform
   * @date:2019/1/1
   * @version:1.0
   */
-int AddExamModel::searchExam(QString examName)
-{
-	QSqlQuery query; 
-	int examCode=0;
+int AddExamModel::searchExam(QString examName) {
+	QSqlQuery query;
+	int examCode = 0;
 	query.prepare("select * from exam where exam_name = :name");
 	query.bindValue(":name", examName);
 	query.exec();
@@ -65,8 +63,7 @@ int AddExamModel::searchExam(QString examName)
   * @date:2019/1/1
   * @version:1.0
   */
-bool AddExamModel::insertChoice(int examCode, int questionId)
-{
+bool AddExamModel::insertChoice(int examCode, int questionId) {
 	QSqlQuery query;
 	query.prepare("insert into exam_content(object_id,exam_code) values(:questionId,:examCode)");
 	query.bindValue(":questionId", questionId);
@@ -80,8 +77,7 @@ bool AddExamModel::insertChoice(int examCode, int questionId)
   * @date:2019/1/1
   * @version:1.0
   */
-bool AddExamModel::insertJudge(int examCode, int questionId)
-{
+bool AddExamModel::insertJudge(int examCode, int questionId) {
 	QSqlQuery query;
 	query.prepare("insert into exam_content(judge_id,exam_code) values(:questionId,:examCode)");
 	query.bindValue(":questionId", questionId);
@@ -95,8 +91,7 @@ bool AddExamModel::insertJudge(int examCode, int questionId)
   * @date:2019/1/2
   * @version:1.0
   */
-void AddExamModel::insertStudent(int examCode)
-{
+void AddExamModel::insertStudent(int examCode) {
 	QSqlQuery query1;
 	QSqlQuery query2;
 	query1.exec("select username from user");

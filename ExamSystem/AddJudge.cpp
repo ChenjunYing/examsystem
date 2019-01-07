@@ -18,11 +18,11 @@ AddJudge::AddJudge(QWidget *parent) : QDialog(parent) {
 void AddJudge::checkData() {
 	QString description = this->ui.description->toPlainText(); //获取题目描述
 	int score = this->ui.score->value(); //获取题目分值
-	bool answer[2] = { this->ui.right->isChecked(),this->ui.wrong->isChecked()}; //获取答案
+	bool answer[2] = { this->ui.right->isChecked(),this->ui.wrong->isChecked() }; //获取答案
 	if (!description.length()) {
 		QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("题目描述不能为空！"), QMessageBox::Yes);
 	}
-	else if (answer[0] == 0 && answer[1] == 0 ) {
+	else if (answer[0] == 0 && answer[1] == 0) {
 		QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("请设定正确答案！"), QMessageBox::Yes);
 	}
 	else {
@@ -45,8 +45,7 @@ void AddJudge::checkData() {
   * @date:2018/12/19
   * @version:1.0
  */
-void AddJudge::checkUpdateData()
-{
+void AddJudge::checkUpdateData() {
 	QString description = this->ui.description->toPlainText(); //获取题目描述
 	int score = this->ui.score->value(); //获取题目分值
 	bool answer[2] = { this->ui.right->isChecked(),this->ui.wrong->isChecked() }; //获取答案
@@ -117,7 +116,7 @@ void AddJudge::receiveData(Judge c) {
 	a->ui.submitBtn->setText(QStringLiteral("修   改"));  //修改按钮文字
 	a->ui.description->setText(c.getDescription());  //填上相关信息
 	a->ui.score->setValue(c.getValue());
-	if(c.getAnswer()=='T')
+	if (c.getAnswer() == 'T')
 		a->ui.right->setChecked(true);
 	else if (c.getAnswer() == 'F')
 		a->ui.wrong->setChecked(true);
