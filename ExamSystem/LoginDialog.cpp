@@ -7,6 +7,7 @@ LoginDialog::LoginDialog(QWidget *parent) : QDialog(parent) {
 	connect(this, SIGNAL(sendUserName(QString)), &this->student, SLOT(receiveUserName(QString)));
 	connect(this->student.ui.btnLogout, SIGNAL(clicked(bool)), this, SLOT(studentLogout()));
 	connect(this->admin.ui.logout , SIGNAL(triggered()) , this , SLOT(adminLogout()));
+	connect(this->ui.registBtn , SIGNAL(clicked(bool)) , this , SLOT(regist()));
 }
 
 /**
@@ -47,6 +48,16 @@ void LoginDialog::login() {
 	} else {
 		QMessageBox::warning(NULL , QStringLiteral("提示") , QStringLiteral("连接失败") , QMessageBox::Yes);
 	}
+}
+
+/**
+  * @author:应承峻
+  * @brief:进入注册页面
+  * @date:2019/1/8
+  * @version:1.0
+  */
+void LoginDialog::regist() {
+	addstudent.exec();
 }
 
 LoginDialog::~LoginDialog() {

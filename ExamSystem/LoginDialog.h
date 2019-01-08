@@ -13,6 +13,7 @@
 #include <QDebug>
 #include "SqlModel.h"
 #include "MainWindow.h"
+#include "AddStudent.h"
 #include "StudentWindow.h"
 #include "ui_LoginDialog.h"
 
@@ -29,6 +30,7 @@ signals:
 
 private slots:
 	void login();
+	void regist();
 	void studentLogout();
 	void adminLogout();
 
@@ -36,7 +38,7 @@ private:
 	Ui::LoginDialog ui;
 	MainWindow admin;
 	StudentWindow student;
-
+	AddStudent addstudent;
 };
 
 #endif

@@ -22,9 +22,9 @@ void initStyle() {
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
 	initStyle();
-	//LoginDialog logindialog;
-	//logindialog.show();
-	AddStudent add;
-	add.show();
+	LoginDialog logindialog;
+	logindialog.show();
+	//AddStudent add;
+	//add.show();
 	return a.exec();
 }
