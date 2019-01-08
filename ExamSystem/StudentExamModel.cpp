@@ -124,10 +124,10 @@ QList<Judge> StudentExamModel::searchJudge(int examCode) {
 */
 int StudentExamModel::submit(QString username, QList<Choice> choiceAns, QList<Choice> multichoiceAns, QList<Judge> judgeAns, int examCode, int objectScore, int multiScore, int judgeScore) {
 	int i;
-	int choiceFlag;
-	int multichoiceFlag;
-	int judgeFlag;
-	int scoreFlag;
+	int choiceFlag  = 1;
+	int multichoiceFlag = 1;
+	int judgeFlag = 1;
+	int scoreFlag = 1;
 	for (i = 0; i < choiceAns.size(); i++) {
 		if (!choiceAns.at(i).getAnswer().isEmpty()) {
 			QSqlQuery query;
@@ -234,7 +234,7 @@ int StudentExamModel::submit(QString username, QList<Choice> choiceAns, QList<Ch
 	scoreFlag = query.exec();
 
 	qDebug() << choiceFlag << "," << multichoiceFlag << "," << judgeFlag;
-	return choiceFlag && multichoiceFlag &&judgeFlag;
+	return choiceFlag && multichoiceFlag && judgeFlag && scoreFlag;
 }
 StudentExamModel::~StudentExamModel() {
 	db.close();  //¹Ø±ÕÊý¾Ý¿â
