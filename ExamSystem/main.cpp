@@ -24,9 +24,5 @@ int main(int argc, char *argv[]) {
 	initStyle();
 	LoginDialog logindialog;
 	logindialog.show();
-	//AddStudent add;
-	//add.show();
-	//StudentInfo i;
-	//i.show();
 	return a.exec();
 }
