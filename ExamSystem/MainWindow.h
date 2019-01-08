@@ -47,13 +47,13 @@ private slots:
 
 private:
 	Ui::MainWindowClass ui;
-	AddChoice* choice;
-	AddMultiChoice* multichoice;
-	AddJudge* judge;
-	AddExam* newexam;
-	QuestionBank* questionbank;
-	ScoreReport* scoreReport;
-	QStandardItemModel* exammodel;
+	AddChoice* choice = NULL;
+	AddMultiChoice* multichoice = NULL;
+	AddJudge* judge = NULL;
+	AddExam* newexam = NULL;
+	QuestionBank* questionbank = NULL;
+	ScoreReport* scoreReport = NULL;
+	QStandardItemModel* exammodel = NULL;
 	QList<Exam> exam;
 	int clickedExamCode;
 };

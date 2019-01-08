@@ -159,7 +159,10 @@ void MainWindow::judgeTriggered() {
 
 /*创建考试接口*/
 void MainWindow::createExamTriggered() {
-	if (newexam) delete newexam;
+	if (newexam) {
+		delete newexam;
+		newexam = NULL;
+	}
 	newexam = new AddExam;
 	qDebug() << connect(this->newexam, SIGNAL(creatFinished()), this, SLOT(refreshAfterCreat()));
 	newexam->show();
