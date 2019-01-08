@@ -24,6 +24,8 @@ public:
 	~SqlModel();
 	int isOpen();
 	bool deleteStudent(QString username);
+	bool isUsernameExist(QString username);
+	bool insertStudent(Student student);
 	bool insertChoice(QString description , QString choiceA , QString choiceB , 
 		QString choiceC , QString choiceD , QString answer , int value);
 	bool insertMultiChoice(QString description, QString choiceA, QString choiceB,

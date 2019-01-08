@@ -3,6 +3,7 @@
 #include "StudentExam.h"
 #include "AddExam.h"
 #include "StudentInfo.h"
+#include "AddStudent.h"
 #include <QFile>
 #include <QApplication>
 #include <QtWidgets/QApplication>
@@ -23,7 +24,7 @@ int main(int argc, char *argv[]) {
 	initStyle();
 	//LoginDialog logindialog;
 	//logindialog.show();
-	StudentInfo i;
-	i.show();
+	AddStudent add;
+	add.show();
 	return a.exec();
 }

@@ -124,6 +124,7 @@
     <ClCompile Include="AddExamModel.cpp" />
     <ClCompile Include="AddJudge.cpp" />
     <ClCompile Include="AddMultiChoice.cpp" />
+    <ClCompile Include="AddStudent.cpp" />
     <ClCompile Include="AdminModel.cpp" />
     <ClCompile Include="DetailedScore.cpp" />
     <ClCompile Include="Exam.cpp" />
@@ -149,6 +150,7 @@
     <QtUic Include="AddExam.ui" />
     <QtUic Include="AddJudge.ui" />
     <QtUic Include="AddMultiChoice.ui" />
+    <QtUic Include="AddStudent.ui" />
     <QtUic Include="DetailedScore.ui" />
     <QtUic Include="LoginDialog.ui" />
     <QtUic Include="MainWindow.ui" />
@@ -176,6 +178,12 @@
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_WIDGETS_LIB</Define>
     </QtMoc>
     <ClInclude Include="AddExamModel.h" />
+    <QtMoc Include="AddStudent.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtWidgets</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_WIDGETS_LIB</Define>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtWidgets</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_SQL_LIB;QT_WIDGETS_LIB</Define>
+    </QtMoc>
     <ClInclude Include="AdminModel.h" />
     <QtMoc Include="DetailedScore.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtWidgets</IncludePath>

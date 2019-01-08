@@ -93,6 +93,9 @@
     <ClCompile Include="StudentInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AddStudent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -131,6 +134,9 @@
     <QtMoc Include="StudentInfo.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="AddStudent.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindow.ui">
@@ -167,6 +173,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="StudentInfo.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="AddStudent.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

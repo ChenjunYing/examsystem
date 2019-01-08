@@ -422,7 +422,7 @@ Judge splitJudge(QSqlQuery query) {
 	return Judge::Judge(questionId, description, answer, value, author);
 }
 
-/*
+/**
   * @author:夏林轩
   * @brief:将数据库中查询到的一场考试数据存放在Config类中,并根据用户名筛选
   * @param [in] 输入参数: 字符串username
@@ -443,7 +443,7 @@ QList<Config> SqlModel::searchExam(QString username) {
 	return examList;
 }
 
-/*
+/**
   * @author:夏林轩 应承峻
   * @brief:将数据库中查询到的一个学生数据存放在Exam类中,并根据用户名筛选
   * @param [in] 输入参数: 字符串username
@@ -454,8 +454,7 @@ QList<Config> SqlModel::searchExam(QString username) {
 Student SqlModel::searchStudentInfo(QString username) {
 	QSqlQuery query;
 	query.exec("select * from user");
-	while (query.next())
-	{
+	while (query.next()) {
 		int userNameIndex = query.record().indexOf("username");
 		QString userName = query.record().value(userNameIndex).toString();
 		if (userName.compare(username) == 0) {
@@ -464,7 +463,7 @@ Student SqlModel::searchStudentInfo(QString username) {
 	}
 }
 
-/*
+/**
   * @author:应承峻
   * @brief:查询学生信息
   * @param [out] 输出参数: 返回存放符合条件的信息的一个Student对象数组
@@ -481,7 +480,45 @@ QList<Student> SqlModel::searchStudent() {
 	return studentList;
 }
 
-/*
+/**
+  * @author:应承峻
+  * @brief:查询用户名是否已经存在
+  * @param [out] 输出参数: 若存在返回1否则返回0
+  * @date:2019/1/8
+  * @version:1.0
+  */
+bool SqlModel::isUsernameExist(QString username) {
+	bool flag = false;
+	QSqlQuery query;
+	query.prepare("select * from user where username = :name");
+	query.bindValue(":name" , username);
+	query.exec();
+	if (query.size()) flag = true;
+	return flag;
+}
+
+/**
+  * @author:应承峻
+  * @brief:注册学生信息
+  * @param [in] 输入参数: 学生对象student
+  * @param [out] 输出参数: 返回是否注册成功
+  * @date:2019/1/8
+  * @version:1.0
+  */
+bool SqlModel::insertStudent(Student student) {
+	QSqlQuery query;
+	query.prepare("insert into user(username,password,person_name,major,phone_number,sex,student_id) values(:1,:2,:3,:4,:5,:6,:7)");
+	query.bindValue(":1" , student.getUsername());
+	query.bindValue(":2" , student.getPassword());
+	query.bindValue(":3" , student.getName());
+	query.bindValue(":4" , student.getMajor());
+	query.bindValue(":5" , student.getPhonenumber());
+	query.bindValue(":6" , student.getSex());
+	query.bindValue(":7" , student.getId());
+	return query.exec();
+}
+
+/**
   * @author:应承峻
   * @brief:删除学生信息
   * @param [in] 输入参数: 学生用户名username
@@ -490,11 +527,11 @@ QList<Student> SqlModel::searchStudent() {
   */
 bool SqlModel::deleteStudent(QString username) {
 	QSqlQuery query;
-	int queryUser = 1 , queryConfig = 1 , queryObjAns = 1 , queryJudAns = 1;
+	int queryUser = 1;
 	query.prepare("delete from user where username = :name");
 	query.bindValue(":name" , username);
 	queryUser = query.exec();
-	return queryUser && queryConfig && queryObjAns && queryJudAns;
+	return queryUser;
 }
 
 /**
