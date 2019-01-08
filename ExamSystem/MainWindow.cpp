@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	connect(this->ui.multichoice, SIGNAL(triggered()), this, SLOT(multichoiceTriggered()));
 	connect(this->ui.goQuestionBank, SIGNAL(triggered()), this, SLOT(goQuestionBankTriggered()));
 	connect(this->ui.createExam, SIGNAL(triggered()), this, SLOT(createExamTriggered()));
+	connect(this->ui.createExam , SIGNAL(triggered()) , this , SLOT(createExamTriggered()));
+	connect(this->ui.user , SIGNAL(triggered()) , this , SLOT(userTriggered()));
 	connect(this, SIGNAL(sendExamCode(int)), this->scoreReport, SLOT(receiveCode(int)));
 	connect(this->ui.examTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(examClicked(const QModelIndex&)));
 	connect(this->ui.examTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(deleteClicked(const QModelIndex&)));
@@ -125,7 +127,7 @@ void MainWindow::setExamTableItemView(QStandardItemModel* model) {
 	for (int i = 0; i < exam.size(); i++) {
 		QString duration = QString::number(exam.at(i).getDuration());
 		model->setItem(i, 0, new QStandardItem(exam.at(i).getExamName()));
-		model->setItem(i, 1, new QStandardItem(QString::number(exam.at(i).getDuration())));
+		model->setItem(i, 1, new QStandardItem(QString::number(exam.at(i).getDuration()) + QStringLiteral("分钟")));
 		model->setItem(i, 2, new QStandardItem(exam.at(i).getInformation()));
 		model->setItem(i, 3, new QStandardItem(QStringLiteral("查询")));
 		model->setItem(i, 4, new QStandardItem(QStringLiteral("查看")));
@@ -155,6 +157,16 @@ void MainWindow::multichoiceTriggered() {
 void MainWindow::judgeTriggered() {
 	judge->resetData();
 	judge->exec();  //弹出添加判断题模态框，此时用户不能对主界面进行操作
+}
+
+/*考生管理接口*/
+void MainWindow::userTriggered() {
+	if (info != NULL) {
+		delete info;
+		info = NULL;
+	}
+	info = new StudentInfo;
+	info->exec();
 }
 
 /*创建考试接口*/
@@ -222,6 +234,7 @@ MainWindow::~MainWindow() {
 	delete multichoice;
 	delete judge;
 	delete exammodel;
-	delete newexam;
 	delete scoreReport;
+	delete info;
+	delete newexam;
 }

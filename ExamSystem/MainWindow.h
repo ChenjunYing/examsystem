@@ -12,6 +12,7 @@
 #include "QuestionBank.h"
 #include "Exam.h"
 #include "AddExam.h"
+#include "StudentInfo.h"
 #include "AdminModel.h"
 #include "ScoreReport.h"
 
@@ -34,6 +35,7 @@ public slots:
 private slots:
 	void dataRefresh();
 	void showExamTable();
+	void userTriggered();
 	void choiceTriggered();
 	void judgeTriggered();
 	void multichoiceTriggered();
@@ -54,6 +56,7 @@ private:
 	QuestionBank* questionbank = NULL;
 	ScoreReport* scoreReport = NULL;
 	QStandardItemModel* exammodel = NULL;
+	StudentInfo* info = NULL;
 	QList<Exam> exam;
 	int clickedExamCode;
 };
