@@ -481,6 +481,22 @@ QList<Student> SqlModel::searchStudent() {
 	return studentList;
 }
 
+/*
+  * @author:应承峻
+  * @brief:删除学生信息
+  * @param [in] 输入参数: 学生用户名username
+  * @date:2019/1/8
+  * @version:1.0
+  */
+bool SqlModel::deleteStudent(QString username) {
+	QSqlQuery query;
+	int queryUser = 1 , queryConfig = 1 , queryObjAns = 1 , queryJudAns = 1;
+	query.prepare("delete from user where username = :name");
+	query.bindValue(":name" , username);
+	queryUser = query.exec();
+	return queryUser && queryConfig && queryObjAns && queryJudAns;
+}
+
 /**
   * @author:夏林轩
   * @brief:将数据库中查询到的考生参加考试以及该考试本身的信息数据存放在Config类中
