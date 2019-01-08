@@ -527,7 +527,7 @@ void StudentExam::submit() {
 	}
 	else {
 		int num = this->choice.size();
-		flag = sql.submit(this->username,this->choice, this->multichoice, this->judge, this->examCode, this->objectScore, this->multiScore, this->judgeScore);
+		flag = sql.submit(this->username,this->choiceAns, this->multichoiceAns, this->judgeAns, this->examCode, this->objectScore, this->multiScore, this->judgeScore);
 		if (flag) {
 			QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("提交成功！"), QMessageBox::Yes);
 			emit examFinish();

@@ -233,6 +233,7 @@ int StudentExamModel::submit(QString username, QList<Choice> choiceAns, QList<Ch
 
 	scoreFlag = query.exec();
 
+	qDebug() << choiceFlag << "," << multichoiceFlag << "," << judgeFlag;
 	return choiceFlag && multichoiceFlag &&judgeFlag;
 }
 StudentExamModel::~StudentExamModel() {
