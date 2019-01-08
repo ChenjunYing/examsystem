@@ -25,6 +25,11 @@ void StudentInfo::refreshData() {
 	this->student = sql.searchStudent();
 }
 
+void StudentInfo::refresh() {
+	StudentInfo::refreshData();
+	StudentInfo::showStudentTable();
+}
+
 /**
   * @author:夏林轩
   * @brief:删除学生信息
@@ -39,12 +44,37 @@ void StudentInfo::tableClicked(const QModelIndex & index) {
 			QString username = student.at(index.row()).getUsername();
 			if (sql.isOpen() && sql.deleteStudent(username)) {
 				QMessageBox::information(this , QStringLiteral("提示") , QStringLiteral("删除成功！") , QMessageBox::Ok);
-				StudentInfo::refreshData();//刷新页面
-				StudentInfo::showStudentTable();
+				StudentInfo::refresh();
 			} else {
 				QMessageBox::information(this , QStringLiteral("提示") , QStringLiteral("删除失败！") , QMessageBox::Ok);
 			}
 		}
+		return;
+	}
+	if (index.isValid() && index.column() == 7) {
+		if (studentAdd == NULL) {
+			studentAdd = new AddStudent();
+			studentAdd->setWindowTitle(QStringLiteral("修改信息"));
+			studentAdd->ui.username->setReadOnly(true);
+			disconnect(studentAdd->ui.submitBtn , SIGNAL(clicked(bool)) , studentAdd , SLOT(regist()));
+			connect(studentAdd->ui.submitBtn , SIGNAL(clicked(bool)) , studentAdd , SLOT(update()));
+			connect(studentAdd , SIGNAL(userUpdateOk()) , this , SLOT(refresh()));
+			studentAdd->ui.username->setText(student.at(index.row()).getUsername());
+			studentAdd->ui.password->setText(student.at(index.row()).getPassword());
+			studentAdd->ui.name->setText(student.at(index.row()).getName());
+			studentAdd->ui.studentId->setText(student.at(index.row()).getId());
+			studentAdd->ui.major->setText(student.at(index.row()).getMajor());
+			studentAdd->ui.phonenumber->setText(student.at(index.row()).getPhonenumber());
+			studentAdd->ui.male->setChecked(student.at(index.row()).getSex());
+			studentAdd->ui.female->setChecked(!student.at(index.row()).getSex());
+			studentAdd->ui.checkBtn->hide();
+			studentAdd->exec();
+		}
+		if (studentAdd) {
+			delete studentAdd;
+			studentAdd = NULL;
+		}
+		return;
 	}
 }
 

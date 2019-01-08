@@ -15,11 +15,16 @@ public:
 	AddStudent(QWidget *parent = Q_NULLPTR);
 	~AddStudent();
 
+signals:void userUpdateOk();
+
 private slots:
 	void regist();
 	void reset();
 	void check();
+	void update();
 	int checkdata();
+	int checkdata(int);
+	friend class StudentInfo;
 
 private:
 	Ui::AddStudent ui;

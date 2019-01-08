@@ -520,6 +520,27 @@ bool SqlModel::insertStudent(Student student) {
 
 /**
   * @author:应承峻
+  * @brief:修改学生信息
+  * @param [in] 输入参数: 学生对象student
+  * @param [out] 输出参数: 返回是否注册成功
+  * @date:2019/1/8
+  * @version:1.0
+  */
+bool SqlModel::updateStudent(Student student) {
+	QSqlQuery query;
+	query.prepare("update user set password=:2,person_name=:3,major=:4,phone_number=:5,sex=:6,student_id=:7 where username=:1");
+	query.bindValue(":1" , student.getUsername());
+	query.bindValue(":2" , student.getPassword());
+	query.bindValue(":3" , student.getName());
+	query.bindValue(":4" , student.getMajor());
+	query.bindValue(":5" , student.getPhonenumber());
+	query.bindValue(":6" , student.getSex());
+	query.bindValue(":7" , student.getId());
+	return query.exec();
+}
+
+/**
+  * @author:应承峻
   * @brief:删除学生信息
   * @param [in] 输入参数: 学生用户名username
   * @date:2019/1/8

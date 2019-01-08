@@ -6,6 +6,7 @@
 #include <QStandardItemModel>
 #include "User.h"
 #include "SqlModel.h"
+#include "AddStudent.h"
 #include "ui_StudentInfo.h"
 
 class StudentInfo : public QDialog {
@@ -22,12 +23,13 @@ public:
 
 private slots:
 	void tableClicked(const QModelIndex&);
+	void refresh();
 
 private:
 	Ui::StudentInfo ui;
 	QList<Student> student;
 	QStandardItemModel* table;
-
+	AddStudent* studentAdd = NULL;
 };
 
 #endif
