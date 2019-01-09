@@ -13,6 +13,9 @@ File Encoding         : 65001
 Date: 2019-01-09 10:08:17
 */
 
+CREATE DATABASE examsystem;
+USE examsystem;
+
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
