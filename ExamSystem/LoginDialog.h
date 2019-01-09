@@ -38,7 +38,7 @@ private:
 	Ui::LoginDialog ui;
 	MainWindow admin;
 	StudentWindow student;
-	AddStudent addstudent;
+	AddStudent* addstudent = NULL;
 };
 
 #endif

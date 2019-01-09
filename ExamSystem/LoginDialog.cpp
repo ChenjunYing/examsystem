@@ -57,7 +57,9 @@ void LoginDialog::login() {
   * @version:1.0
   */
 void LoginDialog::regist() {
-	addstudent.exec();
+	addstudent = new AddStudent;
+	addstudent->exec();
+	delete addstudent;
 }
 
 LoginDialog::~LoginDialog() {
