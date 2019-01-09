@@ -39,6 +39,7 @@ public:
 	bool updateMultiChoice(QString description, QString choiceA, QString choiceB,
 		QString choiceC, QString choiceD, QString answer, int value, int questionId);
 	bool updateJudge(QString description, QString answer, int value, int questionId);	
+	QList<int> searchExamCode();
 	QList<Choice> searchChoice(int type);
 	QList<Choice> searchChoice(int type , QString keyWord , int lowerValue , int upperValue , QString author);
 	QList<Judge> searchJudge();

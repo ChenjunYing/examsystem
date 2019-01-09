@@ -506,6 +506,8 @@ bool SqlModel::isUsernameExist(QString username) {
   * @version:1.0
   */
 bool SqlModel::insertStudent(Student student) {
+	bool queryUser = 1, queryExam = 1;
+	QList<int> code = searchExamCode();
 	QSqlQuery query;
 	query.prepare("insert into user(username,password,person_name,major,phone_number,sex,student_id) values(:1,:2,:3,:4,:5,:6,:7)");
 	query.bindValue(":1" , student.getUsername());
@@ -515,7 +517,33 @@ bool SqlModel::insertStudent(Student student) {
 	query.bindValue(":5" , student.getPhonenumber());
 	query.bindValue(":6" , student.getSex());
 	query.bindValue(":7" , student.getId());
-	return query.exec();
+	queryUser = query.exec();
+	for (int i = 0; i < code.size(); i++) {
+		query.prepare("insert into config(username,exam_code,is_submit) values(:1,:2,0)");
+		query.bindValue(":1" , student.getUsername());
+		query.bindValue(":2" , code.at(i));
+		if (!query.exec()) queryExam = 0;
+	}
+	return queryUser && queryExam;
+}
+
+/**
+  * @author:应承峻
+  * @brief:注册学生信息
+  * @param [out] 输出参数: 考试编号exam_code的集合
+  * @date:2019/1/9
+  * @version:1.0
+  */
+QList<int> SqlModel::searchExamCode() {
+	int examCodeIndex;
+	QSqlQuery query;
+	QList<int> codeList;
+	query.exec("select * from exam");
+	while (query.next()) {
+		examCodeIndex = query.record().indexOf("exam_code");
+		codeList.push_back(query.record().value(examCodeIndex).toInt());
+	}
+	return codeList;
 }
 
 /**
