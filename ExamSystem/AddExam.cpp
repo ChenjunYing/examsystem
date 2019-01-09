@@ -1,7 +1,7 @@
 #include "AddExam.h"
 #include "AddExamModel.h"
 
-AddExam::AddExam(QWidget *parent) : QWidget(parent) {
+AddExam::AddExam(QWidget *parent) : QWidget(parent){
 	ui.setupUi(this);
 	AddExam::refreshQuestionBank();
 	AddExam::refreshComboBox();
@@ -155,6 +155,15 @@ void AddExam::setJudgeModelItemView(QStandardItemModel* model, QList<Judge>& jud
 	}
 }
 
+Exam AddExam::setChosenQuestion()
+{
+	AddExamModel model;
+	this->chosenChoice = model.searchChosenChoice(examCode, 0);
+	this->chosenJudge = model.searchChosenJudge(examCode);
+	this->chosenMulti = model.searchChosenChoice(examCode, 1);
+	return model.searchExam(examCode);
+}
+
 /**
   * @author:黄思泳
   * @brief:将添加的单选题在列表上显示出来
@@ -180,7 +189,7 @@ void AddExam::showChoice() {
 		this->ui.choiceTable->setColumnWidth(0, 100);
 		this->ui.choiceTable->setColumnWidth(1, 400);
 		this->ui.choiceTable->setColumnWidth(2, 100);
-		this->ui.choiceTable->setColumnWidth(3, 88);
+		this->ui.choiceTable->setColumnWidth(3, 91);
 	}
 }
 
@@ -209,7 +218,7 @@ void AddExam::showMulti() {
 		this->ui.multiTable->setColumnWidth(0, 100);
 		this->ui.multiTable->setColumnWidth(1, 400);
 		this->ui.multiTable->setColumnWidth(2, 100);
-		this->ui.multiTable->setColumnWidth(3, 88);
+		this->ui.multiTable->setColumnWidth(3, 91);
 	}
 }
 
@@ -238,7 +247,7 @@ void AddExam::showJudge() {
 		this->ui.judgeTable->setColumnWidth(0, 100);
 		this->ui.judgeTable->setColumnWidth(1, 400);
 		this->ui.judgeTable->setColumnWidth(2, 100);
-		this->ui.judgeTable->setColumnWidth(3, 88);
+		this->ui.judgeTable->setColumnWidth(3, 91);
 	}
 }
 
@@ -265,8 +274,6 @@ void AddExam::choiceClicked(const QModelIndex & index) {
 	if (index.isValid() && index.column() == 3)	//点击删除键
 	{
 		int row = index.row();
-		//QModelIndex index = examchoicemodel->index(row, 0);
-		//int questionId = examchoicemodel->data(index).toInt();
 		chosenChoice.removeAt(row);
 		showChoice();
 	}
@@ -282,8 +289,6 @@ void AddExam::multiClicked(const QModelIndex & index) {
 	if (index.isValid() && index.column() == 3) //点击删除
 	{
 		int row = index.row();
-		//QModelIndex index = exammultimodel->index(row, 0);
-		//int questionId = exammultimodel->data(index).toInt();
 		chosenMulti.removeAt(row);
 		showMulti();
 	}
@@ -299,12 +304,24 @@ void AddExam::judgeClicked(const QModelIndex & index) {
 	if (index.isValid() && index.column() == 3)	//点击删除
 	{
 		int row = index.row();
-		//QModelIndex index = examjudgemodel->index(row, 0);
-		//int questionId = examjudgemodel->data(index).toInt();
 		chosenJudge.removeAt(row);
 		showJudge();
 	}
 }
+void AddExam::receiveCode(int code)
+{
+	this->examCode = code;
+	if (examCode != -1) {
+		Exam exam = setChosenQuestion();
+		this->ui.examName->setText(exam.getExamName());
+		this->ui.examTime->setValue(exam.getDuration());
+		this->ui.examInformation->setPlainText(exam.getInformation());
+		showMulti();
+		showJudge();
+		showChoice();
+	}
+}
+
 /**
   * @author:黄思泳
   * @brief:创建考试
@@ -330,31 +347,61 @@ void AddExam::NewExam() {
 	else {
 		AddExamModel sql;
 		bool information; //插入成功返回true,否则返回false
-		information = sql.insertExam(examName, examTime, examInformation);
-		if (information) {
-			int exam_code = sql.searchExam(examName);
-			for (int i = 0; i < chosenChoice.size(); i++)
-			{
-				int questionId = chosenChoice.at(i);
-				sql.insertChoice(exam_code, questionId);
+		if (examCode == -1)	//创建一个新的考试
+		{
+			information = sql.insertExam(examName, examTime, examInformation);
+			if (information) {
+				examCode = sql.searchExam(examName);
+				for (int i = 0; i < chosenChoice.size(); i++)
+				{
+					int questionId = chosenChoice.at(i);
+					sql.insertChoice(examCode, questionId);
+				}
+				for (int i = 0; i < chosenMulti.size(); i++)
+				{
+					int questionId = chosenMulti.at(i);
+					sql.insertChoice(examCode, questionId);
+				}
+				for (int i = 0; i < chosenJudge.size(); i++)
+				{
+					int questionId = chosenJudge.at(i);
+					sql.insertJudge(examCode, questionId);
+				}
+				sql.insertStudent(examCode);
+				QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("创建成功！"), QMessageBox::Yes);
+				this->close();
+				emit creatFinished();
 			}
-			for (int i = 0; i < chosenMulti.size(); i++)
-			{
-				int questionId = chosenMulti.at(i);
-				sql.insertChoice(exam_code, questionId);
+			else {
+				QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("创建失败！"), QMessageBox::Yes);
 			}
-			for (int i = 0; i < chosenJudge.size(); i++)
-			{
-				int questionId = chosenJudge.at(i);
-				sql.insertJudge(exam_code, questionId);
-			}
-			sql.insertStudent(exam_code);
-			QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("创建成功！"), QMessageBox::Yes);
-			this->close();
-			emit creatFinished();
 		}
-		else {
-			QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("创建失败！"), QMessageBox::Yes);
+		else  //修改考试
+		{
+			information = sql.modifyExam(examName, examTime, examInformation,examCode);
+			if (information) {
+				for (int i = 0; i < chosenChoice.size(); i++)
+				{
+					int questionId = chosenChoice.at(i);
+					sql.insertChoice(examCode, questionId);
+				}
+				for (int i = 0; i < chosenMulti.size(); i++)
+				{
+					int questionId = chosenMulti.at(i);
+					sql.insertChoice(examCode, questionId);
+				}
+				for (int i = 0; i < chosenJudge.size(); i++)
+				{
+					int questionId = chosenJudge.at(i);
+					sql.insertJudge(examCode, questionId);
+				}
+				QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("修改成功！"), QMessageBox::Yes);
+				this->close();
+				emit creatFinished();
+			}
+			else {
+				QMessageBox::warning(NULL, QStringLiteral("提示"), QStringLiteral("修改失败！"), QMessageBox::Yes);
+			}
 		}
 	}
 }

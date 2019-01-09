@@ -68,9 +68,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>229</y>
+     <y>199</y>
      <width>181</width>
-     <height>211</height>
+     <height>241</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -139,13 +139,32 @@
     </item>
     <item>
      <widget class="QPushButton" name="refreshBtn">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
        <string>刷新</string>
       </property>
      </widget>
     </item>
     <item>
+     <widget class="QPushButton" name="updateBtn">
+      <property name="text">
+       <string>修改</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QPushButton" name="btnLogout">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
        <string>注销</string>
       </property>

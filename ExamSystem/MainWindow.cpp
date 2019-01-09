@@ -20,11 +20,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	connect(this->ui.multichoice, SIGNAL(triggered()), this, SLOT(multichoiceTriggered()));
 	connect(this->ui.goQuestionBank, SIGNAL(triggered()), this, SLOT(goQuestionBankTriggered()));
 	connect(this->ui.createExam, SIGNAL(triggered()), this, SLOT(createExamTriggered()));
-	connect(this->ui.createExam , SIGNAL(triggered()) , this , SLOT(createExamTriggered()));
 	connect(this->ui.user , SIGNAL(triggered()) , this , SLOT(userTriggered()));
 	connect(this, SIGNAL(sendExamCode(int)), this->scoreReport, SLOT(receiveCode(int)));
 	connect(this->ui.examTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(examClicked(const QModelIndex&)));
 	connect(this->ui.examTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(deleteClicked(const QModelIndex&)));
+	connect(this->ui.examTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(reviseClicked(const QModelIndex&)));
 }
 
 /**
@@ -82,6 +82,20 @@ void MainWindow::deleteClicked(const QModelIndex & index) {
 void MainWindow::refreshAfterCreat() {
 	MainWindow::dataRefresh();
 	MainWindow::showExamTable();
+}
+
+void MainWindow::reviseClicked(const QModelIndex & index)
+{
+	if (index.isValid() && index.column() == 4) {
+		if (newexam) {
+			delete newexam;
+			newexam = NULL;
+		}
+		newexam = new AddExam;
+		connect(this,SIGNAL(sendExamCode(int)),this->newexam,SLOT(receiveCode(int)));
+		emit sendExamCode(this->exam.at(index.row()).getExamCode());
+		newexam->show();
+	}
 }
 
 
@@ -176,7 +190,9 @@ void MainWindow::createExamTriggered() {
 		newexam = NULL;
 	}
 	newexam = new AddExam;
-	qDebug() << connect(this->newexam, SIGNAL(creatFinished()), this, SLOT(refreshAfterCreat()));
+	connect(this, SIGNAL(sendExamCode(int)), this->newexam, SLOT(receiveCode(int)));
+	connect(this->newexam, SIGNAL(creatFinished()), this, SLOT(refreshAfterCreat()));
+	emit sendExamCode(-1);
 	newexam->show();
 }
 

@@ -46,7 +46,7 @@ private slots:
 	void examClicked(const QModelIndex& index);
 	void deleteClicked(const QModelIndex& index);
 	void refreshAfterCreat();
-
+	void reviseClicked(const QModelIndex& index);
 private:
 	Ui::MainWindowClass ui;
 	AddChoice* choice = NULL;

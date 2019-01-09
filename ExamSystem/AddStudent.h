@@ -25,6 +25,7 @@ private slots:
 	int checkdata();
 	int checkdata(int);
 	friend class StudentInfo;
+	friend class StudentWindow;
 
 private:
 	Ui::AddStudent ui;

@@ -14,6 +14,7 @@
 #include <QHeaderView>
 #include "User.h"
 #include "Question.h"
+#include "AddStudent.h"
 #include "StudentExam.h"
 #include "ui_StudentWindow.h"
 
@@ -38,6 +39,7 @@ public slots:
 
 private slots:
 	void dataRefresh();
+	void updateBtnClicked();
 	void examTableClicked(const QModelIndex&);
 	
 private:
@@ -46,6 +48,7 @@ private:
 	QString userName;
 	QStandardItemModel* examModel = NULL;
 	StudentExam* newExam = NULL;
+	AddStudent* studentAdd = NULL;
 
 };
 

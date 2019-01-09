@@ -7,6 +7,7 @@ StudentWindow::StudentWindow(QWidget *parent) : QDialog(parent) {
 	this->examModel = new QStandardItemModel; //创建考试表格
 	connect(this->ui.examTable, SIGNAL(clicked(const QModelIndex&)), this, SLOT(examTableClicked(const QModelIndex&)));
 	connect(this->ui.refreshBtn, SIGNAL(clicked(bool)), this, SLOT(dataRefresh()));
+	connect(this->ui.updateBtn , SIGNAL(clicked(bool)) , this , SLOT(updateBtnClicked()));
 }
 
 StudentWindow::~StudentWindow() {
@@ -148,6 +149,40 @@ void StudentWindow::receiveUserName(QString name) {
 	userName = name;
 	StudentWindow::showExam();
 	StudentWindow::showStudent(userName);
+}
+
+/**
+  * @author:应承峻
+  * @brief:修改用户信息
+  * @date:2019/1/9
+  * @version:1.0
+  */
+void StudentWindow::updateBtnClicked() {
+	SqlModel sql;
+	Student student = sql.searchStudentInfo(this->userName);
+	if (studentAdd == NULL) {
+		studentAdd = new AddStudent();
+		studentAdd->setWindowTitle(QStringLiteral("修改信息"));
+		studentAdd->ui.username->setReadOnly(true);
+		disconnect(studentAdd->ui.submitBtn , SIGNAL(clicked(bool)) , studentAdd , SLOT(regist()));
+		connect(studentAdd->ui.submitBtn , SIGNAL(clicked(bool)) , studentAdd , SLOT(update()));
+		connect(studentAdd , SIGNAL(userUpdateOk()) , this , SLOT(dataRefresh()));
+		studentAdd->ui.username->setText(student.getUsername());
+		studentAdd->ui.password->setText(student.getPassword());
+		studentAdd->ui.name->setText(student.getName());
+		studentAdd->ui.studentId->setText(student.getId());
+		studentAdd->ui.major->setText(student.getMajor());
+		studentAdd->ui.phonenumber->setText(student.getPhonenumber());
+		studentAdd->ui.male->setChecked(student.getSex());
+		studentAdd->ui.female->setChecked(!student.getSex());
+		studentAdd->ui.checkBtn->hide();
+		studentAdd->exec();
+	}
+	if (studentAdd) {
+		delete studentAdd;
+		studentAdd = NULL;
+	}
+	return;
 }
 
 /**
