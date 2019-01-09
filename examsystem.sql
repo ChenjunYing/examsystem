@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2019-01-09 00:02:37
+Date: 2019-01-09 10:08:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,7 +45,7 @@ CREATE TABLE `config` (
   `start_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
   `object_score` int(5) DEFAULT '0',
-  `multi_score` int(5) DEFAULT NULL,
+  `multi_score` int(5) DEFAULT '0',
   `judge_score` int(5) DEFAULT '0',
   `is_submit` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -58,11 +58,11 @@ CREATE TABLE `config` (
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES ('1', 'ch', '1', null, null, '0', null, '0', '0');
-INSERT INTO `config` VALUES ('2', 'hsy', '1', null, null, '0', null, '0', '0');
+INSERT INTO `config` VALUES ('1', 'ch', '1', null, null, '0', '0', '0', '0');
+INSERT INTO `config` VALUES ('2', 'hsy', '1', null, null, '0', '0', '0', '0');
 INSERT INTO `config` VALUES ('3', 'test', '1', null, null, '0', '0', '0', '0');
-INSERT INTO `config` VALUES ('4', 'xlx', '1', null, null, '0', null, '0', '0');
-INSERT INTO `config` VALUES ('5', 'zm', '1', null, null, '0', null, '0', '0');
+INSERT INTO `config` VALUES ('4', 'xlx', '1', null, null, '0', '0', '0', '0');
+INSERT INTO `config` VALUES ('5', 'zm', '1', null, null, '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for `exam`
