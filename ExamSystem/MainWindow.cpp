@@ -93,6 +93,7 @@ void MainWindow::reviseClicked(const QModelIndex & index)
 		}
 		newexam = new AddExam;
 		connect(this,SIGNAL(sendExamCode(int)),this->newexam,SLOT(receiveCode(int)));
+		connect(this->newexam, SIGNAL(creatFinished()), this, SLOT(refreshAfterCreat()));
 		emit sendExamCode(this->exam.at(index.row()).getExamCode());
 		newexam->show();
 	}
