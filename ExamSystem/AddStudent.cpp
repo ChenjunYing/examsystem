@@ -150,7 +150,7 @@ int AddStudent::checkdata(int) {
   * @version:1.0
   */
 void AddStudent::reset() {
-	this->ui.username->clear();
+	if (!this->ui.username->isReadOnly()) this->ui.username->clear();
 	this->ui.password->clear();
 	this->ui.name->clear(); 
 	this->ui.studentId->clear();
